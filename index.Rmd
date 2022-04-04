@@ -1,6 +1,6 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAMES HERE"
+title: "MCU Actor Success"
+author: "Katrina Gross & Andy Ward"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
