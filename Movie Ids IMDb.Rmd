@@ -1,0 +1,240 @@
+---
+title: "Movie Info"
+author: "Katrina Gross"
+date: "3/16/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+```{r}
+library(tidyverse)
+library(httr) # need for API
+library(jsonlite)
+```
+
+# In this file:
+
+- getting movie ids from the API
+
+- linking movie ids to budget and box office numbers
+
+- getting actor names for each movie
+
+### Add Key HERE
+store in text file and read in once
+```{r}
+key <- read.delim("api_key.txt", header = FALSE)
+key <- key$V1
+```
+
+
+### Pull Released Movie Titles
+
+```{r}
+mcu_movies <- read_csv("Movie_Titles.csv")
+
+titles <- mcu_movies %>%
+  filter(Status == "Released") %>%
+  pull(Film)
+
+titles <- titles[titles != "Marvel's The Avengers"]
+titles <- c(titles, "The Avengers")
+
+titles <- titles[titles != "Spider-Man: Far From Home"]
+titles <- c(titles, "Spider-Man: Far from Home")
+```
+
+### Create query dict of titles
+
+```{r}
+title_dict = list()
+
+for(title in titles){
+  temp_list = list(q = title)
+  title_dict = c(title_dict, temp_list)
+}
+
+```
+
+### Get Movie ID - use to get meta data
+
+```{r}
+library(httr)
+
+# use to get movie id
+# have to filter / clean after to just the movie names we want
+# /find (the url we want) is not working for some reason
+
+url <- "https://online-movie-database.p.rapidapi.com/auto-complete"
+
+headers <- c(
+    'x-rapidapi-host' = "online-movie-database.p.rapidapi.com",
+    'x-rapidapi-key' = key)
+
+master <- data.frame(matrix(ncol = 12))
+cols <- c("d.i", "d.id", "d.l", "d.q", "d.rank", "d.s",  "d.v", "d.vt", "d.y",  
+                      "d.yr", "q", "v"  )
+colnames(master) <- cols
+
+for(i in 1:length(title_dict)){
+  response <- GET(url, add_headers(headers), query = title_dict[i])
+  temp_data <- fromJSON(rawToChar(response$content))
+  data_tidy <- data.frame(temp_data)
+  master <- dplyr::bind_rows(master, data_tidy)
+}
+
+```
+
+```{r}
+# tidy master data
+# missing avengers, far from home
+
+head(master)
+
+# same title, not MCU - black panther and black widow
+rm_list <- c("tt2905856", "tt9272572")
+
+master_tidy <- master %>%
+  dplyr::select(c("d.id", "d.l", "d.q", "d.s", "d.y", "q")) %>%
+  filter(`d.q` == "feature") %>%
+  filter(`d.l` %in% titles) %>%
+  filter(`d.y` >= 2008) %>%
+  filter(!`d.id` %in% rm_list) %>%
+  distinct(`d.id`, .keep_all = TRUE)
+
+write_csv(master_tidy, "MCU_ids.csv")
+
+```
+
+```{r}
+
+# if need to start over
+master_tidy <- read_csv("MCU_ids.csv")
+
+# create movie id dict
+movie_ids <- master_tidy %>%
+  pull(`d.id`)
+  
+id_dict = list()
+
+for(id in movie_ids){
+  temp_list = list(tconst = id)
+  id_dict = c(id_dict, temp_list)
+}
+
+rm(temp_list)
+```
+
+### Director Info
+just pull from wiki scrape
+
+```{r}
+
+head(mcu_movies)
+
+directors <- mcu_movies %>%
+  select(c(Film, Director.s.))
+
+write_csv(directors, "mcu_directors.csv")
+
+```
+
+### Business Info
+Box Office, Budget, Gross
+
+```{r}
+url <- "https://online-movie-database.p.rapidapi.com/title/v2/get-business"
+
+headers <- c(
+    'x-rapidapi-host' = "online-movie-database.p.rapidapi.com",
+    'x-rapidapi-key' = key)
+
+business_master <- data.frame(matrix(ncol = 6))
+cols <- c("movie_id", "title", "year", "budget", "domestic_gross", "international_gross")
+colnames(business_master) <- cols
+
+for(i in 1:length(id_dict)){
+
+      response <- GET(url, add_headers(headers), query = id_dict[i])
+      temp_data <- fromJSON(rawToChar(response$content))
+      title <- temp_data$titleBoxOffice$title
+      year <- temp_data$titleBoxOffice$year
+      
+      budget <- temp_data[['titleBoxOffice']][['budget']][['amount']]
+      gross <- temp_data[["titleBoxOffice"]][["gross"]][["regional"]]
+      gross <- as.data.frame(gross)
+      total_gross <- sum(gross$total$amount)
+      
+      dom_gross <- gross %>%
+        filter(regionName == "Domestic") %>%
+        pull(total) %>%
+        pull(amount)
+      
+      intl_gross <- gross %>%
+        filter(regionName != "Domestic") %>%
+        pull(total) %>%
+        summarize(sum = sum(amount)) %>%
+        pull(sum)
+      
+      rows_add <- data.frame(id_dict[i]$tconst, title, year, budget, dom_gross, intl_gross)
+      colnames(rows_add) <- cols
+      
+      business_master <- dplyr::bind_rows(business_master, rows_add)
+}
+
+rm(gros, response, rows_add, temp_data)
+
+business_master <- business_master %>%
+  drop_na() %>%
+  mutate(domestic_gross = as.numeric(domestic_gross),
+         international_gross = as.numeric(international_gross),
+         total_gross = domestic_gross + international_gross)
+
+write_csv(business_master, "BusinessMaster.csv")
+```
+
+Top Cast Info doesn't work
+
+### Full Cast Info
+
+```{r}
+# get movie cast
+
+url <- "https://online-movie-database.p.rapidapi.com/title/get-full-credits"
+
+headers <- c(
+    'x-rapidapi-host' = "online-movie-database.p.rapidapi.com",
+    'x-rapidapi-key' = key)
+
+cast_df <- data.frame(matrix(ncol = 2))
+colnames(cast_df) <- c("movie_id", "cast_list")
+
+for(i in 1:length(id_dict)){
+  response <- GET(url, add_headers(headers), query = id_dict[i])
+  temp_data <- fromJSON(rawToChar(response$content))
+  cast_list <- temp_data[["cast"]][["name"]]
+  df_temp <- data.frame(id_dict[[i]], cast_list)
+  colnames(df_temp) <- c("movie_id", "cast_list")
+  cast_df <- dplyr::bind_rows(cast_df, df_temp)
+}
+
+length(unique(cast_df$movie_id))
+
+rm(response, temp_data, cast_list, df_temp)
+```
+
+```{r}
+
+head(cast_df)
+
+cast_df <- cast_df %>%
+  drop_na()
+
+write_csv(cast_df, "MCU_cast_lists.csv")
+
+```
+
+

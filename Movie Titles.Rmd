@@ -1,0 +1,90 @@
+---
+title: "Movie Titles"
+author: "Katrina Gross"
+date: "4/7/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+```{r}
+library(tidyverse)
+
+library(rvest) # need for webscraping
+```
+
+# In this file:
+
+- scrape wikipedia page for movie titles
+
+- clean dataframes and export master to a csv
+
+### Scrape Movie List from Wikipedia
+
+https://www.r-bloggers.com/2015/01/using-rvest-to-scrape-an-html-table/
+
+```{r}
+
+wiki_url <- "https://en.wikipedia.org/wiki/List_of_Marvel_Cinematic_Universe_films"
+
+infinity_saga <- wiki_url %>%
+  read_html() %>%
+  html_nodes(xpath = '//*[@id="mw-content-text"]/div[1]/table[2]') %>%
+  html_table()
+
+infinity_saga <- infinity_saga[[1]]
+infinity_saga <- data.frame(infinity_saga)
+
+head(infinity_saga, 3)
+
+phase_four <- wiki_url %>%
+  read_html() %>%
+  html_nodes(xpath = '//*[@id="mw-content-text"]/div[1]/table[3]') %>%
+  html_table()
+
+phase_four <- phase_four[[1]]
+phase_four <- data.frame(phase_four)
+
+head(phase_four, 3)
+
+```
+
+### Clean Tables
+
+```{r}
+# add phase column
+# remove number suffix from director | screenwriter columns
+# add column if movie has been released yet
+# combine into on df
+# get list of movie titles
+
+phase_idx <- which(grepl("Phase", infinity_saga$Film, fixed = TRUE))
+phase_reps <- c(phase_idx[2]-phase_idx[1], phase_idx[3]-phase_idx[2], nrow(infinity_saga)-phase_idx[3])
+phase_col <- c(rep("Phase One", phase_reps[1]),
+               rep("Phase Two", phase_reps[2]),
+               rep("Phase Three", phase_reps[3]+1))
+
+infinity_saga$Phase <- phase_col
+
+str <- "Ryan Coogler[83]"
+gsub("\\[.*?]", "", str)
+
+infinity_tidy <- infinity_saga %>%
+    dplyr::mutate(across(.cols = everything(), ~gsub("\\[.*?]", "", .)),
+           Status = "Released") %>%
+    dplyr::filter(!grepl("Phase", Film)) %>%
+    dplyr::select(-`Var.6`)
+
+phase_four$Phase <- "Phase Four"
+
+four_tidy <- phase_four %>%
+   dplyr::mutate(across(.cols = everything(), ~gsub("\\[.*?]", "", .)))
+
+mcu_movies <- rbind(infinity_tidy, four_tidy)
+
+rm(phase_idx, phase_reps, phase_col, infinity_saga, phase_four, wiki_url, four_tidy, infinity_tidy)
+
+write_csv(mcu_movies, "Movie_Titles.csv")
+```
