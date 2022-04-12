@@ -24,9 +24,9 @@ In this file:
 ### Add Key HERE
 store in text file and read in once
 ```{r}
-#key <- read.delim("api_key.txt", header = FALSE)
-#key <- key$V1
-key <- "a610828e8cmsh3107e0e417a0984p1cbca3jsna1c9513c037c"
+key <- read.delim("api_key.txt", header = FALSE)
+key <- key$V1
+
 ```
 
 ### Top Cast
