@@ -24,7 +24,7 @@ In this file:
 ### Add Key HERE
 store in text file and read in once
 ```{r}
-key <- read.delim("api_key.txt", header = FALSE)
+key <- read.delim("../api_key.txt", header = FALSE)
 key <- key$V1
 
 ```
@@ -45,6 +45,8 @@ actor2 <- mcu_movies %>% pull(actor2)
 main_actors <- c(actor1, actor2)
 main_actors <- unique(main_actors)
 
+rm(actor1, actor2)
+
 ```
 
 
@@ -64,6 +66,7 @@ head(cast_df)
 # select the top 10 actors from each movie (can easily alter the code to select a different number)
 
 cast_top10 <- cast_df %>%
+  drop_na() %>%
   group_by(movie_id) %>%
   slice(1:10) %>%
   dplyr::select(cast_list, movie_id) %>%
@@ -79,21 +82,42 @@ actors_5plus <- cast_df %>%
 
 ```
 
+### Actor Names to use
+
+```{r}
+# using short list
+
+main_cast_list<- unique(main_actors)
+cast_dict1 = list()
+
+for(name in main_cast_list){
+  cast_temp_list = list(q = name)
+  cast_dict1 = c(cast_dict1, cast_temp_list)
+}
+
+rm(cast_temp_list)
+
+```
 
 
 ```{r}
 
 # set up the list of actor names that will be used in auto-complete api
 
-cast_list_unique <- unique(cast_top10$cast_list)
-cast_dict = list()
+# using top 10
 
-for(name in cast_list_unique){
+long_cast_list <- unique(cast_top10$cast_list)
+cast_dict2 = list()
+
+for(name in long_cast_list){
   cast_temp_list = list(q = name)
-  cast_dict = c(cast_dict, cast_temp_list)
+  cast_dict2 = c(cast_dict2, cast_temp_list)
 }
 
+rm(cast_temp_list)
+
 ```
+
 
 ```{r}
 library(httr)
@@ -110,10 +134,11 @@ headers <- c(
 cast_ids <- data.frame(matrix(ncol = 12))
 cols <- c("d.i", "d.id", "d.l", "d.q", "d.rank", "d.s",  "d.v", "d.vt", "d.y",  
                       "d.yr", "q", "v"  )
+
 colnames(cast_ids) <- cols
 
-for(i in 1:length(cast_dict)){
-  response <- GET(url, add_headers(headers), query = cast_dict[i])
+for(i in 1:length(cast_dict1)){
+  response <- GET(url, add_headers(headers), query = cast_dict1[i])
   temp_data <- fromJSON(rawToChar(response$content))
   data_tidy <- data.frame(temp_data)
   cast_ids <- dplyr::bind_rows(cast_ids, data_tidy)
@@ -123,32 +148,37 @@ rm(response, temp_data, data_tidy)
 
 ```
 
-
-
 ```{r}
 
 # clean the data a bit
 
 cast_master <- cast_ids %>%
+  select(d.id, d.l, d.s, q) %>%
   filter(str_detect(d.id, "nm")) %>%
-  filter(str_detect(d.s, "Actor") | str_detect(d.s, "Actress")) %>%
-  filter(d.rank < 10000)
+  filter(str_detect(d.s, "Actor") | str_detect(d.s, "Actress"))
+
+# make sure names are the same
+
+cast_master <- cast_master %>%
+  dplyr::mutate(d.l = gsub("\\(.*?)", "", d.l),
+                d.l = str_trim(d.l),
+                q = str_trim(q),
+                match = ifelse(d.l == str_to_title(q), 1, 0)) 
 
 head(cast_master)
-
 ```
 
 
 ```{r}
+
 actor_id_df <- cast_master %>%
+  filter(match == 1) %>%
   dplyr::select(c(d.id, d.l)) %>%
   rename(actor_id = d.id, actor_name = d.l)
 
-actor_id_df
+head(actor_id_df)
 
 ```
-
-
 ## Cast ID Dict
 
 ```{r}
@@ -164,7 +194,6 @@ for(id in cast_ids){
   id_cast_dict = c(id_cast_dict, temp_list)
 }
 
-
 ```
 
 
@@ -179,59 +208,55 @@ headers <- c(
     'x-rapidapi-host' = "online-movie-database.p.rapidapi.com",
     'x-rapidapi-key' = key)
 
-film_df <- data.frame(matrix(ncol = 2))
-colnames(film_df) <- c("actor", "film_list")
+film_df <- data.frame(matrix(ncol = 5))
+colnames(film_df) <- c("actor_id", "film_list", "type", "status", "category")
 
 for(i in 1:length(id_cast_dict)){
-  response <- GET(url, add_headers(headers), query = id_cast_dict[i])
+  esponse <- GET(url, add_headers(headers), query = id_cast_dict[i])
   temp_data2 <- fromJSON(rawToChar(response$content))
   film_list <- temp_data2[["filmography"]][["title"]]
   type <- temp_data2[["filmography"]][["titleType"]]
   status <- temp_data2[["filmography"]][["status"]]
   category <- temp_data2[["filmography"]][["category"]]
-  billing <- temp_data2[["filmography"]][["billing"]]
-  df_temp <- data.frame(id_cast_dict[[i]], film_list, type, status, category, billing)
-  colnames(df_temp) <- c("actor_id", "film_list", "type", "status", "category", "billing")
+  #billing <- temp_data2[["filmography"]][["billing"]]
+  df_temp <- data.frame(id_cast_dict[[i]], film_list, type, status, category)
+  colnames(df_temp) <- c("actor_id", "film_list", "type", "status", "category")
   film_df <- dplyr::bind_rows(film_df, df_temp)
 }
 
-```
+rm(df_temp, temp_data2, response, film_list, type, status, category)
 
+```
 
 
 ```{r}
-temp_data2
+head(film_df)
 ```
-
-```{r}
-film_df
-
-```
-
-
-## Cleaned Filmography
+### Clean Filmography
 
 ```{r}
 
 # clean filmography data
 
 filmography_data <- film_df %>%
-  dplyr::select(c(film_list:billing)) %>%
+  drop_na(actor_id) %>%
   filter(category == "actor" | category == "actress") %>%
   filter(status == "released") %>%
-  filter(type == "movie")
+  select(-status) %>%
+  filter(type == "movie" | type == "tvSeries")
 
 filmography_data <- filmography_data %>%
   left_join(actor_id_df) %>%
-  dplyr::select(c(film_list, actor_name, actor_id, billing))
+  dplyr::select(c(actor_id, actor_name, everything()))
 
-filmography_data
+head(filmography_data)
+dim(filmography_data)
+
+write_csv(filmography_data, "Actor_Filmography.csv")
 
 ```
 
-
-
-## Awards
+### Awards
 
 ```{r}
 # get cast awards
@@ -242,8 +267,8 @@ headers <- c(
     'x-rapidapi-host' = "online-movie-database.p.rapidapi.com",
     'x-rapidapi-key' = key)
 
-award_df <- data.frame(matrix(ncol = 2))
-colnames(film_df) <- c("actor", "awards")
+award_df <- data.frame(matrix(ncol = 7))
+colnames(award_df) <- c("actor_id", "award_name", "award_category", "event_name", "winner", "year", "titles")
 
 for(i in 1:length(id_cast_dict)){
   response <- GET(url, add_headers(headers), query = id_cast_dict[i])
@@ -253,20 +278,43 @@ for(i in 1:length(id_cast_dict)){
   event_name <- temp_data[["resource"]][["awards"]][["eventName"]]
   winner <- temp_data[["resource"]][["awards"]][["isWinner"]]
   year <- temp_data[["resource"]][["awards"]][["year"]]
-  df_temp <- data.frame(id_cast_dict[[i]], award_name, award_category, event_name, winner, year)
-  #colnames(df_temp) <- c("actor_id", "award_name", "award_category", "event_name", "winner", "year")
-  #award_df <- dplyr::bind_rows(award_df, df_temp)
+  # get titles 
+  titles = list()
+  for(j in 1:length(award_name)){
+    title_temp <- temp_data[["resource"]][["awards"]][["nominations"]][["titles"]][[j]]['title']$title
+    if(is.null(title_temp)){
+      title_temp <- "NULL" # keep nulls to make list right length
+    }
+    titles[j] <- title_temp
+  }
+  titles <- unlist(titles)
+  if(!is.null(award_name)){
+      df_temp <- data.frame(id_cast_dict[[i]], award_name, award_category, event_name, winner, year, titles)
+      colnames(df_temp) <- c("actor_id", "award_name", "award_category", "event_name", "winner", "year", "titles")
+      award_df <- dplyr::bind_rows(award_df, df_temp)
+  }
 }
 
+head(award_df)
+
+rm(response, temp_data, award_name, award_category, event_name, winner, year, titles, title_temp, df_temp)
+
 ```
 
-
+### Clean Awards
 
 ```{r}
-temp_data
 
+awards_tidy <- award_df %>%
+  drop_na(actor_id) %>%
+  #dplyr::filter(winner == TRUE) %>%
+  dplyr::filter(grepl('Oscar|Emmy', award_name)) %>%
+  left_join(actor_id_df) %>%
+  dplyr::select(actor_id, actor_name, everything()) %>%
+  mutate(winner = ifelse(winner, "Winner", "Nominated"))
+         
+write_csv(awards_tidy, "Actor_Awards.csv")
 ```
-
 
 
 
