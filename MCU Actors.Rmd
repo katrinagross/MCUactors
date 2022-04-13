@@ -11,9 +11,11 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 ```{r}
 library(tidyverse)
+library(stringr)
 
 library(httr) # need for API
 library(jsonlite)
+
 ```
 
 In this file:
@@ -33,8 +35,6 @@ key <- key$V1
 
 ```{r}
 
-library(stringr)
-
 mcu_movies <- read_csv("MCU_ids.csv")
 
 mcu_movies[c('actor1', 'actor2')] <- str_split_fixed(mcu_movies$d.s, ',', 2)
@@ -49,38 +49,6 @@ rm(actor1, actor2)
 
 ```
 
-
-### Cast Info
-
-```{r}
-# load in cast data frame
-
-cast_df <- read_csv("MCU_cast_lists.csv")
-
-head(cast_df)
-
-```
-
-```{r}
-
-# select the top 10 actors from each movie (can easily alter the code to select a different number)
-
-cast_top10 <- cast_df %>%
-  drop_na() %>%
-  group_by(movie_id) %>%
-  slice(1:10) %>%
-  dplyr::select(cast_list, movie_id) %>%
-  distinct(cast_list, .keep_all = TRUE)
-
-dim(cast_top10)
-
-# select actors with more than 5 film appearances
-
-actors_5plus <- cast_df %>%
-  dplyr::group_by(cast_list) %>%
-  dplyr::summarise(movie_count = n())
-
-```
 
 ### Actor Names to use
 
@@ -100,30 +68,10 @@ rm(cast_temp_list)
 ```
 
 
-```{r}
-
-# set up the list of actor names that will be used in auto-complete api
-
-# using top 10
-
-long_cast_list <- unique(cast_top10$cast_list)
-cast_dict2 = list()
-
-for(name in long_cast_list){
-  cast_temp_list = list(q = name)
-  cast_dict2 = c(cast_dict2, cast_temp_list)
-}
-
-rm(cast_temp_list)
-
-```
-
 
 ```{r}
-library(httr)
 
 # use to get actor id
-
 
 url <- "https://online-movie-database.p.rapidapi.com/auto-complete"
 
@@ -179,7 +127,7 @@ actor_id_df <- cast_master %>%
 head(actor_id_df)
 
 ```
-## Cast ID Dict
+## Cast Cast ID Dict
 
 ```{r}
 # create cast id dict to be used in filmography and awards api
@@ -208,23 +156,24 @@ headers <- c(
     'x-rapidapi-host' = "online-movie-database.p.rapidapi.com",
     'x-rapidapi-key' = key)
 
-film_df <- data.frame(matrix(ncol = 5))
-colnames(film_df) <- c("actor_id", "film_list", "type", "status", "category")
+film_df <- data.frame(matrix(ncol = 6))
+colnames(film_df) <- c("actor_id", "film_list", "type", "status", "category", "title_ids")
 
 for(i in 1:length(id_cast_dict)){
-  esponse <- GET(url, add_headers(headers), query = id_cast_dict[i])
+  response <- GET(url, add_headers(headers), query = id_cast_dict[i])
   temp_data2 <- fromJSON(rawToChar(response$content))
   film_list <- temp_data2[["filmography"]][["title"]]
   type <- temp_data2[["filmography"]][["titleType"]]
   status <- temp_data2[["filmography"]][["status"]]
   category <- temp_data2[["filmography"]][["category"]]
+  title_ids <- temp_data2[["filmography"]][["id"]]
   #billing <- temp_data2[["filmography"]][["billing"]]
-  df_temp <- data.frame(id_cast_dict[[i]], film_list, type, status, category)
-  colnames(df_temp) <- c("actor_id", "film_list", "type", "status", "category")
+  df_temp <- data.frame(id_cast_dict[[i]], film_list, type, status, category, title_ids)
+  colnames(df_temp) <- c("actor_id", "film_list", "type", "status", "category", "title_ids")
   film_df <- dplyr::bind_rows(film_df, df_temp)
 }
 
-rm(df_temp, temp_data2, response, film_list, type, status, category)
+rm(df_temp, temp_data2, response, film_list, type, status, category, title_ids)
 
 ```
 
@@ -243,17 +192,19 @@ filmography_data <- film_df %>%
   filter(category == "actor" | category == "actress") %>%
   filter(status == "released") %>%
   select(-status) %>%
-  filter(type == "movie" | type == "tvSeries")
+  filter(type == "movie" | type == "tvSeries") %>%
+  dplyr::mutate(title_ids = gsub("\\/title/", "", title_ids),
+                title_ids = gsub("\\/$", "", title_ids))
 
 filmography_data <- filmography_data %>%
   left_join(actor_id_df) %>%
-  dplyr::select(c(actor_id, actor_name, everything()))
+  dplyr::select(c(actor_id, actor_name, everything())) %>%
+  distinct()
 
 head(filmography_data)
 dim(filmography_data)
 
-write_csv(filmography_data, "Actor_Filmography.csv")
-
+rm(film_df)
 ```
 
 ### Awards
@@ -300,7 +251,6 @@ head(award_df)
 rm(response, temp_data, award_name, award_category, event_name, winner, year, titles, title_temp, df_temp)
 
 ```
-
 ### Clean Awards
 
 ```{r}
@@ -316,6 +266,189 @@ awards_tidy <- award_df %>%
 write_csv(awards_tidy, "Actor_Awards.csv")
 ```
 
+### Create query dict of titles
+
+```{r}
+
+id_list <- filmography_data %>%
+  pull(title_ids)
+
+id_list <- unique(id_list)
+
+id_dict = list()
+
+for(id in id_list){
+  temp_list = list(tconst = id)
+  id_dict = c(id_dict, temp_list)
+}
+
+```
+
+### Business For Films
+do in two chunks and then combine - for loop breaks if not
+
+```{r}
+url <- "https://online-movie-database.p.rapidapi.com/title/v2/get-business"
+
+headers <- c(
+    'x-rapidapi-host' = "online-movie-database.p.rapidapi.com",
+    'x-rapidapi-key' = key)
+
+business_master <- data.frame(matrix(ncol = 8))
+cols <- c("area", "areaName", "total", "movie_id", "title", "year", "budget", "budget_curr")
+colnames(business_master) <- cols
+
+for(i in 1:765){
+      
+      print(paste("query: ", i, id_dict[i]))
+      
+      response <- GET(url, add_headers(headers), query = id_dict[i])
+      temp_data <- fromJSON(rawToChar(response$content))
+      
+      if(length(temp_data[["titleBoxOffice"]]) > 0){
+      
+          title <- temp_data$titleBoxOffice$title
+          year <- temp_data$titleBoxOffice$year
+          
+          if(is.null(title)) {title <- "NULL"}
+          if(is.null(year)) {year <- 0}
+          
+          budget <- temp_data[['titleBoxOffice']][['budget']][['amount']]
+          currency <- temp_data[['titleBoxOffice']][['budget']][['currency']]
+          
+          if(is.null(budget)) {budget <- 0}
+          if(is.null(currency)) {currency <- "NULL"}
+    
+          gross <- temp_data[["titleBoxOffice"]][["gross"]][["aggregations"]]
+          gross <- as.data.frame(gross)
+          
+          if(nrow(gross)==0){
+            gross <- data.frame(matrix(ncol = 8))
+            colnames(gross) <- cols
+          }
+          
+          gross$movie_id <- id_dict[i]$tconst
+          gross$title <- as.character(title)
+          gross$year <- as.numeric(year)
+          gross$budget <- as.numeric(budget)
+          gross$budget_curr <- as.character(currency)
+          
+          business_master <- dplyr::bind_rows(business_master, gross)
+    }
+}
+
+business_master_keep1 <- business_master
+
+```
+
+```{r}
+url <- "https://online-movie-database.p.rapidapi.com/title/v2/get-business"
+
+headers <- c(
+    'x-rapidapi-host' = "online-movie-database.p.rapidapi.com",
+    'x-rapidapi-key' = key)
+
+business_master <- data.frame(matrix(ncol = 8))
+cols <- c("area", "areaName", "total", "movie_id", "title", "year", "budget", "budget_curr")
+colnames(business_master) <- cols
+
+for(i in 765:length(id_dict)){
+      
+      print(paste("query: ", i, id_dict[i]))
+      
+      response <- GET(url, add_headers(headers), query = id_dict[i])
+      temp_data <- fromJSON(rawToChar(response$content))
+      
+      if(length(temp_data[["titleBoxOffice"]]) > 0){
+      
+          title <- temp_data$titleBoxOffice$title
+          year <- temp_data$titleBoxOffice$year
+          
+          if(is.null(title)) {title <- "NULL"}
+          if(is.null(year)) {year <- 0}
+          
+          budget <- temp_data[['titleBoxOffice']][['budget']][['amount']]
+          currency <- temp_data[['titleBoxOffice']][['budget']][['currency']]
+          
+          if(is.null(budget)) {budget <- 0}
+          if(is.null(currency)) {currency <- "NULL"}
+    
+          gross <- temp_data[["titleBoxOffice"]][["gross"]][["aggregations"]]
+          gross <- as.data.frame(gross)
+          
+          if(nrow(gross)==0){
+            gross <- data.frame(matrix(ncol = 8))
+            colnames(gross) <- cols
+          }
+          
+          gross$movie_id <- id_dict[i]$tconst
+          gross$title <- as.character(title)
+          gross$year <- as.numeric(year)
+          gross$budget <- as.numeric(budget)
+          gross$budget_curr <- as.character(currency)
+          
+          business_master <- dplyr::bind_rows(business_master, gross)
+    }
+}
+
+business_master_keep2 <- business_master
+
+```
+
+```{r}
+bus_master2 <- dplyr::bind_rows(business_master_keep1, business_master_keep2) %>% distinct()
+
+rm(business_master_keep1, business_master_keep2)
+
+total_amount <- bus_master2 %>%
+  pull(total) %>%
+  pull(amount)
+
+total_currency<- bus_master2 %>%
+  pull(total) %>%
+  pull(currency)
+
+bus_master2$total_amount <- total_amount
+bus_master2$total_currency <- total_currency
+
+bus_master3 <- bus_master2 %>%
+  select(-total) %>%
+  drop_na(movie_id)
+
+length(unique(bus_master3$movie_id))
+
+write_csv(bus_master3, "4-14-Business.csv")
+
+rm(gross, response, rows_add, temp_data, dom_gross, intl_gross)
+
+```
+
+### clean budget/box office
+
+```{r}
+business_clean <- bus_master3 %>%
+  filter(areaName %in% c("World-wide", "International")) %>%
+  select(-area) %>%
+  pivot_wider(names_from = areaName, values_from = total_amount) %>%
+  mutate(Domestic = `World-wide` - International) %>%
+  rename(budget_currency = budget_curr)
+```
+
+### Add to Filmography Data
+
+```{r}
+actor_film_budget <- filmography_data %>%
+  left_join(business_clean, by = c("title_ids" = "movie_id"))
+
+actor_film_budget <- actor_film_budget %>%
+  dplyr::select(actor_id, actor_name, category, title_ids, title, year, type, 
+                budget, budget_currency, `World-wide`, International, Domestic, total_currency) %>%
+  rename(title_id = title_ids,
+         boxoffice_currency = total_currency) %>%
+  distinct()
+
+write_csv(actor_film_budget, "Actor_Filmography_with_Business.csv")
+```
 
 
 
