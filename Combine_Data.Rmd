@@ -1,0 +1,157 @@
+---
+title: "Combine_Data"
+author: "Katrina Gross"
+date: "4/12/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+### Read in Data
+
+```{r}
+
+library(tidyverse)
+
+# film related data
+
+mcu_titles <- read_csv("Movie_Titles.csv") # might not need
+mcu_ids <- read_csv("MCU_ids.csv")
+full_cast <- read_csv("MCU_cast_lists.csv")
+
+# actor related data
+
+actor_ids <- read_csv("Actor-Ids.csv")
+filmography <- read_csv("Actor_Filmography_with_Business.csv")
+awards <- read_csv("Actor_Awards.csv")
+
+```
+
+### Main Actor List
+
+```{r}
+mcu_ids[c('actor1', 'actor2')] <- str_split_fixed(mcu_ids$d.s, ',', 2)
+
+actor1 <- mcu_ids %>% pull(actor1)
+actor2 <- mcu_ids %>% pull(actor2)
+
+main_actors <- c(actor1, actor2)
+main_actors <- unique(main_actors)
+
+rm(actor1, actor2)
+
+actor_ids <- actor_ids %>%
+  mutate(name_match = ifelse(actor_name %in% main_actors, 1 , 0))
+
+actor_id_list <- actor_ids %>%
+  pull(actor_id)
+```
+
+### Titles
+
+```{r}
+titles <- mcu_ids %>%
+  pull(d.l)
+
+id_dict <- mcu_ids %>%
+  dplyr::select(c(d.id, d.l)) %>%
+  rename(movie_id = d.id,
+         title = d.l)
+```
+
+### Combine Film Data
+
+```{r}
+
+filmography <- filmography %>% 
+  mutate(budget = ifelse(budget == 0, NA, budget),
+         budget_currency = ifelse(budget_currency == "NULL", NA, budget_currency),
+         MCU_film = ifelse(title %in% titles, 1, 0)) %>%
+  filter(actor_id %in% actor_id_list) %>%
+  filter(!is.na(title))
+
+# prob will need to convert currencies to USD
+
+```
+
+### Add Awards Data
+
+```{r}
+awards <- awards %>%
+  distinct() %>%
+  filter(!is.na(actor_name)) %>%
+  rename(title = titles) 
+
+filmography_awards <- filmography %>%
+  left_join(awards, by = c("actor_id", "actor_name", "title")) %>% # not by year b/c release v nomination year don't match
+  rename(year = year.x,
+         nomination_year = year.y)
+```
+
+### Get Release Dates
+
+```{r}
+library(httr) # need for API
+library(jsonlite)
+
+key <- read.delim("../api_key.txt", header = FALSE)
+key <- key$V1
+
+title_ids <- filmography_awards %>%
+  pull(title_id)
+title_ids <- unique(title_ids)
+
+title_dict = list()
+for(title in title_ids){
+  title_temp_list = list(tconst = title)
+  title_dict = c(title_dict, title_temp_list)
+}
+
+url <- "https://online-movie-database.p.rapidapi.com/title/get-overview-details"
+
+headers <- c(
+    'x-rapidapi-host' = "online-movie-database.p.rapidapi.com",
+    'x-rapidapi-key' = key)
+
+release_df <- data.frame(matrix(ncol = 3))
+cols <- c("title_id", "title", "release_date")
+
+for(i in 1:length(title_dict)){
+  
+    print(paste("query: ", i, title_dict[i]))
+  
+    response <- GET(url, add_headers(headers), query = title_dict[i])
+    temp_data <- fromJSON(rawToChar(response$content))
+    title_id <- title_dict[i]$tconst
+    title <- temp_data[["title"]][["title"]]
+    release_date <- temp_data[["releaseDate"]]
+    
+    rows_add <- data.frame(title_id, title, release_date)
+    colnames(rows_add) <- cols
+    
+    release_df <- dplyr::bind_rows(release_df, rows_add)
+}    
+
+release_df <- release_df %>%
+  select(c(title_id, title, release_date)) %>%
+  drop_na(title_id)
+
+write_csv(release_df, "Release-Dates.csv")
+
+```
+
+### Merge release dates & export
+
+```{r}
+
+filmography_awards <- filmography_awards %>%
+  left_join(release_df)
+
+filmography_awards <- filmography_awards %>% 
+  dplyr::select(actor_id, actor_name, category, title_id, title, year, release_date, everything())
+
+write_csv(filmography_awards, "filmography_awards-masterfile.csv")
+```
+
