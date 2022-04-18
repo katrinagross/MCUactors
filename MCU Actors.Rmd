@@ -49,7 +49,6 @@ rm(actor1, actor2)
 
 ```
 
-
 ### Actor Names to use
 
 ```{r}
@@ -66,7 +65,6 @@ for(name in main_cast_list){
 rm(cast_temp_list)
 
 ```
-
 
 
 ```{r}
@@ -126,7 +124,9 @@ actor_id_df <- cast_master %>%
 
 head(actor_id_df)
 
+write_csv(actor_id_df, "Actor-Ids.csv")
 ```
+
 ## Cast Cast ID Dict
 
 ```{r}
@@ -173,7 +173,7 @@ for(i in 1:length(id_cast_dict)){
   film_df <- dplyr::bind_rows(film_df, df_temp)
 }
 
-rm(df_temp, temp_data2, response, film_list, type, status, category, title_ids)
+#rm(df_temp, temp_data2, response, film_list, type, status, category, title_ids)
 
 ```
 
@@ -205,6 +205,8 @@ head(filmography_data)
 dim(filmography_data)
 
 rm(film_df)
+
+write_csv(filmography_data, "Filmography-4-18.csv")
 ```
 
 ### Awards
@@ -248,7 +250,7 @@ for(i in 1:length(id_cast_dict)){
 
 head(award_df)
 
-rm(response, temp_data, award_name, award_category, event_name, winner, year, titles, title_temp, df_temp)
+#rm(response, temp_data, award_name, award_category, event_name, winner, year, titles, title_temp, df_temp)
 
 ```
 ### Clean Awards
@@ -437,14 +439,26 @@ business_clean <- bus_master3 %>%
 ### Add to Filmography Data
 
 ```{r}
+
 actor_film_budget <- filmography_data %>%
   left_join(business_clean, by = c("title_ids" = "movie_id"))
 
+# check
+c1 <- actor_film_budget %>%
+  filter(is.na(film_list))
+dim(c1)
+
+c2 <- actor_film_budget %>%
+  filter(is.na(title))
+dim(c2)
+
 actor_film_budget <- actor_film_budget %>%
-  dplyr::select(actor_id, actor_name, category, title_ids, title, year, type, 
+  dplyr::select(actor_id, actor_name, film_list, category, title_ids, year, type, 
                 budget, budget_currency, `World-wide`, International, Domestic, total_currency) %>%
   rename(title_id = title_ids,
+         title = film_list,
          boxoffice_currency = total_currency) %>%
+  filter(actor_id %in% cast_ids) %>%
   distinct()
 
 write_csv(actor_film_budget, "Actor_Filmography_with_Business.csv")
