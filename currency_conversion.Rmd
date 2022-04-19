@@ -43,6 +43,9 @@ converted_currency <- filmography_awards_masterfile %>%
 converted_currency <- converted_currency %>%
   dplyr::select(actor_id, actor_name, category, title_id, title, year, release_date, type, budget_currency, budget, budget_USD, boxoffice_currency, `World-wide`, International, Domestic, MCU_film, award_name, award_category, event_name, winner, nomination_year)
 
+converted_currency <- converted_currency %>%
+  mutate(release_date = as.Date(release_date))
+
 converted_currency
 ```
 
