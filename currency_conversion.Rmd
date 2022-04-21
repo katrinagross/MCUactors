@@ -49,5 +49,9 @@ converted_currency <- converted_currency %>%
 converted_currency
 ```
 
+```{r}
+write_csv(converted_currency, "filmography_awards-masterfile.csv")
+```
+
 
 
