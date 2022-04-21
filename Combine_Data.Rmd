@@ -153,7 +153,6 @@ release_df_clean <- release_df %>%
   drop_na(title_id) %>%
   distinct()
 
-
 write_csv(release_df_clean, "Release-Dates.csv")
 
 ```
