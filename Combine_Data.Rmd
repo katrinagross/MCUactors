@@ -91,6 +91,7 @@ filmography_awards <- filmography %>%
 ```
 
 ### Get Release Dates
+- one for movies one for TV series - they look different
 
 ```{r}
 library(httr) # need for API
@@ -126,19 +127,34 @@ for(i in 1:length(title_dict)){
     temp_data <- fromJSON(rawToChar(response$content))
     title_id <- title_dict[i]$tconst
     title <- temp_data[["title"]][["title"]]
+    year <- temp_data[["title"]][["year"]]
     release_date <- temp_data[["releaseDate"]]
     
-    rows_add <- data.frame(title_id, title, release_date)
+    if(is.null(title)){
+      title <- "NULL" # keep nulls to make list right length
+    }
+    
+    if(is.null(year)){
+      year <- 0 # keep nulls to make list right length
+    }
+    
+    if(is.null(release_date)){
+      release_date <- "1400-01-01" # fake data to make list right length
+    }
+    
+    rows_add <- data.frame(title_id, title, year, release_date)
     colnames(rows_add) <- cols
     
     release_df <- dplyr::bind_rows(release_df, rows_add)
 }    
 
-release_df <- release_df %>%
+release_df_clean <- release_df %>%
   select(c(title_id, title, release_date)) %>%
-  drop_na(title_id)
+  drop_na(title_id) %>%
+  distinct()
 
-write_csv(release_df, "Release-Dates.csv")
+
+write_csv(release_df_clean, "Release-Dates.csv")
 
 ```
 
@@ -147,7 +163,7 @@ write_csv(release_df, "Release-Dates.csv")
 ```{r}
 
 filmography_awards <- filmography_awards %>%
-  left_join(release_df)
+  left_join(release_df_clean)
 
 filmography_awards <- filmography_awards %>% 
   dplyr::select(actor_id, actor_name, category, title_id, title, year, release_date, everything())

@@ -76,7 +76,7 @@ headers <- c(
 
 master <- data.frame(matrix(ncol = 12))
 cols <- c("d.i", "d.id", "d.l", "d.q", "d.rank", "d.s",  "d.v", "d.vt", "d.y",  
-                      "d.yr", "q", "v"  )
+                      "d.yr", "q", "v")
 colnames(master) <- cols
 
 for(i in 1:length(title_dict)){
