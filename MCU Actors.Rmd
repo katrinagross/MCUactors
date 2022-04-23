@@ -42,7 +42,10 @@ mcu_movies[c('actor1', 'actor2')] <- str_split_fixed(mcu_movies$d.s, ',', 2)
 actor1 <- mcu_movies %>% pull(actor1)
 actor2 <- mcu_movies %>% pull(actor2)
 
-main_actors <- c(actor1, actor2)
+actors_add <- c("Sebastian Stan","Elizabeth Olsen", "Anthony Mackie", "Mark Ruffalo", "Paul Bettany", 
+                "Don Cheadle", "Jeremy Renner")
+
+main_actors <- c(actor1, actor2, actors_add)
 main_actors <- unique(main_actors)
 
 rm(actor1, actor2)
@@ -96,7 +99,7 @@ rm(response, temp_data, data_tidy)
 
 ```{r}
 
-# clean the data a bit
+# clean the data
 
 cast_master <- cast_ids %>%
   select(d.id, d.l, d.s, q) %>%
@@ -192,7 +195,7 @@ filmography_data <- film_df %>%
   filter(category == "actor" | category == "actress") %>%
   filter(status == "released") %>%
   select(-status) %>%
-  filter(type == "movie" | type == "tvSeries") %>%
+  filter(type %in% c("movie", "tvSeries", "tvMiniSeries")) %>%
   dplyr::mutate(title_ids = gsub("\\/title/", "", title_ids),
                 title_ids = gsub("\\/$", "", title_ids))
 
@@ -265,7 +268,7 @@ awards_tidy <- award_df %>%
   dplyr::select(actor_id, actor_name, everything()) %>%
   mutate(winner = ifelse(winner, "Winner", "Nominated"))
          
-write_csv(awards_tidy, "Actor_Awards.csv")
+write_csv(awards_tidy, "Actor_Awards_add.csv")
 ```
 
 ### Create query dict of titles
@@ -300,7 +303,7 @@ business_master <- data.frame(matrix(ncol = 8))
 cols <- c("area", "areaName", "total", "movie_id", "title", "year", "budget", "budget_curr")
 colnames(business_master) <- cols
 
-for(i in 1:765){
+for(i in 1:length(id_dict)){
       
       print(paste("query: ", i, id_dict[i]))
       
@@ -400,6 +403,8 @@ business_master_keep2 <- business_master
 ```{r}
 bus_master2 <- dplyr::bind_rows(business_master_keep1, business_master_keep2) %>% distinct()
 
+#bus_master2 <- business_master_keep1 %>% distinct()
+
 rm(business_master_keep1, business_master_keep2)
 
 total_amount <- bus_master2 %>%
@@ -461,7 +466,7 @@ actor_film_budget <- actor_film_budget %>%
   filter(actor_id %in% cast_ids) %>%
   distinct()
 
-write_csv(actor_film_budget, "Actor_Filmography_with_Business.csv")
+write_csv(actor_film_budget, "Actor_Filmography_with_Business_additions.csv")
 ```
 
 

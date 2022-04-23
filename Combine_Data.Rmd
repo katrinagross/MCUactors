@@ -27,6 +27,18 @@ actor_ids <- read_csv("Actor-Ids.csv")
 filmography <- read_csv("Actor_Filmography_with_Business.csv")
 awards <- read_csv("Actor_Awards.csv")
 
+awards_add <- read_csv("Actor_Awards_add.csv")
+filmography_add <- read_csv("Actor_Filmography_with_Business_additions.csv")
+
+actor_ids_add <- filmography_add %>%
+  select(c(actor_id, actor_name)) %>%
+  distinct() %>%
+  drop_na(actor_name)
+
+actor_ids <- rbind(actor_ids, actor_ids_add)
+filmography <- rbind(filmography, filmography_add)
+awards <- rbind(awards, awards_add)
+
 ```
 
 ### Main Actor List
@@ -36,9 +48,11 @@ mcu_ids[c('actor1', 'actor2')] <- str_split_fixed(mcu_ids$d.s, ',', 2)
 
 actor1 <- mcu_ids %>% pull(actor1)
 actor2 <- mcu_ids %>% pull(actor2)
+actor3 <- filmography_add %>% pull(actor_name)
 
-main_actors <- c(actor1, actor2)
-main_actors <- unique(main_actors)
+main_actors <- c(actor1, actor2, actor3)
+main_actors <- str_trim(unique(main_actors))
+main_actors <- main_actors[!is.na(main_actors)]
 
 rm(actor1, actor2)
 
@@ -100,7 +114,11 @@ library(jsonlite)
 key <- read.delim("../api_key.txt", header = FALSE)
 key <- key$V1
 
+actors_add <- c("Sebastian Stan","Elizabeth Olsen", "Anthony Mackie", "Mark Ruffalo", "Paul Bettany", 
+                "Don Cheadle", "Jeremy Renner")
+
 title_ids <- filmography_awards %>%
+  filter(actor_name %in% actors_add) %>%
   pull(title_id)
 title_ids <- unique(title_ids)
 
@@ -127,22 +145,17 @@ for(i in 1:length(title_dict)){
     temp_data <- fromJSON(rawToChar(response$content))
     title_id <- title_dict[i]$tconst
     title <- temp_data[["title"]][["title"]]
-    year <- temp_data[["title"]][["year"]]
     release_date <- temp_data[["releaseDate"]]
     
     if(is.null(title)){
       title <- "NULL" # keep nulls to make list right length
     }
     
-    if(is.null(year)){
-      year <- 0 # keep nulls to make list right length
-    }
-    
     if(is.null(release_date)){
       release_date <- "1400-01-01" # fake data to make list right length
     }
     
-    rows_add <- data.frame(title_id, title, year, release_date)
+    rows_add <- data.frame(title_id, title, release_date)
     colnames(rows_add) <- cols
     
     release_df <- dplyr::bind_rows(release_df, rows_add)
@@ -153,7 +166,11 @@ release_df_clean <- release_df %>%
   drop_na(title_id) %>%
   distinct()
 
-write_csv(release_df_clean, "Release-Dates.csv")
+write_csv(release_df_clean, "Release-Dates-updated.csv")
+
+orig_release_dates <- read_csv("Release-Dates.csv")
+
+release_dates_all <- rbind(orig_release_dates, release_df_clean)
 
 ```
 
@@ -162,7 +179,7 @@ write_csv(release_df_clean, "Release-Dates.csv")
 ```{r}
 
 filmography_awards <- filmography_awards %>%
-  left_join(release_df_clean)
+  left_join(release_dates_all)
 
 filmography_awards <- filmography_awards %>% 
   dplyr::select(actor_id, actor_name, category, title_id, title, year, release_date, everything())

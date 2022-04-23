@@ -1,0 +1,578 @@
+actor_id,actor_name,title,category,title_id,year,type,budget,budget_currency,World-wide,International,Domestic,boxoffice_currency
+nm1659221,Sebastian Stan,Pam & Tommy,actor,tt13659418,NA,tvMiniSeries,NA,NA,NA,NA,NA,NA
+nm1659221,Sebastian Stan,Fresh,actor,tt13403046,NA,movie,NA,NA,NA,NA,NA,NA
+nm1659221,Sebastian Stan,The 355,actor,tt8356942,2022,movie,0,NULL,27665746,13095291,14570455,USD
+nm1659221,Sebastian Stan,What If...?,actor,tt10168312,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm1659221,Sebastian Stan,The Falcon and the Winter Soldier,actor,tt9208876,NA,tvMiniSeries,NA,NA,NA,NA,NA,NA
+nm1659221,Sebastian Stan,Monday,actor,tt8884906,2020,movie,0,NULL,30932,NA,NA,USD
+nm1659221,Sebastian Stan,The Devil All the Time,actor,tt7395114,NA,movie,NA,NA,NA,NA,NA,NA
+nm1659221,Sebastian Stan,The Last Full Measure,actor,tt0783640,2019,movie,20000000,USD,3364426,415214,2949212,USD
+nm1659221,Sebastian Stan,"Endings, Beginnings",actor,tt9147456,2019,movie,0,NULL,239231,239231,0,USD
+nm1659221,Sebastian Stan,Avengers: Endgame,actor,tt4154796,2019,movie,356000000,USD,2797501328,1939128328,858373000,USD
+nm1659221,Sebastian Stan,We Have Always Lived in the Castle,actor,tt5952138,2018,movie,0,NULL,62567,62567,0,USD
+nm1659221,Sebastian Stan,Joseph Pulitzer: Voice of the People,actor,tt7428030,2018,movie,0,NULL,16970,NA,NA,USD
+nm1659221,Sebastian Stan,Destroyer,actor,tt7137380,2018,movie,9000000,USD,5580940,4047616,1533324,USD
+nm1659221,Sebastian Stan,Avengers: Infinity War,actor,tt4154756,2018,movie,321000000,USD,2048359754,1369544272,678815482,USD
+nm1659221,Sebastian Stan,Black Panther,actor,tt1825683,2018,movie,200000000,USD,1347597973,647171407,700426566,USD
+nm1659221,Sebastian Stan,I'm Not Here,actor,tt5657712,NA,movie,NA,NA,NA,NA,NA,NA
+nm1659221,Sebastian Stan,"I, Tonya",actor,tt5580036,2017,movie,11000000,USD,53939297,23924758,30014539,USD
+nm1659221,Sebastian Stan,Logan Lucky,actor,tt5439796,2017,movie,29000000,USD,48453605,20672628,27780977,USD
+nm1659221,Sebastian Stan,I'm Dying Up Here,actor,tt4938700,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm1659221,Sebastian Stan,Captain America: Civil War,actor,tt3498820,2016,movie,250000000,USD,1153337496,745253147,408084349,USD
+nm1659221,Sebastian Stan,The Martian,actor,tt3659388,2015,movie,108000000,USD,630620818,402187155,228433663,USD
+nm1659221,Sebastian Stan,Ricki and the Flash,actor,tt3623726,2015,movie,18000000,USD,41325328,14503184,26822144,USD
+nm1659221,Sebastian Stan,Ant-Man,actor,tt0478970,2015,movie,130000000,USD,519311965,339109802,180202163,USD
+nm1659221,Sebastian Stan,The Bronze,actor,tt3859304,2015,movie,3500000,USD,615816,NA,NA,USD
+nm1659221,Sebastian Stan,Captain America: The Winter Soldier,actor,tt1843866,2014,movie,170000000,USD,714421503,454654931,259766572,USD
+nm1659221,Sebastian Stan,Once Upon a Time,actor,tt1843230,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm1659221,Sebastian Stan,Labyrinth,actor,tt1866570,NA,tvMiniSeries,NA,NA,NA,NA,NA,NA
+nm1659221,Sebastian Stan,The Apparition,actor,tt1433822,2012,movie,17000000,USD,11350665,6413846,4936819,USD
+nm1659221,Sebastian Stan,Political Animals,actor,tt2239947,NA,tvMiniSeries,NA,NA,NA,NA,NA,NA
+nm1659221,Sebastian Stan,Gone,actor,tt1838544,2012,movie,0,NULL,19767535,8085330,11682205,USD
+nm1659221,Sebastian Stan,Captain America: The First Avenger,actor,tt0458339,2011,movie,140000000,USD,370569774,193915269,176654505,USD
+nm1659221,Sebastian Stan,Black Swan,actor,tt0947798,2010,movie,13000000,USD,329398046,222443368,106954678,USD
+nm1659221,Sebastian Stan,Gossip Girl,actor,tt0397442,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm1659221,Sebastian Stan,Hot Tub Time Machine,actor,tt1231587,2010,movie,36000000,USD,64780213,14492657,50287556,USD
+nm1659221,Sebastian Stan,Kings,actor,tt1137462,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm1659221,Sebastian Stan,Spread,actor,tt1186370,2009,movie,0,NULL,12035862,11785244,250618,USD
+nm1659221,Sebastian Stan,Rachel Getting Married,actor,tt1084950,2008,movie,0,NULL,16937968,4141127,12796841,USD
+nm1659221,Sebastian Stan,The Education of Charlie Banks,actor,tt0783515,2007,movie,5000000,USD,15078,NA,NA,USD
+nm1659221,Sebastian Stan,The Covenant,actor,tt0475944,2006,movie,20000000,USD,37598767,14218272,23380495,USD
+nm1659221,Sebastian Stan,The Architect,actor,tt0466665,2006,movie,0,NULL,13737,NA,NA,USD
+nm1659221,Sebastian Stan,Red Doors,actor,tt0415234,2005,movie,0,NULL,97848,NA,NA,USD
+nm1659221,Sebastian Stan,Tony & Tina's Wedding,actor,tt0375145,NA,movie,NA,NA,NA,NA,NA,NA
+nm1659221,Sebastian Stan,Law & Order,actor,tt0098844,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm1659221,Sebastian Stan,71 Fragments of a Chronology of Chance,actor,tt0109020,NA,movie,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Furioza,actor,tt18286666,NA,tvMiniSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,"8 rzeczy, których nie wiecie o facetach",actor,tt16294598,2022,movie,0,NULL,88156,88156,0,USD
+nm2432160,NA,Mental,actor,tt17514064,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Gierek,actor,tt12805704,2022,movie,0,NULL,1531831,1531831,0,USD
+nm2432160,NA,Barwy szczescia,actor,tt1094354,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Television Theater,actor,tt0441074,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,The Contract,actor,tt6644920,NA,movie,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Nobody Sleeps in the Woods Tonight 2,actor,tt14315500,NA,movie,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Furioza,actor,tt10515864,2021,movie,0,NULL,2419521,2419521,0,USD
+nm2432160,NA,Brigitte Bardot Forever,actor,tt9489944,NA,movie,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Powrót do tamtych dni,actor,tt5934552,2021,movie,0,NULL,150375,150375,0,USD
+nm2432160,NA,Operation Hyacinth,actor,tt14315584,NA,movie,NA,NA,NA,NA,NA,NA
+nm2432160,NA,We'll Be Fine,actor,tt12894926,NA,movie,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Sexify,actor,tt14315542,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Squared Love,actor,tt13846542,NA,movie,NA,NA,NA,NA,NA,NA
+nm2432160,NA,25 lat niewinnosci. Sprawa Tomka Komendy,actor,tt14039300,NA,tvMiniSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,The Elements of Sasza - Fire,actor,tt12939956,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Erotica 2022,actor,tt10399674,NA,movie,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Królestwo kobiet,actor,tt12862902,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Ludzie i bogowie,actor,tt10138386,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,25 Years of Innocence,actor,tt11368998,2020,movie,0,NULL,4027477,4027477,0,USD
+nm2432160,NA,Nobody Sleeps in the Woods Tonight,actor,tt11240506,NA,movie,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Jak poslubic milionera,actor,tt10800286,2019,movie,0,NULL,5121361,5121361,0,USD
+nm2432160,NA,Mister T.,actor,tt9856606,2019,movie,0,NULL,202432,202432,0,USD
+nm2432160,NA,Icarus. The Legend of Mietek Kosz,actor,tt9121954,2019,movie,0,NULL,3042,3042,0,USD
+nm2432160,NA,Na dobre i na zle,actor,tt0262975,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,The Plagues of Breslau,actor,tt8618118,2018,movie,0,NULL,132114,132114,0,USD
+nm2432160,NA,Drunk History: Pol litra historii,actor,tt7917588,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,O mnie sie nie martw,actor,tt4194194,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,"Okna, okna",actor,tt8745006,NA,movie,NA,NA,NA,NA,NA,NA
+nm2432160,NA,SNL Polska,actor,tt8144912,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Za marzenia,actor,tt8045332,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Gotowi na wszystko. Exterminator,actor,tt6947528,2018,movie,0,NULL,1970978,1970978,0,USD
+nm2432160,NA,The Chairman's Ear,actor,tt8866654,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Diagnoza,actor,tt7401482,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,The Man with the Magic Box,actor,tt5782146,NA,movie,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Ojciec Mateusz,actor,tt1271995,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Druga szansa,actor,tt5527070,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Amok,actor,tt6666648,2017,movie,0,NULL,652713,652713,0,USD
+nm2432160,NA,Singielka,actor,tt6833416,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Szkola uwodzenia Czeslawa M.,actor,tt5927954,2016,movie,0,NULL,948,948,0,USD
+nm2432160,NA,Bodo,actor,tt5527242,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,"7 rzeczy, których nie wiecie o facetach",actor,tt5312370,2016,movie,0,NULL,5267920,5267920,0,USD
+nm2432160,NA,Slaba plec?,actor,tt5318042,2015,movie,0,NULL,2644199,2644199,0,USD
+nm2432160,NA,Na sygnale,actor,tt6425794,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Adventurers' Club,actor,tt4375114,2015,movie,1000000,USD,202045,202045,0,USD
+nm2432160,NA,True Law,actor,tt2245989,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Disco Polo,actor,tt2973854,2015,movie,2000000,USD,4301648,4301648,0,USD
+nm2432160,NA,Wkreceni 2,actor,tt4332728,NA,movie,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Bobry,actor,tt4067006,NA,movie,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Referee of Attention,actor,tt4332558,NA,movie,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Dzej Dzej,actor,tt3139754,2014,movie,0,NULL,50325,50325,0,USD
+nm2432160,NA,Baron24,actor,tt4088396,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Heavy Mental,actor,tt2455436,NA,movie,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Rodzinka.pl,actor,tt1973695,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Ranczo,actor,tt0831833,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Komisarz Alex,actor,tt2264054,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,The Girl from the Wardrobe,actor,tt2403880,2012,movie,0,NULL,431220,431220,0,USD
+nm2432160,NA,Galeria,actor,tt2403177,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Shameless,actor,tt1927068,2012,movie,0,NULL,200004,200004,0,USD
+nm2432160,NA,Reguly gry,actor,tt2255201,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Letters to Santa,actor,tt1927077,2011,movie,0,NULL,26923513,26923513,0,USD
+nm2432160,NA,Daleko od noszy. Szpital futpolowy,actor,tt9095310,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Off the Stretcher,actor,tt0472212,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Teraz i zawsze,actor,tt1346316,NA,movie,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Pierwsza milosc,actor,tt0439389,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Dom nad rozlewiskiem,actor,tt1671069,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Contact High,actor,tt0780002,2009,movie,0,NULL,382027,382027,0,USD
+nm2432160,NA,Zamiana,actor,tt1320401,2009,movie,0,NULL,224180,224180,0,USD
+nm2432160,NA,Czarny,actor,tt1343311,NA,movie,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Nie panikuj,actor,tt13034170,NA,movie,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Niania,actor,tt0482076,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Odwróceni,actor,tt0998810,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Królowie sródmiescia,actor,tt1236383,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Hela w opalach,actor,tt0847653,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm2432160,NA,Fala zbrodni,actor,tt0434680,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm3775203,NA,Before Twilight,actor,tt1210349,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Growing Rich,actor,tt0203256,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Chimera,actor,tt0101577,NA,tvMiniSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Chelworth,actor,tt0396975,NA,tvMiniSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Casualty,actor,tt0096555,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Theatre Night,actor,tt0820333,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Scene,actor,tt1049302,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,High Season,actor,tt0095303,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Drummonds,actor,tt0215407,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Crown Court,actor,tt0140733,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Reith,actor,tt15007462,NA,tvMiniSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,The Nation's Health,actor,tt1127764,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Reilly: Ace of Spies,actor,tt0085077,NA,tvMiniSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Star Wars: Episode VI - Return of the Jedi,actor,tt0086190,1983,movie,32500000,USD,475106177,122009457,353096720,USD
+nm0789970,NA,All for Love,actor,tt1380834,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Nanny,actor,tt0159191,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,BBC2 Playhouse,actor,tt0762803,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Jackanory Playhouse,actor,tt1687457,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,The Old Curiosity Shop,actor,tt0227938,NA,tvMiniSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Rumpole of the Bailey,actor,tt0078680,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,BBC2 Play of the Week,actor,tt0958967,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Kilvert's Diary,actor,tt0208624,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Play for Today,actor,tt0165592,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Murder,actor,tt1597642,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Second City Firsts,actor,tt0259806,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Village Hall,actor,tt0181264,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Dead of Night,actor,tt0222545,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Thirty-Minute Theatre,actor,tt0212699,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,A Midsummer Night's Dream,actor,tt0063297,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Out of the Unknown,actor,tt0058836,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,The Lost Peace,actor,tt5444548,NA,tvMiniSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,ITV Play of the Week,actor,tt0914702,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Front Page Story,actor,tt0207247,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,The Great War,actor,tt0057753,NA,tvMiniSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,It Happened Here,actor,tt0055024,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Here Lies Miss Sabry,actor,tt0405965,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Saturday Playhouse,actor,tt1570377,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Somerset Maugham Hour,actor,tt0164287,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Knight Errant Limited,actor,tt0159884,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Probation Officer,actor,tt0159904,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Armchair Theatre,actor,tt0161126,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,BBC Sunday-Night Theatre,actor,tt0989125,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Scotch on the Rocks,actor,tt0044830,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Feature Story,actor,tt2397452,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Landfall,actor,tt0041576,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,The Glass Mountain,actor,tt0040605,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Journey Together,actor,tt0038663,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,The Strangler,actor,tt0033108,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,The Flying Squad,actor,tt0032482,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Bulldog Sees It Through,actor,tt0031030,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Three Silent Men,actor,tt0033161,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,The Spy in Black,actor,tt0031968,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Too Dangerous to Live,actor,tt0032042,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Murder on Diamond Row,actor,tt0029603,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Troopship,actor,tt0028854,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Men Are Not Gods,actor,tt0027954,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Tomorrow We Live,actor,tt0159038,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Jury's Evidence,actor,tt0027831,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Birds of a Feather,actor,tt0027363,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,The Ace of Spades,actor,tt0026035,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Jubilee Window,actor,tt0168018,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Department Store,actor,tt0026269,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Adventure Ltd.,actor,tt0165074,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Three Witnesses,actor,tt0027101,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,The Lad,actor,tt0026591,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Brewster's Millions,actor,tt0023841,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,The Way of Youth,actor,tt0165535,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Get Your Man,actor,tt0025168,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,The Four Masked Men,actor,tt0025135,NA,movie,NA,NA,NA,NA,NA,NA
+nm0789970,NA,Caste,actor,tt0020746,NA,movie,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Murdoch Mysteries,actor,tt1091909,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,American Gods,actor,tt1898069,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Hudson & Rex,actor,tt9111220,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Taken,actor,tt5052460,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Garage Sale Mysteries,actor,tt13029326,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Cedar Cove,actor,tt2871832,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,The Returned,actor,tt3230780,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Marvel Knights: Eternals,actor,tt4058600,NA,tvMiniSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Continuum,actor,tt1954347,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Ultimate Wolverine vs. Hulk,actor,tt3152670,NA,tvMiniSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,12 Rounds 2: Reloaded,actor,tt2317524,NA,movie,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Psych,actor,tt0491738,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Emily Owens M.D.,actor,tt2290339,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Crash Site,actor,tt1718755,NA,movie,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Camelot,actor,tt1672189,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Endgame,actor,tt1797629,2011,tvSeries,4000000,CAD,3215,3215,0,USD
+nm0817819,NA,Smallville,actor,tt0279600,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Republic of Doyle,actor,tt1297754,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Sophie,actor,tt0947080,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Battlestar Galactica,actor,tt0407362,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Zack's Life,actor,tt10141704,NA,movie,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Ice Blues,actor,tt1130987,2008,movie,0,NULL,1377,NA,NA,USD
+nm0817819,NA,"On the Other Hand, Death",actor,tt1238298,2008,movie,0,NULL,2892,NA,NA,USD
+nm0817819,NA,Robson Arms,actor,tt0418424,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Dress to Kill,actor,tt0370433,NA,movie,NA,NA,NA,NA,NA,NA
+nm0817819,NA,A Bug and a Bag of Weed,actor,tt0466365,NA,movie,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Shock to the System,actor,tt0780606,2006,movie,0,NULL,3768,NA,NA,USD
+nm0817819,NA,Supernatural,actor,tt0460681,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,G-Spot,actor,tt0456778,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Killer Instinct,actor,tt0460643,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Category 7: The End of the World,actor,tt0468988,NA,tvMiniSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Paper Moon Affair,actor,tt0433615,NA,movie,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Young Blades,actor,tt0439410,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,The Collector,actor,tt0380869,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Bliss,actor,tt0302076,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Stargate SG-1,actor,tt0118480,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Andromeda,actor,tt0213327,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Mutant X,actor,tt0283203,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Dawson's Creek,actor,tt0118300,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Glory Days,actor,tt0281445,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Strange Frequency,actor,tt0289828,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Special Unit 2,actor,tt0268094,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Dark Angel,actor,tt0204993,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,First Wave,actor,tt0160277,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Little Boy Blues,actor,tt0188859,NA,movie,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Fast Track,actor,tt0124239,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Firestorm,actor,tt0120670,1998,movie,19000000,USD,8165212,NA,NA,USD
+nm0817819,NA,"Drive, She Said",actor,tt0119021,NA,movie,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Dead Man's Gun,actor,tt0140735,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Poltergeist: The Legacy,actor,tt0115317,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,The X-Files,actor,tt0106179,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,The Outer Limits,actor,tt0112111,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Madison,actor,tt0108845,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Robin's Hoods,actor,tt0108908,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0817819,NA,Anchor Zone,actor,tt0109114,NA,movie,NA,NA,NA,NA,NA,NA
+nm0647634,Elizabeth Olsen,WandaVision,actress,tt9140560,NA,tvMiniSeries,NA,NA,NA,NA,NA,NA
+nm0647634,Elizabeth Olsen,Sorry for Your Loss,actress,tt8000638,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0647634,Elizabeth Olsen,Avengers: Endgame,actress,tt4154796,2019,movie,356000000,USD,2797501328,1939128328,858373000,USD
+nm0647634,Elizabeth Olsen,Avengers: Infinity War,actress,tt4154756,2018,movie,321000000,USD,2048359754,1369544272,678815482,USD
+nm0647634,Elizabeth Olsen,HarmonQuest,actress,tt5905038,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0647634,Elizabeth Olsen,Kodachrome,actress,tt1880399,2017,movie,0,NULL,70149,70149,0,USD
+nm0647634,Elizabeth Olsen,Wind River,actress,tt5362988,2017,movie,11000000,USD,44202682,10401823,33800859,USD
+nm0647634,Elizabeth Olsen,Ingrid Goes West,actress,tt5962210,2017,movie,0,NULL,3146831,122523,3024308,USD
+nm0647634,Elizabeth Olsen,Drunk History,actress,tt2712612,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0647634,Elizabeth Olsen,Captain America: Civil War,actress,tt3498820,2016,movie,250000000,USD,1153337496,745253147,408084349,USD
+nm0647634,Elizabeth Olsen,I Saw the Light,actress,tt1490785,2015,movie,13000000,USD,1767963,121175,1646788,USD
+nm0647634,Elizabeth Olsen,Avengers: Age of Ultron,actress,tt2395427,2015,movie,250000000,USD,1402809540,943803672,459005868,USD
+nm0647634,Elizabeth Olsen,Godzilla,actress,tt0831387,2014,movie,160000000,USD,524976069,324300000,200676069,USD
+nm0647634,Elizabeth Olsen,Captain America: The Winter Soldier,actress,tt1843866,2014,movie,170000000,USD,714421503,454654931,259766572,USD
+nm0647634,Elizabeth Olsen,Oldboy,actress,tt1321511,2013,movie,30000000,USD,5186767,2993109,2193658,USD
+nm0647634,Elizabeth Olsen,In Secret,actress,tt0409379,2013,movie,0,NULL,652228,208049,444179,USD
+nm0647634,Elizabeth Olsen,Very Good Girls,actress,tt1931602,2013,movie,0,NULL,10963,4023,6940,USD
+nm0647634,Elizabeth Olsen,Kill Your Darlings,actress,tt1311071,2013,movie,0,NULL,1877924,847860,1030064,USD
+nm0647634,Elizabeth Olsen,Liberal Arts,actress,tt1872818,2012,movie,2000000,USD,1150681,823336,327345,USD
+nm0647634,Elizabeth Olsen,Red Lights,actress,tt1748179,2012,movie,14000000,EUR,14107313,14054689,52624,USD
+nm0647634,Elizabeth Olsen,"Peace, Love & Misunderstanding",actress,tt1649780,2011,movie,10000000,USD,1105020,514320,590700,USD
+nm0647634,Elizabeth Olsen,Silent House,actress,tt1767382,2011,movie,2000000,USD,16527747,3772964,12754783,USD
+nm0647634,Elizabeth Olsen,Martha Marcy May Marlene,actress,tt1441326,2011,movie,0,NULL,4778439,1787814,2990625,USD
+nm1107001,Anthony Mackie,Solos,actor,tt13356646,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm1107001,Anthony Mackie,The Woman in the Window,actor,tt6111574,NA,movie,NA,NA,NA,NA,NA,NA
+nm1107001,Anthony Mackie,The Falcon and the Winter Soldier,actor,tt9208876,NA,tvMiniSeries,NA,NA,NA,NA,NA,NA
+nm1107001,Anthony Mackie,Outside the Wire,actor,tt10451914,NA,movie,NA,NA,NA,NA,NA,NA
+nm1107001,Anthony Mackie,The Banker,actor,tt6285944,2020,movie,0,NULL,1700000,1700000,0,USD
+nm1107001,Anthony Mackie,Altered Carbon,actor,tt2261227,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm1107001,Anthony Mackie,Synchronic,actor,tt9016974,2019,movie,0,NULL,1463555,826882,636673,USD
+nm1107001,Anthony Mackie,Seberg,actor,tt1780967,2019,movie,0,NULL,655178,220476,434702,USD
+nm1107001,Anthony Mackie,Point Blank,actor,tt2499472,NA,movie,NA,NA,NA,NA,NA,NA
+nm1107001,Anthony Mackie,Black Mirror,actor,tt2085059,2011,tvSeries,0,NULL,320000,320000,0,USD
+nm1107001,Anthony Mackie,Avengers: Endgame,actor,tt4154796,2019,movie,356000000,USD,2797501328,1939128328,858373000,USD
+nm1107001,Anthony Mackie,Miss Bala,actor,tt5941692,2019,movie,15000000,USD,15383580,376756,15006824,USD
+nm1107001,Anthony Mackie,IO,actor,tt3256226,NA,movie,NA,NA,NA,NA,NA,NA
+nm1107001,Anthony Mackie,Animals.,actor,tt4953128,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm1107001,Anthony Mackie,The Hate U Give,actor,tt5580266,2018,movie,23000000,USD,34934009,5214526,29719483,USD
+nm1107001,Anthony Mackie,Avengers: Infinity War,actor,tt4154756,2018,movie,321000000,USD,2048359754,1369544272,678815482,USD
+nm1107001,Anthony Mackie,Wetlands,actor,tt5565254,NA,movie,NA,NA,NA,NA,NA,NA
+nm1107001,Anthony Mackie,Detroit,actor,tt5390504,2017,movie,34000000,USD,23355100,6564961,16790139,USD
+nm1107001,Anthony Mackie,Captain America: Civil War,actor,tt3498820,2016,movie,250000000,USD,1153337496,745253147,408084349,USD
+nm1107001,Anthony Mackie,Triple 9,actor,tt1712261,2016,movie,20000000,USD,23177948,10538651,12639297,USD
+nm1107001,Anthony Mackie,The Night Before,actor,tt3530002,2015,movie,25000000,USD,52395996,9348624,43047372,USD
+nm1107001,Anthony Mackie,Love the Coopers,actor,tt2279339,2015,movie,17000000,USD,42426912,16124181,26302731,USD
+nm1107001,Anthony Mackie,Our Brand Is Crisis,actor,tt1018765,2015,movie,28000000,USD,8527658,1525397,7002261,USD
+nm1107001,Anthony Mackie,Ant-Man,actor,tt0478970,2015,movie,130000000,USD,519311965,339109802,180202163,USD
+nm1107001,Anthony Mackie,Avengers: Age of Ultron,actor,tt2395427,2015,movie,250000000,USD,1402809540,943803672,459005868,USD
+nm1107001,Anthony Mackie,Playing It Cool,actor,tt2139555,2014,movie,0,NULL,1323415,1323415,0,USD
+nm1107001,Anthony Mackie,Shelter,actor,tt3136112,NA,movie,NA,NA,NA,NA,NA,NA
+nm1107001,Anthony Mackie,Black or White,actor,tt2883434,2014,movie,9000000,USD,21833967,262778,21571189,USD
+nm1107001,Anthony Mackie,Captain America: The Winter Soldier,actor,tt1843866,2014,movie,170000000,USD,714421503,454654931,259766572,USD
+nm1107001,Anthony Mackie,Runner Runner,actor,tt2364841,2013,movie,30000000,USD,62675095,43358449,19316646,USD
+nm1107001,Anthony Mackie,The Fifth Estate,actor,tt1837703,2013,movie,28000000,USD,9058564,5803556,3255008,USD
+nm1107001,Anthony Mackie,Pain & Gain,actor,tt1980209,2013,movie,26000000,USD,87305549,37430258,49875291,USD
+nm1107001,Anthony Mackie,The Inevitable Defeat of Mister & Pete,actor,tt2113075,2013,movie,0,NULL,506303,11695,494608,USD
+nm1107001,Anthony Mackie,Repentance,actor,tt2012665,2013,movie,5000000,USD,1194961,5349,1189612,USD
+nm1107001,Anthony Mackie,Gangster Squad,actor,tt1321870,2013,movie,60000000,USD,105200903,59200000,46000903,USD
+nm1107001,Anthony Mackie,Abraham Lincoln: Vampire Hunter,actor,tt1611224,2012,movie,69000000,USD,116471580,78952441,37519139,USD
+nm1107001,Anthony Mackie,Man on a Ledge,actor,tt1568338,2012,movie,42000000,USD,47636031,29016031,18620000,USD
+nm1107001,Anthony Mackie,What's Your Number?,actor,tt0770703,2011,movie,20000000,USD,30426096,16415012,14011084,USD
+nm1107001,Anthony Mackie,10 Years,actor,tt1715873,2011,movie,0,NULL,285984,82611,203373,USD
+nm1107001,Anthony Mackie,Real Steel,actor,tt0433035,2011,movie,110000000,USD,299268508,213800000,85468508,USD
+nm1107001,Anthony Mackie,The Adjustment Bureau,actor,tt1385826,2011,movie,50200000,USD,127869379,65373734,62495645,USD
+nm1107001,Anthony Mackie,30 for 30,actor,tt1408430,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm1107001,Anthony Mackie,Louis,actor,tt1093902,NA,movie,NA,NA,NA,NA,NA,NA
+nm1107001,Anthony Mackie,Night Catches Us,actor,tt0775543,2010,movie,0,NULL,76185,NA,NA,USD
+nm1107001,Anthony Mackie,Desert Flower,actor,tt1054580,2009,movie,0,NULL,14682943,14638595,44348,USD
+nm1107001,Anthony Mackie,Notorious,actor,tt0472198,2009,movie,20000000,USD,44420167,7576485,36843682,USD
+nm1107001,Anthony Mackie,Eagle Eye,actor,tt1059786,2008,movie,80000000,USD,178767383,77326640,101440743,USD
+nm1107001,Anthony Mackie,The Hurt Locker,actor,tt0887912,2008,movie,15000000,USD,49259766,32241955,17017811,USD
+nm1107001,Anthony Mackie,American Violet,actor,tt1152397,2008,movie,0,NULL,554434,NA,NA,USD
+nm1107001,Anthony Mackie,We Are Marshall,actor,tt0758794,2006,movie,65000000,USD,43545364,NA,NA,USD
+nm1107001,Anthony Mackie,Crossover,actor,tt0473024,2006,movie,5800000,USD,7009668,NA,NA,USD
+nm1107001,Anthony Mackie,Heavens Fall,actor,tt0425094,NA,movie,NA,NA,NA,NA,NA,NA
+nm1107001,Anthony Mackie,Freedomland,actor,tt0349467,2006,movie,37665000,USD,14655628,2142742,12512886,USD
+nm1107001,Anthony Mackie,Half Nelson,actor,tt0468489,2006,movie,700000,USD,4660481,1962543,2697938,USD
+nm1107001,Anthony Mackie,The Man,actor,tt0399327,2005,movie,33000000,USD,13485145,5154425,8330720,USD
+nm1107001,Anthony Mackie,Million Dollar Baby,actor,tt0405159,2004,movie,30000000,USD,216763646,116271443,100492203,USD
+nm1107001,Anthony Mackie,Haven,actor,tt0386504,2004,movie,0,NULL,197312,54829,142483,USD
+nm1107001,Anthony Mackie,She Hate Me,actor,tt0384533,2004,movie,8000000,USD,1526951,1160914,366037,USD
+nm1107001,Anthony Mackie,The Manchurian Candidate,actor,tt0368008,2004,movie,80000000,USD,96105910,30150280,65955630,USD
+nm1107001,Anthony Mackie,Brother to Brother,actor,tt0306597,2004,movie,0,NULL,80906,NA,NA,USD
+nm1107001,Anthony Mackie,Law & Order: Criminal Intent,actor,tt0275140,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm1107001,Anthony Mackie,Hollywood Homicide,actor,tt0329717,2003,movie,75000000,USD,51142659,20201968,30940691,USD
+nm1107001,Anthony Mackie,8 Mile,actor,tt0298203,2002,movie,41000000,USD,242875078,126124177,116750901,USD
+nm1107001,Anthony Mackie,As If,actor,tt0313034,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0749263,Mark Ruffalo,The Adam Project,actor,tt2463208,NA,movie,NA,NA,NA,NA,NA,NA
+nm0749263,Mark Ruffalo,What If...?,actor,tt10168312,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0749263,Mark Ruffalo,Shang-Chi and the Legend of the Ten Rings,actor,tt9376612,2021,movie,200000000,USD,432243292,207700000,224543292,USD
+nm0749263,Mark Ruffalo,I Know This Much Is True,actor,tt0425118,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0749263,Mark Ruffalo,Dark Waters,actor,tt9071322,2019,movie,0,NULL,23108017,11971933,11136084,USD
+nm0749263,Mark Ruffalo,Avengers: Endgame,actor,tt4154796,2019,movie,356000000,USD,2797501328,1939128328,858373000,USD
+nm0749263,Mark Ruffalo,Captain Marvel,actor,tt4154664,2019,movie,160000000,USD,1128462972,701633133,426829839,USD
+nm0749263,Mark Ruffalo,Avengers: Infinity War,actor,tt4154756,2018,movie,321000000,USD,2048359754,1369544272,678815482,USD
+nm0749263,Mark Ruffalo,Thor: Ragnarok,actor,tt3501632,2017,movie,180000000,USD,853983911,538925622,315058289,USD
+nm0749263,Mark Ruffalo,Now You See Me 2,actor,tt3110958,2016,movie,90000000,USD,334897606,269822066,65075540,USD
+nm0749263,Mark Ruffalo,Spotlight,actor,tt1895587,2015,movie,20000000,USD,98690254,53634478,45055776,USD
+nm0749263,Mark Ruffalo,Avengers: Age of Ultron,actor,tt2395427,2015,movie,250000000,USD,1402809540,943803672,459005868,USD
+nm0749263,Mark Ruffalo,Foxcatcher,actor,tt1100089,2014,movie,24000000,USD,19206513,7110213,12096300,USD
+nm0749263,Mark Ruffalo,Infinitely Polar Bear,actor,tt1969062,2014,movie,6700000,USD,1824678,394023,1430655,USD
+nm0749263,Mark Ruffalo,Begin Again,actor,tt1980929,2013,movie,8000000,USD,65652908,49482276,16170632,USD
+nm0749263,Mark Ruffalo,Now You See Me,actor,tt1670345,2013,movie,75000000,USD,351723989,234000000,117723989,USD
+nm0749263,Mark Ruffalo,Iron Man 3,actor,tt1300854,2013,movie,200000000,USD,1214811252,805797258,409013994,USD
+nm0749263,Mark Ruffalo,Thanks for Sharing,actor,tt1932718,2012,movie,0,NULL,3499442,2433561,1065881,USD
+nm0749263,Mark Ruffalo,The Avengers,actor,tt0848228,2012,movie,220000000,USD,1518815515,895457605,623357910,USD
+nm0749263,Mark Ruffalo,Margaret,actor,tt0466893,2011,movie,14000000,USD,564864,518369,46495,USD
+nm0749263,Mark Ruffalo,Date Night,actor,tt1279935,2010,movie,55000000,USD,152263880,53552476,98711404,USD
+nm0749263,Mark Ruffalo,Shutter Island,actor,tt1130884,2010,movie,80000000,USD,294805697,166792763,128012934,USD
+nm0749263,Mark Ruffalo,The Kids Are All Right,actor,tt0842926,2010,movie,4000000,USD,34758951,13947586,20811365,USD
+nm0749263,Mark Ruffalo,Sympathy for Delicious,actor,tt1270277,2010,movie,0,NULL,13826,NA,NA,USD
+nm0749263,Mark Ruffalo,Where the Wild Things Are,actor,tt0386117,2009,movie,100000000,USD,100140916,22907449,77233467,USD
+nm0749263,Mark Ruffalo,What Doesn't Kill You,actor,tt1133991,2008,movie,0,NULL,44872,44872,0,USD
+nm0749263,Mark Ruffalo,The Brothers Bloom,actor,tt0844286,2008,movie,20000000,USD,5530764,1999008,3531756,USD
+nm0749263,Mark Ruffalo,Blindness,actor,tt0861689,2008,movie,25000000,USD,19844979,16493228,3351751,USD
+nm0749263,Mark Ruffalo,Reservation Road,actor,tt0831884,2007,movie,11000000,USD,1783226,1661232,121994,USD
+nm0749263,Mark Ruffalo,Zodiac,actor,tt0443706,2007,movie,65000000,USD,84785914,51705830,33080084,USD
+nm0749263,Mark Ruffalo,Chicago 10,actor,tt0905979,2007,movie,0,NULL,177490,NA,NA,USD
+nm0749263,Mark Ruffalo,All the King's Men,actor,tt0405676,2006,movie,55000000,USD,9451623,2230165,7221458,USD
+nm0749263,Mark Ruffalo,Rumor Has It...,actor,tt0398375,2005,movie,55000000,USD,88933562,45933300,43000262,USD
+nm0749263,Mark Ruffalo,Just Like Heaven,actor,tt0425123,2005,movie,58000000,USD,102854431,54536301,48318130,USD
+nm0749263,Mark Ruffalo,Collateral,actor,tt0369339,2004,movie,65000000,USD,220239925,119234222,101005703,USD
+nm0749263,Mark Ruffalo,13 Going on 30,actor,tt0337563,2004,movie,37000000,USD,96455697,39223950,57231747,USD
+nm0749263,Mark Ruffalo,Eternal Sunshine of the Spotless Mind,actor,tt0338013,2004,movie,20000000,USD,74036715,39636414,34400301,USD
+nm0749263,Mark Ruffalo,We Don't Live Here Anymore,actor,tt0361309,2004,movie,3000000,USD,3361213,1320199,2041014,USD
+nm0749263,Mark Ruffalo,In the Cut,actor,tt0199626,2003,movie,12000000,USD,23726793,18976191,4750602,USD
+nm0749263,Mark Ruffalo,View from the Top,actor,tt0264150,2003,movie,30000000,USD,19526014,3912014,15614000,USD
+nm0749263,Mark Ruffalo,My Life Without Me,actor,tt0314412,2003,movie,2000000,EUR,9781854,9380906,400948,USD
+nm0749263,Mark Ruffalo,Windtalkers,actor,tt0245562,2002,movie,115000000,USD,77628265,36714197,40914068,USD
+nm0749263,Mark Ruffalo,XX/XY,actor,tt0245573,2002,movie,0,NULL,104130,NA,NA,USD
+nm0749263,Mark Ruffalo,The Last Castle,actor,tt0272020,2001,movie,72000000,USD,27642707,9398647,18244060,USD
+nm0749263,Mark Ruffalo,Apartment 12,actor,tt0156741,NA,movie,NA,NA,NA,NA,NA,NA
+nm0749263,Mark Ruffalo,The Beat,actor,tt0231013,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0749263,Mark Ruffalo,You Can Count on Me,actor,tt0203230,2000,movie,1200000,USD,11242521,1825717,9416804,USD
+nm0749263,Mark Ruffalo,Committed,actor,tt0144142,2000,movie,3000000,USD,40361,NA,NA,USD
+nm0749263,Mark Ruffalo,Ride with the Devil,actor,tt0134154,1999,movie,38000000,USD,635096,NA,NA,USD
+nm0749263,Mark Ruffalo,54,actor,tt0120577,1998,movie,13000000,USD,16757163,NA,NA,USD
+nm0749263,Mark Ruffalo,Safe Men,actor,tt0120813,1998,movie,1000000,USD,45724,NA,NA,USD
+nm0749263,Mark Ruffalo,A Fish in the Bathtub,actor,tt0126908,1998,movie,0,NULL,1237,NA,NA,USD
+nm0749263,Mark Ruffalo,The Last Big Thing,actor,tt0161743,1996,movie,0,NULL,22731,NA,NA,USD
+nm0749263,Mark Ruffalo,Blood Money,actor,tt0115709,NA,movie,NA,NA,NA,NA,NA,NA
+nm0749263,Mark Ruffalo,The Dentist,actor,tt0116075,NA,movie,NA,NA,NA,NA,NA,NA
+nm0749263,Mark Ruffalo,The Destiny of Marty Fine,actor,tt0116088,NA,movie,NA,NA,NA,NA,NA,NA
+nm0749263,Mark Ruffalo,Mirror Mirror 3: The Voyeur,actor,tt0199772,NA,movie,NA,NA,NA,NA,NA,NA
+nm0749263,Mark Ruffalo,Due South,actor,tt0108756,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0749263,Mark Ruffalo,There Goes My Baby,actor,tt0108320,1994,movie,10500000,USD,123509,NA,NA,USD
+nm0749263,Mark Ruffalo,A Gift from Heaven,actor,tt0109897,NA,movie,NA,NA,NA,NA,NA,NA
+nm0749263,Mark Ruffalo,Mirror Mirror 2: Raven Dance,actor,tt0110530,NA,movie,NA,NA,NA,NA,NA,NA
+nm0749263,Mark Ruffalo,CBS Summer Playhouse,actor,tt0346222,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm8473618,NA,Family Covenant,actor,tt6102062,NA,movie,NA,NA,NA,NA,NA,NA
+nm0079273,Paul Bettany,A Very British Scandal,actor,tt14220870,NA,tvMiniSeries,NA,NA,NA,NA,NA,NA
+nm0079273,Paul Bettany,What If...?,actor,tt10168312,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0079273,Paul Bettany,WandaVision,actor,tt9140560,NA,tvMiniSeries,NA,NA,NA,NA,NA,NA
+nm0079273,Paul Bettany,Uncle Frank,actor,tt11327514,NA,movie,NA,NA,NA,NA,NA,NA
+nm0079273,Paul Bettany,Solo: A Star Wars Story,actor,tt3778644,2018,movie,275000000,USD,392924807,179157295,213767512,USD
+nm0079273,Paul Bettany,Avengers: Infinity War,actor,tt4154756,2018,movie,321000000,USD,2048359754,1369544272,678815482,USD
+nm0079273,Paul Bettany,Manhunt,actor,tt5618256,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0079273,Paul Bettany,Journey's End,actor,tt3780500,2017,movie,0,NULL,970809,809013,161796,USD
+nm0079273,Paul Bettany,Captain America: Civil War,actor,tt3498820,2016,movie,250000000,USD,1153337496,745253147,408084349,USD
+nm0079273,Paul Bettany,Legend,actor,tt3569230,2015,movie,30000000,USD,42972994,41100000,1872994,USD
+nm0079273,Paul Bettany,Avengers: Age of Ultron,actor,tt2395427,2015,movie,250000000,USD,1402809540,943803672,459005868,USD
+nm0079273,Paul Bettany,Mortdecai,actor,tt3045616,2015,movie,60000000,USD,47275717,39579583,7696134,USD
+nm0079273,Paul Bettany,Transcendence,actor,tt2209764,2014,movie,100000000,USD,103039258,80016949,23022309,USD
+nm0079273,Paul Bettany,Iron Man 3,actor,tt1300854,2013,movie,200000000,USD,1214811252,805797258,409013994,USD
+nm0079273,Paul Bettany,Blood,actor,tt2078552,NA,movie,NA,NA,NA,NA,NA,NA
+nm0079273,Paul Bettany,The Avengers,actor,tt0848228,2012,movie,220000000,USD,1518815515,895457605,623357910,USD
+nm0079273,Paul Bettany,Priest,actor,tt0822847,2011,movie,60000000,USD,78309505,49172505,29137000,USD
+nm0079273,Paul Bettany,Margin Call,actor,tt1615147,2011,movie,3500000,USD,19504039,14150000,5354039,USD
+nm0079273,Paul Bettany,The Tourist,actor,tt1243957,2010,movie,100000000,USD,278780441,211149284,67631157,USD
+nm0079273,Paul Bettany,Iron Man 2,actor,tt1228705,2010,movie,200000000,USD,623933331,311500000,312433331,USD
+nm0079273,Paul Bettany,Legion,actor,tt1038686,2010,movie,26000000,USD,67918658,27750578,40168080,USD
+nm0079273,Paul Bettany,Creation,actor,tt0974014,2009,movie,10000000,GBP,2058675,1717352,341323,USD
+nm0079273,Paul Bettany,The Young Victoria,actor,tt0962736,2009,movie,35000000,USD,29196409,18195137,11001272,USD
+nm0079273,Paul Bettany,Inkheart,actor,tt0494238,2008,movie,60000000,USD,62803180,45499756,17303424,USD
+nm0079273,Paul Bettany,The Secret Life of Bees,actor,tt0416212,2008,movie,11000000,USD,39952437,2182275,37770162,USD
+nm0079273,Paul Bettany,Broken Lines,actor,tt0787519,2008,movie,0,NULL,1611,1611,0,USD
+nm0079273,Paul Bettany,Iron Man,actor,tt0371746,2008,movie,140000000,USD,585796247,266762121,319034126,USD
+nm0079273,Paul Bettany,The Da Vinci Code,actor,tt0382625,2006,movie,125000000,USD,760006945,542470807,217536138,USD
+nm0079273,Paul Bettany,Firewall,actor,tt0408345,2006,movie,50000000,USD,82751189,34000000,48751189,USD
+nm0079273,Paul Bettany,Wimbledon,actor,tt0360201,2004,movie,31000000,USD,41682237,24681104,17001133,USD
+nm0079273,Paul Bettany,Master and Commander: The Far Side of the World,actor,tt0311113,2003,movie,150000000,USD,211622535,117694615,93927920,USD
+nm0079273,Paul Bettany,Dogville,actor,tt0276919,2003,movie,10000000,USD,16689283,15153997,1535286,USD
+nm0079273,Paul Bettany,The Reckoning,actor,tt0258816,2002,movie,0,NULL,1152528,895276,257252,USD
+nm0079273,Paul Bettany,The Heart of Me,actor,tt0301390,2002,movie,7000000,USD,282519,86452,196067,USD
+nm0079273,Paul Bettany,A Beautiful Mind,actor,tt0268978,2001,movie,58000000,USD,316791257,146048916,170742341,USD
+nm0079273,Paul Bettany,Kiss Kiss Bang Bang,actor,tt0228488,NA,movie,NA,NA,NA,NA,NA,NA
+nm0079273,Paul Bettany,A Knight's Tale,actor,tt0183790,2001,movie,65000000,USD,117487473,60917771,56569702,USD
+nm0079273,Paul Bettany,Dead Babies,actor,tt0218138,NA,movie,NA,NA,NA,NA,NA,NA
+nm0079273,Paul Bettany,Gangster No. 1,actor,tt0210065,2000,movie,0,NULL,30915,NA,NA,USD
+nm0079273,Paul Bettany,The Suicide Club,actor,tt0249172,NA,movie,NA,NA,NA,NA,NA,NA
+nm0079273,Paul Bettany,After the Rain,actor,tt0202782,NA,movie,NA,NA,NA,NA,NA,NA
+nm0079273,Paul Bettany,Every Woman Knows a Secret,actor,tt0198111,NA,tvMiniSeries,NA,NA,NA,NA,NA,NA
+nm0079273,Paul Bettany,Killer Net,actor,tt0127383,NA,tvMiniSeries,NA,NA,NA,NA,NA,NA
+nm0079273,Paul Bettany,Coming Home,actor,tt0158653,NA,tvMiniSeries,NA,NA,NA,NA,NA,NA
+nm0079273,Paul Bettany,The Land Girls,actor,tt0119494,1998,movie,0,NULL,238497,NA,NA,USD
+nm0079273,Paul Bettany,Bent,actor,tt0118698,1997,movie,0,NULL,496059,NA,NA,USD
+nm0079273,Paul Bettany,Sharpe,actor,tt12749392,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0079273,Paul Bettany,The Bill,actor,tt0084987,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0079273,Paul Bettany,Wycliffe,actor,tt0108992,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0079453,NA,Rose Thorn,actor,tt4667102,NA,movie,NA,NA,NA,NA,NA,NA
+nm0079453,NA,The Bill,actor,tt0084987,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0079453,NA,Trial & Retribution,actor,tt1511543,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,The Wonder Years,actor,tt12682076,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,The Boys Presents: Diabolical,actor,tt16350094,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,What If...?,actor,tt10168312,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,Black Monday,actor,tt7406334,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,Space Jam: A New Legacy,actor,tt3554046,2021,movie,150000000,USD,162892228,92300000,70592228,USD
+nm0000332,Don Cheadle,No Sudden Move,actor,tt11525644,NA,movie,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,With/in: Volume 1,actor,tt12802708,NA,movie,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,The Falcon and the Winter Soldier,actor,tt9208876,NA,tvMiniSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,Don't Look Deeper,actor,tt10488234,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,DuckTales,actor,tt5531466,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,Avengers: Endgame,actor,tt4154796,2019,movie,356000000,USD,2797501328,1939128328,858373000,USD
+nm0000332,Don Cheadle,Captain Marvel,actor,tt4154664,2019,movie,160000000,USD,1128462972,701633133,426829839,USD
+nm0000332,Don Cheadle,Avengers: Infinity War,actor,tt4154756,2018,movie,321000000,USD,2048359754,1369544272,678815482,USD
+nm0000332,Don Cheadle,Kevin Hart: What Now?,actor,tt4669186,2016,movie,9900000,USD,23591043,NA,NA,USD
+nm0000332,Don Cheadle,House of Lies,actor,tt1797404,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,Captain America: Civil War,actor,tt3498820,2016,movie,250000000,USD,1153337496,745253147,408084349,USD
+nm0000332,Don Cheadle,Miles Ahead,actor,tt0790770,2015,movie,0,NULL,3473958,863062,2610896,USD
+nm0000332,Don Cheadle,Avengers: Age of Ultron,actor,tt2395427,2015,movie,250000000,USD,1402809540,943803672,459005868,USD
+nm0000332,Don Cheadle,Iron Man 3,actor,tt1300854,2013,movie,200000000,USD,1214811252,805797258,409013994,USD
+nm0000332,Don Cheadle,30 Rock,actor,tt0496424,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,Flight,actor,tt1907668,2012,movie,31000000,USD,161772375,68000000,93772375,USD
+nm0000332,Don Cheadle,The Guard,actor,tt1540133,2011,movie,6000000,USD,19561904,14201630,5360274,USD
+nm0000332,Don Cheadle,Iron Man 2,actor,tt1228705,2010,movie,200000000,USD,623933331,311500000,312433331,USD
+nm0000332,Don Cheadle,Drunk History,actor,tt1503278,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,Brooklyn's Finest,actor,tt1210042,2009,movie,17000000,USD,45719985,18556392,27163593,USD
+nm0000332,Don Cheadle,Hotel for Dogs,actor,tt0785006,2009,movie,35000000,USD,117252578,44218118,73034460,USD
+nm0000332,Don Cheadle,Traitor,actor,tt0988047,2008,movie,22000000,USD,27675014,4144183,23530831,USD
+nm0000332,Don Cheadle,Ocean's Thirteen,actor,tt0496806,2007,movie,85000000,USD,311312624,194157900,117154724,USD
+nm0000332,Don Cheadle,Reign Over Me,actor,tt0490204,2007,movie,20000000,USD,22242388,2580401,19661987,USD
+nm0000332,Don Cheadle,Talk to Me,actor,tt0796368,2007,movie,0,NULL,4778376,245115,4533261,USD
+nm0000332,Don Cheadle,The Dog Problem,actor,tt0486572,2006,movie,0,NULL,1344,NA,NA,USD
+nm0000332,Don Cheadle,Ocean's Twelve,actor,tt0349903,2004,movie,110000000,USD,362744280,237200000,125544280,USD
+nm0000332,Don Cheadle,After the Sunset,actor,tt0367479,2004,movie,60000000,USD,62657868,34326635,28331233,USD
+nm0000332,Don Cheadle,Hotel Rwanda,actor,tt0395169,2004,movie,17500000,USD,33882243,10351351,23530892,USD
+nm0000332,Don Cheadle,Crash,actor,tt0375679,2004,movie,6500000,USD,98410061,43829761,54580300,USD
+nm0000332,Don Cheadle,The Assassination of Richard Nixon,actor,tt0364961,2004,movie,0,NULL,4426087,3717311,708776,USD
+nm0000332,Don Cheadle,MADtv,actor,tt0112056,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,Biography,actor,tt0092322,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,The United States of Leland,actor,tt0301976,2003,movie,0,NULL,343847,NA,NA,USD
+nm0000332,Don Cheadle,ER,actor,tt0108757,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,The Bernie Mac Show,actor,tt0285341,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,Animated Tales of the World,actor,tt0389571,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,Ocean's Eleven,actor,tt0240772,2001,movie,85000000,USD,450717150,267300000,183417150,USD
+nm0000332,Don Cheadle,Rush Hour 2,actor,tt0266915,2001,movie,90000000,USD,347325802,121161516,226164286,USD
+nm0000332,Don Cheadle,Swordfish,actor,tt0244244,2001,movie,102000000,USD,147080413,77307444,69772969,USD
+nm0000332,Don Cheadle,Manic,actor,tt0252684,2001,movie,0,NULL,69958,NA,NA,USD
+nm0000332,Don Cheadle,Things Behind the Sun,actor,tt0245501,NA,movie,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,The Family Man,actor,tt0218967,2000,movie,60000000,USD,124745083,48951778,75793305,USD
+nm0000332,Don Cheadle,Traffic,actor,tt0181865,2000,movie,48000000,USD,207515725,83400000,124115725,USD
+nm0000332,Don Cheadle,Mission to Mars,actor,tt0183523,2000,movie,100000000,USD,110983407,50100000,60883407,USD
+nm0000332,Don Cheadle,The Simpsons,actor,tt0096697,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,Out of Sight,actor,tt0120780,1998,movie,48000000,USD,77745966,40183398,37562568,USD
+nm0000332,Don Cheadle,Bulworth,actor,tt0118798,1998,movie,30000000,USD,29202884,2674699,26528185,USD
+nm0000332,Don Cheadle,Boogie Nights,actor,tt0118749,1997,movie,15000000,USD,43117303,16700954,26416349,USD
+nm0000332,Don Cheadle,Volcano,actor,tt0120461,1997,movie,90000000,USD,122823468,73500000,49323468,USD
+nm0000332,Don Cheadle,Rosewood,actor,tt0120036,1997,movie,25000000,USD,13130349,NA,NA,USD
+nm0000332,Don Cheadle,Picket Fences,actor,tt0103512,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,Devil in a Blue Dress,actor,tt0112857,1995,movie,27000000,USD,16140822,NA,NA,USD
+nm0000332,Don Cheadle,Things to Do in Denver When You're Dead,actor,tt0114660,1995,movie,7000000,USD,529766,NA,NA,USD
+nm0000332,Don Cheadle,Hangin' with Mr. Cooper,actor,tt0103435,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,The Meteor Man,actor,tt0107563,1993,movie,20000000,USD,8016708,NA,NA,USD
+nm0000332,Don Cheadle,The Golden Palace,actor,tt0103426,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,Roadside Prophets,actor,tt0105267,1992,movie,0,NULL,147724,NA,NA,USD
+nm0000332,Don Cheadle,The Fresh Prince of Bel-Air,actor,tt0098800,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,China Beach,actor,tt0094433,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,Booker,actor,tt0096550,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,Colors,actor,tt0094894,1988,movie,6000000,USD,46616067,NA,NA,USD
+nm0000332,Don Cheadle,Night Court,actor,tt0086770,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,Hooperman,actor,tt0092373,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,Hamburger Hill,actor,tt0093137,1987,movie,0,NULL,13839404,NA,NA,USD
+nm0000332,Don Cheadle,The Bronx Zoo,actor,tt0092326,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,Hill Street Blues,actor,tt0081873,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,L.A. Law,actor,tt0090466,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,Fame,actor,tt0083412,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,Sidekicks,actor,tt0090519,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0000332,Don Cheadle,Moving Violations,actor,tt0089629,1985,movie,0,NULL,10627754,NA,NA,USD
+nm0719637,Jeremy Renner,Mayor of Kingstown,actor,tt11712058,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0719637,Jeremy Renner,Hawkeye,actor,tt10160804,NA,tvMiniSeries,NA,NA,NA,NA,NA,NA
+nm0719637,Jeremy Renner,What If...?,actor,tt10168312,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0719637,Jeremy Renner,Arctic Dogs,actor,tt4426464,2019,movie,61000000,CAD,9872644,4071395,5801249,USD
+nm0719637,Jeremy Renner,Avengers: Endgame,actor,tt4154796,2019,movie,356000000,USD,2797501328,1939128328,858373000,USD
+nm0719637,Jeremy Renner,Tag,actor,tt2854926,2018,movie,28000000,USD,78130625,23400000,54730625,USD
+nm0719637,Jeremy Renner,The House,actor,tt4481514,2017,movie,40000000,USD,34184504,8600000,25584504,USD
+nm0719637,Jeremy Renner,Wind River,actor,tt5362988,2017,movie,11000000,USD,44202682,10401823,33800859,USD
+nm0719637,Jeremy Renner,Arrival,actor,tt2543164,2016,movie,47000000,USD,203388186,102842047,100546139,USD
+nm0719637,Jeremy Renner,Captain America: Civil War,actor,tt3498820,2016,movie,250000000,USD,1153337496,745253147,408084349,USD
+nm0719637,Jeremy Renner,Mission: Impossible - Rogue Nation,actor,tt2381249,2015,movie,150000000,USD,682716636,487674259,195042377,USD
+nm0719637,Jeremy Renner,Avengers: Age of Ultron,actor,tt2395427,2015,movie,250000000,USD,1402809540,943803672,459005868,USD
+nm0719637,Jeremy Renner,Kill the Messenger,actor,tt1216491,2014,movie,0,NULL,5218973,2768127,2450846,USD
+nm0719637,Jeremy Renner,Louie,actor,tt1492966,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0719637,Jeremy Renner,The World Wars,actor,tt3543006,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0719637,Jeremy Renner,American Hustle,actor,tt1800241,2013,movie,40000000,USD,251171807,101054000,150117807,USD
+nm0719637,Jeremy Renner,Saturday Night Live: Cut for Time,actor,tt9881938,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0719637,Jeremy Renner,The Immigrant,actor,tt1951181,2013,movie,16000000,USD,5952884,3927556,2025328,USD
+nm0719637,Jeremy Renner,Hansel & Gretel: Witch Hunters,actor,tt1428538,2013,movie,50000000,USD,226349749,170646274,55703475,USD
+nm0719637,Jeremy Renner,The Bourne Legacy,actor,tt1194173,2012,movie,125000000,USD,276144750,162940880,113203870,USD
+nm0719637,Jeremy Renner,The Avengers,actor,tt0848228,2012,movie,220000000,USD,1518815515,895457605,623357910,USD
+nm0719637,Jeremy Renner,Robot Chicken,actor,tt0437745,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0719637,Jeremy Renner,Mission: Impossible - Ghost Protocol,actor,tt1229238,2011,movie,145000000,USD,694713380,485315477,209397903,USD
+nm0719637,Jeremy Renner,Thor,actor,tt0800369,2011,movie,150000000,USD,449326618,268295994,181030624,USD
+nm0719637,Jeremy Renner,The Town,actor,tt0840361,2010,movie,37000000,USD,154026136,61839874,92186262,USD
+nm0719637,Jeremy Renner,The Unusuals,actor,tt1240976,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0719637,Jeremy Renner,Ingenious,actor,tt0991174,NA,movie,NA,NA,NA,NA,NA,NA
+nm0719637,Jeremy Renner,The Oaks,actor,tt1082514,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0719637,Jeremy Renner,The Hurt Locker,actor,tt0887912,2008,movie,15000000,USD,49259766,32241955,17017811,USD
+nm0719637,Jeremy Renner,House,actor,tt0412142,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0719637,Jeremy Renner,The Assassination of Jesse James by the Coward Robert Ford,actor,tt0443680,2007,movie,30000000,USD,15001776,11092627,3909149,USD
+nm0719637,Jeremy Renner,Take,actor,tt0815138,2007,movie,0,NULL,6627,NA,NA,USD
+nm0719637,Jeremy Renner,28 Weeks Later,actor,tt0463854,2007,movie,15000000,USD,65048678,36409762,28638916,USD
+nm0719637,Jeremy Renner,Love Comes to the Executioner,actor,tt0383478,NA,movie,NA,NA,NA,NA,NA,NA
+nm0719637,Jeremy Renner,A Little Trip to Heaven,actor,tt0420740,2005,movie,12000000,USD,132050,132050,0,USD
+nm0719637,Jeremy Renner,North Country,actor,tt0395972,2005,movie,35000000,USD,25211175,6873453,18337722,USD
+nm0719637,Jeremy Renner,12 and Holding,actor,tt0417385,2005,movie,400000,USD,119195,22731,96464,USD
+nm0719637,Jeremy Renner,Lords of Dogtown,actor,tt0355702,2005,movie,25000000,USD,13411957,2138440,11273517,USD
+nm0719637,Jeremy Renner,Neo Ned,actor,tt0364556,NA,movie,NA,NA,NA,NA,NA,NA
+nm0719637,Jeremy Renner,The Heart Is Deceitful Above All Things,actor,tt0368774,2004,movie,0,NULL,217499,188441,29058,USD
+nm0719637,Jeremy Renner,S.W.A.T.,actor,tt0257076,2003,movie,80000000,USD,207725639,90790989,116934650,USD
+nm0719637,Jeremy Renner,Dahmer,actor,tt0285728,2002,movie,250000,USD,144008,NA,NA,USD
+nm0719637,Jeremy Renner,Monkey Love,actor,tt0272196,NA,movie,NA,NA,NA,NA,NA,NA
+nm0719637,Jeremy Renner,CSI: Crime Scene Investigation,actor,tt0247082,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0719637,Jeremy Renner,Fish in a Barrel,actor,tt0294578,NA,movie,NA,NA,NA,NA,NA,NA
+nm0719637,Jeremy Renner,Angel,actor,tt0162065,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0719637,Jeremy Renner,Time of Your Life,actor,tt0178165,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0719637,Jeremy Renner,The Net,actor,tt0163953,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0719637,Jeremy Renner,To Have & to Hold,actor,tt0144071,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0719637,Jeremy Renner,Paper Dragons,actor,tt0117288,NA,movie,NA,NA,NA,NA,NA,NA
+nm0719637,Jeremy Renner,Strange Luck,actor,tt0112182,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0719637,Jeremy Renner,Deadly Games,actor,tt0111937,NA,tvSeries,NA,NA,NA,NA,NA,NA
+nm0719637,Jeremy Renner,National Lampoon's Senior Trip,actor,tt0113936,1995,movie,0,NULL,4686937,NA,NA,USD
+nm8531839,NA,En Coloc,actor,tt5931394,NA,tvMiniSeries,NA,NA,NA,NA,NA,NA

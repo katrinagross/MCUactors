@@ -1,0 +1,83 @@
+---
+title: "Analysis"
+author: "Katrina Gross"
+date: "4/18/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+```{r}
+
+library(ggplot2)
+library(tidyverse)
+library(scales)
+```
+
+```{r}
+
+film_data <- read_csv("filmography_awards-masterfile-currency.csv")
+
+MCU_tv <- c("Loki", "What if...?", "Hawkeye", "The Falcon and the Winter Soldier", "WandaVision")
+
+film_data <- film_data %>%
+  mutate(release_date = as.Date(release_date, format =  "%Y-%m-%d"),
+         year = format(as.Date(release_date, format="%Y-%m-%d"),"%Y"),
+         MCU_tv = ifelse(title %in% MCU_tv, 1, 0),
+         MCU = ifelse(MCU_film  == 1 | MCU_tv == 1, "MCU", "Non-MCU"),
+         MCU = factor(MCU)) 
+
+
+actors_rm <- c("Mickey Rourke", "Hugo Weaving", "Anthony Hopkins", "Vin Diesel",
+                "Chiwetel Ejiofor", "Liv Tyler", "Guy Pearce", "Edward Norton", "Michael Keaton")
+
+#maybe also:  "Edward Norton", "Michael Keaton", "Gwyneth Paltrow"  
+
+idscheck <- film_data %>%
+  select(c(actor_id, actor_name)) %>%
+  distinct()
+
+ids_rm <- c("nm4718969", "nm0748621", "nm2212645", "nm9985479", "nm0390847", "nm0636201")
+
+# add sebastian stan | elizabeth olsen | Anthony Mackie | Mark Ruffulo | Paul Bettany | Don Cheadle | Jeremy Renner
+
+film_clean <- film_data %>%
+  dplyr::filter(!(actor_name %in% actors_rm)) %>%
+  dplyr::filter(!(actor_id %in% ids_rm)) %>%
+  dplyr::filter(year != 1400) %>%
+  dplyr::filter(title != "Saturday Night Live") 
+
+
+
+```
+
+# try out some options before d3
+
+```{r}
+
+g1 <- film_clean %>%
+  filter(year >= 1990) %>%
+  filter(type == "movie") %>%
+  ggplot(aes(x = release_date, y = actor_name, color = MCU, size = budget_USD)) +
+  scale_size(range = c(1,4)) +
+  scale_x_date(date_breaks = "5 years", date_labels = "%Y") +
+  geom_point(aplha = 0.8) +
+  theme_minimal()
+
+g1
+
+g2 <- film_clean %>%
+  filter(year >= 1990) %>%
+  filter(type == "tvSeries" | type == "tvMiniSeries") %>%
+  ggplot(aes(x = release_date, y = actor_name, color = MCU)) +
+  scale_x_date(date_breaks = "5 years", date_labels = "%Y") +
+  geom_point(aplha = 0.8) +
+  theme_minimal()
+
+g2
+
+```
+
+
