@@ -1,0 +1,158 @@
+---
+title: "Actor Success Over Time"
+author: "Andrew Ward"
+date: "4/18/2022"
+output: html_document
+---
+
+```{r}
+library(readr)
+library(tidyverse)
+library(plotly)
+filmography_awards_masterfile <- read_csv("MCU_filmography_final_version.csv")
+head(filmography_awards_masterfile)
+
+```
+
+
+```{r}
+# all movies Box Office Success, Colored by MCU
+
+gT <- ggplot(filmography_awards_masterfile, aes(x = release_date, y = `World-wide`, color = MCU, text = title)) +
+  geom_point()
+
+ggplotly(gT)
+
+```
+
+
+
+```{r}
+# all movies International Box Office Success, Colored by MCU
+
+gI <- ggplot(filmography_awards_masterfile, aes(x = release_date, y = International, color = MCU, text = title)) +
+  geom_point()
+
+ggplotly(gI)
+
+```
+
+
+```{r}
+# all movies Domestic Box Office Success, Colored by MCU
+
+gD <- ggplot(filmography_awards_masterfile, aes(x = release_date, y = Domestic, color = MCU, text = title)) +
+  geom_point()
+
+ggplotly(gD)
+
+```
+
+
+
+
+
+
+
+```{r}
+# Include just MCU movies
+
+MCU_films <- filmography_awards_masterfile %>%
+  filter(MCU == "MCU") %>%
+  group_by(title)
+
+head(group_by_MCU)
+
+```
+
+```{r}
+# Box Office Success for MCU movies over time
+g2 <- ggplot(MCU_films, aes(x = release_date, y = `World-wide`, color = budget_USD, text = actor_name)) +
+  geom_point()
+
+ggplotly(g2)
+
+```
+
+
+```{r}
+# Budget vs Box Office Success for MCU movies
+gBvB <- ggplot(data= MCU_films, aes(x= budget_USD, y= `World-wide`, text = title)) +
+  geom_point()
+
+ggplotly(gBvB)
+
+```
+
+
+
+```{r}
+# International vs Domestic Box OFfice Success for MCU movies
+gIvD <- ggplot(data= MCU_films, aes(x= Domestic, y= International, text= title)) +
+  geom_point()
+
+ggplotly(gIvD)
+
+```
+
+
+
+```{r}
+# Actor with best Box Office Success overall
+
+group_by_actor <- filmography_awards_masterfile %>%
+  filter(type == "Movie") %>%
+  group_by(actor_name) %>%
+  summarize(Avg_BO_Success = mean(`World-wide`, na.rm= TRUE))
+
+group_by_actor
+
+gABOS <- ggplot(data= group_by_actor, aes(x= actor_name, y= Avg_BO_Success)) +
+  geom_point() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+gABOS
+
+```
+
+```{r}
+# Actor with best Box Office Success in MCU films vs Non-MCU films
+
+actor_grouped_MCU <- filmography_awards_masterfile %>%
+  filter(MCU == "MCU") %>%
+  group_by(actor_name) %>%
+  summarize(Avg_MCU_BO_Success = mean(`World-wide`, na.rm= TRUE)) %>%
+  mutate(MCU = "MCU")
+
+head(actor_grouped_MCU)
+
+actor_grouped_Non <- filmography_awards_masterfile %>%
+  filter(MCU == "Non-MCU") %>%
+  group_by(actor_name) %>%
+  summarize(Avg_Non_BO_Success = mean(`World-wide`, na.rm= TRUE)) %>%
+  mutate(MCU = "Non-MCU")
+
+head(actor_grouped_Non)
+
+avg_MCU_Non <- actor_grouped_MCU %>%
+  #left_join(actor_grouped_Non, by = "actor_name")
+  bind_rows(actor_grouped_Non) %>%
+  mutate(Avg_BO_Success = ifelse(MCU == "MCU", Avg_MCU_BO_Success, Avg_Non_BO_Success))
+
+avg_MCU_Non
+
+
+gABOS <- ggplot(data= avg_MCU_Non, aes(x= actor_name, y= Avg_BO_Success)) +
+  geom_point(aes(color = MCU)) +
+  coord_flip()
+
+gABOS
+
+
+```
+
+
+
+
+
+
