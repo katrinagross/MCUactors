@@ -59,6 +59,7 @@ ggplotly(gD)
 
 MCU_films <- filmography_awards_masterfile %>%
   filter(MCU == "MCU") %>%
+  filter(type == "Movie") %>%
   group_by(title)
 
 head(group_by_MCU)
@@ -74,6 +75,28 @@ ggplotly(g2)
 
 ```
 
+
+```{r}
+# SCompare International and Domestic MCU Box Office Success
+
+MCU_IvD <- MCU_films %>%
+  distinct(title, release_date, International, Domestic) %>%
+  group_by(title) %>%
+  summarize(release_date = release_date, International = International, Domestic = Domestic) %>%
+  arrange(release_date) %>%
+  mutate(title = factor(title, levels = title)) %>%
+  dplyr::select(c(title, International, Domestic)) %>%
+  pivot_longer(!title, names_to = "I_vs_D", values_to = "BO")
+
+MCU_IvD
+
+gIaD <- ggplot(data= MCU_IvD, aes(x= title, y= BO)) +
+  geom_point(aes(color = I_vs_D)) +
+  coord_flip()
+
+gIaD
+
+```
 
 ```{r}
 # Budget vs Box Office Success for MCU movies
