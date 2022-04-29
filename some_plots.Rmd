@@ -77,7 +77,7 @@ ggplotly(g2)
 
 
 ```{r}
-# SCompare International and Domestic MCU Box Office Success
+# Compare International and Domestic MCU Box Office Success
 
 MCU_IvD <- MCU_films %>%
   distinct(title, release_date, International, Domestic) %>%
@@ -128,7 +128,7 @@ group_by_actor <- filmography_awards_masterfile %>%
   group_by(actor_name) %>%
   summarize(Avg_BO_Success = mean(`World-wide`, na.rm= TRUE))
 
-group_by_actor
+head(group_by_actor)
 
 gABOS <- ggplot(data= group_by_actor, aes(x= actor_name, y= Avg_BO_Success)) +
   geom_point() +
@@ -158,11 +158,10 @@ actor_grouped_Non <- filmography_awards_masterfile %>%
 head(actor_grouped_Non)
 
 avg_MCU_Non <- actor_grouped_MCU %>%
-  #left_join(actor_grouped_Non, by = "actor_name")
   bind_rows(actor_grouped_Non) %>%
   mutate(Avg_BO_Success = ifelse(MCU == "MCU", Avg_MCU_BO_Success, Avg_Non_BO_Success))
 
-avg_MCU_Non
+head(avg_MCU_Non)
 
 
 gABOS <- ggplot(data= avg_MCU_Non, aes(x= actor_name, y= Avg_BO_Success)) +
@@ -174,6 +173,28 @@ gABOS
 
 ```
 
+
+```{r}
+# Box Office Success Change After First MCU Film
+actor_change1 <- filmography_awards_masterfile %>%
+  filter(type == "Movie") %>%
+  group_by(actor_name, MCU) %>%
+  arrange(actor_name, release_date) %>%
+  filter(release_date == min(release_date)) %>%
+  mutate(first_MCU = release_date) %>%
+  filter(MCU == "MCU") %>%
+  ungroup() %>%
+  dplyr::select(c(actor_name, first_MCU))
+
+head(actor_change1)
+
+actor_change2 <- filmography_awards_masterfile %>%
+  left_join(actor_change1)
+
+actor_change2
+
+
+```
 
 
 
