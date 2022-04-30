@@ -28,28 +28,6 @@ ggplotly(gT)
 
 
 
-```{r}
-# all movies International Box Office Success, Colored by MCU
-
-gI <- ggplot(filmography_awards_masterfile, aes(x = release_date, y = International, color = MCU, text = title)) +
-  geom_point()
-
-ggplotly(gI)
-
-```
-
-
-```{r}
-# all movies Domestic Box Office Success, Colored by MCU
-
-gD <- ggplot(filmography_awards_masterfile, aes(x = release_date, y = Domestic, color = MCU, text = title)) +
-  geom_point()
-
-ggplotly(gD)
-
-```
-
-
 
 
 
@@ -189,23 +167,24 @@ actor_change1 <- filmography_awards_masterfile %>%
 
 head(actor_change1)
 
-actor_change2 <- filmography_awards_masterfile %>%
-  left_join(actor_change1)
+First_MCU_added <- filmography_awards_masterfile %>%
+  left_join(actor_change1) %>%
+  mutate(joining_phase = ifelse(first_MCU < as.Date("2012-05-05"), "One", ifelse(first_MCU < as.Date("2015-07-18"), "Two", ifelse(first_MCU < as.Date("2019-07-03"), "Three", "Four"))))
 
-actor_change2
+First_MCU_added
 
 
 ```
 
 
 ```{r}
-# Get DFs for Before and After First MCU Film
+# Actor Success Before and After First MCU Film
 
-before <- actor_change2 %>%
+before <- First_MCU_added %>%
   filter(MCU == "Non-MCU") %>%
   filter(release_date < first_MCU)
 
-after <- actor_change2 %>%
+after <- First_MCU_added %>%
   filter(MCU == "Non-MCU") %>%
   filter(release_date > first_MCU)
 
@@ -244,7 +223,7 @@ gBaA
 
 award_nom_count <- filmography_awards_masterfile %>%
   group_by(actor_name) %>%
-  summarize(Number_of_Awards = length(na.omit(winner)))
+  summarize(Award_Nominations = length(na.omit(winner)))
 
 
 master_MCU <- filmography_awards_masterfile %>%
@@ -261,18 +240,32 @@ Non_film_count <- master_Non %>%
   group_by(actor_name) %>%
   summarize(Non_film_total = length(title), Non_Avg_BO = mean(World_Wide, na.rm= TRUE), Non_Avg_Budget = mean(budget_USD, na.rm= TRUE))
 
+actor_joining_phase <- First_MCU_added %>%
+  group_by(actor_name) %>%
+  summarize(joining_phase = joining_phase)
+
 
 PC_data <- award_nom_count %>%
   left_join(MCU_film_count) %>%
-  left_join(Non_film_count)
+  left_join(Non_film_count) %>%
+  left_join(actor_joining_phase)
 
 head(PC_data)
 
-ggparcoord(PC_data, columns= c(1, 3, 6, 4, 7, 5, 8, 2), alphaLines= .5, scale= "uniminmax")  +
+ggparcoord(PC_data, columns= c(3, 6, 4, 7, 5, 8, 2), alphaLines= .1, scale= "uniminmax", groupColumn= 9)  +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 
 ```
 
+
+```{r}
+library(parcoords)
+
+PC_data %>%
+  parcoords(rownames= FALSE, brushMode = "1D-axes", reorderable = TRUE, queue = TRUE, alpha= .5, color= list(colorBy = "joining_phase", colorScale= "scaleOrdinal", colorScheme= "schemeCategory10"), withD3 = TRUE)
+
+
+```
 
 
 
