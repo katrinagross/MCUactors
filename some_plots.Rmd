@@ -9,6 +9,7 @@ output: html_document
 library(readr)
 library(tidyverse)
 library(plotly)
+library(GGally)
 filmography_awards_masterfile <- read_csv("MCU_filmography_final_version.csv")
 head(filmography_awards_masterfile)
 
@@ -18,7 +19,7 @@ head(filmography_awards_masterfile)
 ```{r}
 # all movies Box Office Success, Colored by MCU
 
-gT <- ggplot(filmography_awards_masterfile, aes(x = release_date, y = `World-wide`, color = MCU, text = title)) +
+gT <- ggplot(filmography_awards_masterfile, aes(x = release_date, y = World_Wide, color = MCU, text = title)) +
   geom_point()
 
 ggplotly(gT)
@@ -68,7 +69,7 @@ head(group_by_MCU)
 
 ```{r}
 # Box Office Success for MCU movies over time
-g2 <- ggplot(MCU_films, aes(x = release_date, y = `World-wide`, color = budget_USD, text = actor_name)) +
+g2 <- ggplot(MCU_films, aes(x = release_date, y = World_Wide, color = budget_USD, text = actor_name)) +
   geom_point()
 
 ggplotly(g2)
@@ -100,7 +101,7 @@ gIaD
 
 ```{r}
 # Budget vs Box Office Success for MCU movies
-gBvB <- ggplot(data= MCU_films, aes(x= budget_USD, y= `World-wide`, text = title)) +
+gBvB <- ggplot(data= MCU_films, aes(x= budget_USD, y= World_Wide, text = title)) +
   geom_point()
 
 ggplotly(gBvB)
@@ -144,7 +145,7 @@ gABOS
 actor_grouped_MCU <- filmography_awards_masterfile %>%
   filter(MCU == "MCU") %>%
   group_by(actor_name) %>%
-  summarize(Avg_MCU_BO_Success = mean(`World-wide`, na.rm= TRUE)) %>%
+  summarize(Avg_MCU_BO_Success = mean(World_Wide, na.rm= TRUE)) %>%
   mutate(MCU = "MCU")
 
 head(actor_grouped_MCU)
@@ -152,7 +153,7 @@ head(actor_grouped_MCU)
 actor_grouped_Non <- filmography_awards_masterfile %>%
   filter(MCU == "Non-MCU") %>%
   group_by(actor_name) %>%
-  summarize(Avg_Non_BO_Success = mean(`World-wide`, na.rm= TRUE)) %>%
+  summarize(Avg_Non_BO_Success = mean(World_Wide, na.rm= TRUE)) %>%
   mutate(MCU = "Non-MCU")
 
 head(actor_grouped_Non)
@@ -210,12 +211,12 @@ after <- actor_change2 %>%
 
 before <- before %>%
   group_by(actor_name) %>%
-  summarize(Avg_before_BO_Success = mean(`World-wide`, na.rm= TRUE)) %>%
+  summarize(Avg_before_BO_Success = mean(World_Wide, na.rm= TRUE)) %>%
   mutate(BoA = "before")
 
 after <- after %>%
   group_by(actor_name) %>%
-  summarize(Avg_after_BO_Success = mean(`World-wide`, na.rm= TRUE)) %>%
+  summarize(Avg_after_BO_Success = mean(World_Wide, na.rm= TRUE)) %>%
   mutate(BoA = "after")
 
 BaA <- before %>%
@@ -238,7 +239,39 @@ gBaA
 ```
 
 
+```{r}
+# Parallel Coordinate Plot for Actors and Various Stats
 
+award_nom_count <- filmography_awards_masterfile %>%
+  group_by(actor_name) %>%
+  summarize(Number_of_Awards = length(na.omit(winner)))
+
+
+master_MCU <- filmography_awards_masterfile %>%
+  filter(MCU == "MCU")
+
+master_Non <- filmography_awards_masterfile %>%
+  filter(MCU == "Non-MCU")
+
+MCU_film_count <- master_MCU %>%
+  group_by(actor_name) %>%
+  summarize(MCU_film_total = length(title), MCU_Avg_BO = mean(World_Wide, na.rm= TRUE), MCU_Avg_Budget = mean(budget_USD, na.rm= TRUE))
+
+Non_film_count <- master_Non %>%
+  group_by(actor_name) %>%
+  summarize(Non_film_total = length(title), Non_Avg_BO = mean(World_Wide, na.rm= TRUE), Non_Avg_Budget = mean(budget_USD, na.rm= TRUE))
+
+
+PC_data <- award_nom_count %>%
+  left_join(MCU_film_count) %>%
+  left_join(Non_film_count)
+
+head(PC_data)
+
+ggparcoord(PC_data, columns= c(1, 3, 6, 4, 7, 5, 8, 2), alphaLines= .5, scale= "uniminmax")  +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+```
 
 
 
