@@ -175,7 +175,7 @@ gABOS
 
 
 ```{r}
-# Box Office Success Change After First MCU Film
+# Add First MCU Film Date for Each Actor
 actor_change1 <- filmography_awards_masterfile %>%
   filter(type == "Movie") %>%
   group_by(actor_name, MCU) %>%
@@ -195,6 +195,65 @@ actor_change2
 
 
 ```
+
+
+```{r}
+# Get DFs for Before and After First MCU Film
+
+before <- actor_change2 %>%
+  filter(MCU == "Non-MCU") %>%
+  filter(release_date < first_MCU)
+
+after <- actor_change2 %>%
+  filter(MCU == "Non-MCU") %>%
+  filter(release_date > first_MCU)
+
+before <- before %>%
+  group_by(actor_name) %>%
+  summarize(Avg_before_BO_Success = mean(`World-wide`, na.rm= TRUE)) %>%
+  mutate(BoA = "before")
+
+after <- after %>%
+  group_by(actor_name) %>%
+  summarize(Avg_after_BO_Success = mean(`World-wide`, na.rm= TRUE)) %>%
+  mutate(BoA = "after")
+
+BaA <- before %>%
+  bind_rows(after) %>%
+  mutate(Avg_BO_Success = ifelse(BoA == "before", Avg_before_BO_Success, Avg_after_BO_Success))
+
+
+
+head(before)
+head(after)
+
+head(BaA)
+
+gBaA <- ggplot(data= BaA, aes(x= actor_name, y= Avg_BO_Success)) +
+  geom_point(aes(color = BoA)) +
+  coord_flip()
+
+gBaA
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
