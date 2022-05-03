@@ -36,12 +36,6 @@ ggplotly(gT)
 
 
 ```{r}
-filmography_awards_masterfile
-
-```
-
-
-```{r}
 # Include just MCU movies
 
 MCU_films <- filmography_awards_masterfile %>%
@@ -61,7 +55,7 @@ MCU_films
 
 ```{r}
 # Box Office Success for MCU movies over time
-g2 <- ggplot(MCU_films, aes(x = release_date, y = World_Wide, text = title)) +
+g2 <- ggplot(MCU_films, aes(x = release_date, y = BO, text = title)) +
   geom_point() +
   labs(title= "Box Office Success of MCU Movies Over Time", x= "Release Date", y= "World-Wide Box Office")
 
