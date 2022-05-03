@@ -96,6 +96,30 @@ ggplotly(gBvB)
 
 ```
 
+```{r}
+tidy_BOB <- MCU_films %>%
+  dplyr::select(BO, Budget, Phase) %>%
+  rownames_to_column("ID") %>%
+  rename(Film_Budget = Budget, Box_Office = BO) %>%
+  gather(var, values, -ID, -title, -Phase)
+
+tidy_BOB
+
+standardize <- function(x) (x-mean(x))/sd(x) 
+df2 <- tidy_BOB %>% group_by(var) %>%   
+  mutate(values = standardize(values)) %>% ungroup()
+
+df2
+
+df2$var <- factor(df2$var, levels = c('Film_Budget', 'Box_Office'))
+
+gslope <- ggplot(df2, aes(x= var, y= values, group= ID, color= Phase)) +
+  geom_line() +
+  labs(title= "Box Office Success vs Film Budget", x= "Variable", y= "Value")
+
+gslope
+
+```
 
 
 ```{r}
