@@ -1,0 +1,117 @@
+---
+title: "Movie Info"
+author: "Katrina Gross"
+date: "3/16/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+```{r}
+library(tidyverse)
+library(httr) # need for API
+library(jsonlite)
+library(here)
+```
+
+# In this file:
+
+- getting movie ids from the API
+
+- linking movie ids to budget and box office numbers
+
+- getting actor names for each movie
+
+### Add Key HERE
+store in text file and read in once
+```{r}
+key <- read.delim(here("../api_key.txt"), header = FALSE)
+key <- key$V1
+```
+
+
+### Pull Released Movie Titles
+
+```{r}
+mcu_movies <- read_csv("../data_exports/Movie_Titles.csv")
+
+titles <- mcu_movies %>%
+  filter(Status == "Released") %>%
+  pull(Film)
+
+titles <- titles[titles != "Marvel's The Avengers"]
+titles <- c(titles, "The Avengers")
+
+titles <- titles[titles != "Spider-Man: Far From Home"]
+titles <- c(titles, "Spider-Man: Far from Home")
+```
+
+### Create query dict of titles
+
+```{r}
+title_dict = list()
+
+for(title in titles){
+  temp_list = list(q = title)
+  title_dict = c(title_dict, temp_list)
+}
+
+```
+
+### Get Movie ID - use to get meta data
+
+```{r}
+library(httr)
+
+# use to get movie id
+# have to filter / clean after to just the movie names we want
+# /find (the url we want) is not working for some reason
+
+url <- "https://online-movie-database.p.rapidapi.com/auto-complete"
+
+headers <- c(
+    'x-rapidapi-host' = "online-movie-database.p.rapidapi.com",
+    'x-rapidapi-key' = key)
+
+master <- data.frame(matrix(ncol = 12))
+cols <- c("d.i", "d.id", "d.l", "d.q", "d.rank", "d.s",  "d.v", "d.vt", "d.y",  
+                      "d.yr", "q", "v")
+colnames(master) <- cols
+
+for(i in 1:length(title_dict)){
+  response <- GET(url, add_headers(headers), query = title_dict[i])
+  temp_data <- fromJSON(rawToChar(response$content))
+  data_tidy <- data.frame(temp_data)
+  master <- dplyr::bind_rows(master, data_tidy)
+}
+
+```
+
+```{r}
+# tidy master data
+# missing avengers, far from home
+
+head(master)
+
+# same title, not MCU - black panther and black widow
+rm_list <- c("tt2905856", "tt9272572")
+
+master_tidy <- master %>%
+  dplyr::select(c("d.id", "d.l", "d.q", "d.s", "d.y", "q")) %>%
+  filter(`d.q` == "feature") %>%
+  filter(`d.l` %in% titles) %>%
+  filter(`d.y` >= 2008) %>%
+  filter(!`d.id` %in% rm_list) %>%
+  distinct(`d.id`, .keep_all = TRUE)
+
+write_csv(master_tidy, "../data_exports/MCU_ids.csv")
+
+```
+
+
+
+
+
+
