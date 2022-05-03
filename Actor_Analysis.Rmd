@@ -10,132 +10,39 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 ```
 
 ```{r}
-
 library(ggplot2)
 library(tidyverse)
 library(scales)
+library(vcd)
 ```
 
 ```{r}
-
-film_data <- read_csv("filmography_awards-masterfile-currency.csv")
-
-MCU_tv <- c("Loki", "What If...?", "Hawkeye", "The Falcon and the Winter Soldier", "WandaVision")
-
-film_data <- film_data %>%
-  rename("World_Wide" = "World-wide") %>%
-  mutate(release_date = as.Date(release_date, format =  "%Y-%m-%d"),
-         year = format(as.Date(release_date, format="%Y-%m-%d"),"%Y"),
-         MCU_tv = ifelse(title %in% MCU_tv, 1, 0),
-         MCU = ifelse(MCU_film  == 1 | MCU_tv == 1, "MCU", "Non-MCU"),
-         budget_scaled = rescale(budget_USD, to = c(3, 8)),
-         budget_scaled = ifelse(is.na(budget_scaled), 3, budget_scaled),
-         boxoffice_scaled = rescale(World_Wide, to = c(3, 8)),
-         boxoffice_scaled = ifelse(is.na(boxoffice_scaled), 3, budget_scaled))
-  
-
-actors_rm <- c("Mickey Rourke", "Hugo Weaving", "Anthony Hopkins", "Vin Diesel",
-                "Chiwetel Ejiofor", "Liv Tyler", "Guy Pearce", "Edward Norton", "Michael Keaton")
-
-#maybe also:  "Edward Norton", "Michael Keaton", "Gwyneth Paltrow"  
-
-idscheck <- film_data %>%
-  select(c(actor_id, actor_name)) %>%
-  distinct()
-
-ids_rm <- c("nm4718969", "nm0748621", "nm2212645", "nm9985479", "nm0390847", "nm0636201")
-
-# add sebastian stan | elizabeth olsen | Anthony Mackie | Mark Ruffulo | Paul Bettany | Don Cheadle | Jeremy Renner
-
-film_clean <- film_data %>%
-  dplyr::filter(!(actor_name %in% actors_rm)) %>%
-  dplyr::filter(!(actor_id %in% ids_rm)) %>%
-  dplyr::filter(year != 1400) %>%
-  dplyr::filter(title != "Saturday Night Live") %>%
-  distinct() %>%
-    mutate(type = case_when(type == "movie" ~ "Movie",
-                          type == "tvSeries" ~ "TV Series",
-                          type == "tvMiniSeries" ~ "Limited Series"),
-           decade = cut(as.numeric(year), breaks = seq(from = 1960, to = 2030, by = 10), 
-                        include.lowest = TRUE, right = FALSE, labels = FALSE),
-           decade = factor(decade, levels = c(1, 2, 3, 4, 5, 6, 7),
-                           labels = c("60's", "70's", "80's", "90's", "00's", "10's", "20's")),
-           award_mcu = case_when(winner == "Winner" ~ "Academy Award Winner",
-                                 winner == "Nominated" ~ "Academy Award Nominee"),
-           award_mcu = coalesce(award_mcu, MCU),
-           award_mcu = factor(award_mcu, levels = c("Non-MCU", "MCU", "Academy Award Nominee", "Academy Award Winner")))
-
-
-#write_csv(film_clean, "4-29-film-clean-for-analysis.csv")
-
-film_export <- film_clean %>%
-  select(c("actor_name", "category", "title", "year", "release_date", "type", "MCU", "budget_USD", "budget_scaled",
-           "World_Wide", "International", "Domestic", "boxoffice_scaled", "award_mcu",
-           "award_name", "award_category", "event_name", "winner")) %>%
-  filter(year >= 1990) %>%
-  #filter(type == "Movie") %>%
-  mutate(color_id = case_when(award_mcu == "Non-MCU" ~ "#C4D6FA",
-                              award_mcu == "MCU" ~ "#233f92",
-                              award_mcu == "Academy Award Nominee" ~ "#f1c2ae",
-                              award_mcu == "Academy Award Winner" ~ "#d2352b")) %>%
-  distinct()
-
-write_csv(film_export, "MCU_filmography_final_version.csv")
-
-```
-
-# actor gender
-
-```{r}
-
-actors <- unique(film_clean %>% pull(actor_name))
-
-gender <- c("M", "M", "M", "M", 
-              "M", "M", "M", "M", 
-              "F", "F", "M", "F",
-              "F", "M", "F", "M",
-              "F", "M", "F", "M",
-              "F", "F", "M", "F",
-              "M", "F", "M", "M",
-              "M", "M", "M")
-
-actor_gender <- data.frame(actors, gender)
-actor_gender <- actor_gender %>% rename(actor_name = actors, Gender = gender)
-actor_gender <- actor_gender %>%
-  mutate(Gender = case_when(Gender == "F" ~ "Female",
-                            Gender == "M" ~ "Male"))
-
-
-film_clean <- film_clean %>% left_join(actor_gender)
-
-```
-
-# add first MCU date
-
-```{r}
-first_mcu <- film_clean %>%
-  filter(type == "Movie") %>%
-  group_by(actor_name, MCU) %>%
-  arrange(actor_name, release_date) %>%
-  filter(release_date == min(release_date)) %>%
-  mutate(first_MCU = release_date) %>%
-  filter(MCU == "MCU") %>%
-  ungroup() %>%
-  dplyr::select(c(actor_name, first_MCU))
-
-film_clean <- film_clean %>% left_join(first_mcu)
+film_clean <- read_csv("5-3-film-clean-for-analysis.csv")
 
 
 film_clean <- film_clean %>%
-  mutate(`BeforeMCU` = ifelse(release_date < first_MCU, "Before", "After"),
-         `BeforeMCU` = factor(`BeforeMCU`, levels = c("Before", "After")))
-
+  mutate(award_mcu = factor(award_mcu, levels = c("Non-MCU", "MCU", "Academy Award Nominee", "Academy Award Winner")),
+         decade = cut(as.numeric(year), breaks = seq(from = 1960, to = 2030, by = 10), 
+                        include.lowest = TRUE, right = FALSE, labels = FALSE),
+         decade = factor(decade, levels = c(1, 2, 3, 4, 5, 6, 7),
+                         labels = c("60's", "70's", "80's", "90's", "00's", "10's", "20's")))
+  
 ```
-
 
 # build out theme
 
 ```{r}
+
+mcu_theme <- function(){
+  font <- "Helvetica"
+  theme_minimal() +
+  theme(title = element_text(family = font, size = 15),
+        axis.title = element_text(family = font, size = 12),
+        axis.text.x = element_text(family = font, size = 11),
+        axis.text.y = element_text(family = font, size = 11)
+        )
+}
+
 colors <- c("#000000", #"Black"
            "#233f92", #"Dark Cornflower Blue"
            "#44a0e3", # "Carolina Blue"
@@ -149,7 +56,6 @@ colors <- c("#000000", #"Black"
            "#f1c2ae" # "Apricot"
 )
 
-
 ```
 
 # try out some options before d3
@@ -160,9 +66,12 @@ g1 <- film_clean %>%
   filter(year >= 1990) %>%
   filter(type == "Movie") %>%
   ggplot(aes(x = release_date, y = actor_name, color = MCU, size = World_Wide)) +
-  scale_size(range = c(1,4)) +
+  scale_size(range = c(1,4), name = "Box Office") +
   scale_x_date(date_breaks = "5 years", date_labels = "%Y") +
   scale_color_manual(values = c(colors[2], colors[11]))+
+  labs(y = "Actor Name",
+       x = "Release Date",
+       title = "Filmography Box Office")+
   geom_point(aplha = 0.8) +
   theme_minimal()
 
@@ -173,8 +82,8 @@ g2 <- film_clean %>%
   filter(type == "TV Series" | type == "Limited Series") %>%
   ggplot(aes(x = release_date, y = actor_name, color = MCU)) +
   scale_x_date(date_breaks = "5 years", date_labels = "%Y") +
-  scale_color_manual(values = c(colors[2], colors[11]))+
-  geom_point(aplha = 0.8) +
+  scale_color_manual(values = c(colors[2], colors[11])) +
+  geom_point(alpha = 0.8) +
   theme_minimal()
 
 g2
@@ -205,7 +114,6 @@ g_awards
 ```
 
 
-
 # Decade Heatmap
 
 ```{r}
@@ -219,7 +127,10 @@ h1 <- film_clean %>%
   geom_tile(color = "grey") +
   #scale_y_discrete(limits=rev) +
   coord_fixed(ratio = 0.5) +
-  scale_fill_gradient(low = colors[4], high = colors[2]) + 
+  scale_fill_gradient(low = colors[4], high = colors[2], name = "Movie Count") +
+  labs(y = "Actor",
+       x = "Decade",
+       title = "Movie Count by Decade") +
   theme_minimal() +
   theme(panel.grid = element_blank())
   
@@ -239,7 +150,7 @@ mcu_box_stack <- film_clean %>%
   geom_bar(position="stack", stat="identity") +
   scale_y_continuous(expand = c(0, 0), labels = label_dollar(suffix = " B", scale = 1e-9)) +
   coord_flip() +
-  scale_fill_manual(values = c(colors[11], colors[5]))+
+  scale_fill_manual(values = c(colors[11], colors[5]), name = "")+
   labs(title = "Box Office MCU Movies",
        y = "",
        x = "") +
@@ -249,59 +160,29 @@ mcu_box_stack
 
 ```
 
-# Dots for movies
-
-```{r}
-
-dots <- film_clean %>% arrange(release_date) %>% filter(type == "Movie") %>%
-  ggplot(aes(x = actor_name)) +
-  geom_dotplot(binwidth = 1, aes(fill=MCU), stackdir = "up", method="histodot",
-        stackgroups = TRUE, stackratio = 0.7, dotsize = .6, width = 10) +
-  scale_y_continuous(NULL, breaks = NULL) +
-  coord_flip()
-
-dots
-```
-
-# Gender - avg before and after
+# Gender - Award Mosaic Plot
 
 ```{r}
 
 gender <- film_clean %>%
   filter(MCU == "Non-MCU", type == "Movie") %>%
-  group_by(actor_name, Gender, `BeforeMCU`) %>%
+  mutate(Awards = ifelse(is.na(winner), "None", winner),
+         Awards = ifelse(Awards == "Nominated", "Nom", Awards),
+         Awards = ifelse(Awards == "Winner", "Won", Awards)) %>%
+  group_by(actor_name, Gender, Awards, `BeforeMCU`) %>%
   summarize(Freq = n(), .groups = 'drop') %>%
   ungroup() %>%
-  group_by(Gender, `BeforeMCU`) %>%
+  group_by(Gender, `BeforeMCU`, Awards) %>%
   summarize(Freq = mean(Freq), .groups = 'drop') %>%
   ungroup() %>%
   mutate(Freq = ceiling(Freq),
          BeforeMCU = factor(BeforeMCU)) 
 
-gender_seq <- gender[rep(rownames(gender), gender$Freq), ]
+# mosaic plot
 
-# create fake y value
-seq_f <- seq(1, 27)
-seq_m <- seq(1, nrow(gender_seq)-27)
-seq_all <- c(seq_f, seq_m)
-gender_seq$seq <- seq_all
-
-g_plot <- ggplot(gender_seq, aes(x = gender, y = seq, color = before_mcu)) +
-  geom_point(size = 2.5, shape = 15) +
-  coord_fixed(ratio = 0.18) +
-  scale_color_manual(values = c(colors[4], colors[7]))+
-  labs(x = "Gender",
-       y = "Movie Count",
-       title = "Average Movie Count Before and After First MCU Film") +
-  theme_minimal()
-
-g_plot
-
-library(vcd)
-# mosaic plot attempt
-
-mosaic(BeforeMCU ~ Gender, direction = c("v", "h"), gender, 
-       highlighting_fill = c(colors[4], colors[2]))
+mosaic(BeforeMCU ~ Gender + Awards, direction = c("v", "v", "h"), gender, 
+       highlighting_fill = c(colors[4], colors[2]),
+      rot_labels = c(0, 0, 90, 0))
 
 ```
 
@@ -318,7 +199,7 @@ g_first <- first_credit %>%
   ggplot(aes(x = release_date, y = reorder(actor_name, release_date), color = type)) +
   geom_segment(aes(x = min(release_date), xend = as.Date(release_date), y = reorder(actor_name, release_date), 
                    yend = reorder(actor_name, release_date)), color = "grey") +
-  geom_point(aplha = 0.8, size = 3) +
+  geom_point(size = 3) +
   scale_x_date(date_breaks = "5 years", date_labels = "%Y") +
   scale_color_manual(values = c(colors[6], colors[11]))+
   labs(title = "Most MCU actors got their start in TV",
@@ -328,5 +209,22 @@ g_first <- first_credit %>%
   theme_minimal()
 
 g_first
+```
+# Ratings 
+
+```{r}
+
+hex_ratings <- ggplot(film_clean, aes(x = averageRating, y = World_Wide)) +
+  geom_hex() +
+  labs(x = "Average Rating",
+       y = "Box Office (world-wide)",
+       title = "Ratings and Budgets are higher for MCU films") +
+  scale_fill_gradient(low = colors[4], high = colors[2], name = "Movie Count") +
+  scale_y_continuous(labels = label_dollar(suffix = " B", scale = 1e-9)) +
+  facet_wrap(~MCU)+
+  mcu_theme()
+
+hex_ratings
+
 ```
 

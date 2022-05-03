@@ -187,3 +187,177 @@ filmography_awards <- filmography_awards %>%
 write_csv(filmography_awards, "filmography_awards-masterfile.csv")
 ```
 
+### Add Currency
+
+```{r}
+filmography_awards <- read_csv("filmography_awards-masterfile.csv")
+head(filmography_awards)
+```
+
+```{r}
+unique_currency <- filmography_awards_masterfile %>%
+  distinct(budget_currency)
+
+unique_currency
+
+unique2_currency <- filmography_awards_masterfile %>%
+  distinct(boxoffice_currency)
+
+unique2_currency
+
+```
+
+
+```{r}
+# 1 GBP = 1.3 USD
+# 1 EUR = 1.08 USD
+# 1 AUD = 0.73 USD
+# 1 FRF = 0.165 USD
+# 1 NGN = 0.0024 USD
+
+```
+
+```{r}
+converted_currency <- filmography_awards_masterfile %>%
+  mutate(budget_USD = ifelse(budget_currency == "USD", budget, ifelse(budget_currency == "GBP", budget * 1.3, ifelse(budget_currency == "EUR", budget * 1.08, ifelse(budget_currency == "AUD", budget * .73, ifelse(budget_currency == "FRF", budget * .165, ifelse(budget_currency == "NGN", budget * .0024, NA)))))))
+
+converted_currency <- converted_currency %>%
+  dplyr::select(actor_id, actor_name, category, title_id, title, year, release_date, type, budget_currency, budget, budget_USD, boxoffice_currency, `World-wide`, International, Domestic, MCU_film, award_name, award_category, event_name, winner, nomination_year)
+
+converted_currency <- converted_currency %>%
+  mutate(release_date = as.Date(release_date))
+
+converted_currency
+
+write_csv(converted_currency, "filmography_awards-masterfile-currency.csv")
+```
+
+### Clean & Add Ratings
+
+```{r}
+
+film_data <- read_csv("filmography_awards-masterfile-currency.csv")
+
+MCU_tv <- c("Loki", "What If...?", "Hawkeye", "The Falcon and the Winter Soldier", "WandaVision")
+
+film_data <- film_data %>%
+  rename("World_Wide" = "World-wide") %>%
+  mutate(release_date = as.Date(release_date, format =  "%Y-%m-%d"),
+         year = format(as.Date(release_date, format="%Y-%m-%d"),"%Y"),
+         MCU_tv = ifelse(title %in% MCU_tv, 1, 0),
+         MCU = ifelse(MCU_film  == 1 | MCU_tv == 1, "MCU", "Non-MCU"),
+         budget_scaled = rescale(budget_USD, to = c(3, 8)),
+         budget_scaled = ifelse(is.na(budget_scaled), 3, budget_scaled),
+         boxoffice_scaled = rescale(World_Wide, to = c(3, 8)),
+         boxoffice_scaled = ifelse(is.na(boxoffice_scaled), 3, budget_scaled))
+  
+
+actors_rm <- c("Mickey Rourke", "Hugo Weaving", "Anthony Hopkins", "Vin Diesel",
+                "Chiwetel Ejiofor", "Liv Tyler", "Guy Pearce", "Edward Norton", "Michael Keaton")
+
+#maybe also:  "Edward Norton", "Michael Keaton", "Gwyneth Paltrow"  
+
+idscheck <- film_data %>%
+  select(c(actor_id, actor_name)) %>%
+  distinct()
+
+ids_rm <- c("nm4718969", "nm0748621", "nm2212645", "nm9985479", "nm0390847", "nm0636201")
+
+# add sebastian stan | elizabeth olsen | Anthony Mackie | Mark Ruffulo | Paul Bettany | Don Cheadle | Jeremy Renner
+
+film_clean <- film_data %>%
+  dplyr::filter(!(actor_name %in% actors_rm)) %>%
+  dplyr::filter(!(actor_id %in% ids_rm)) %>%
+  dplyr::filter(year != 1400) %>%
+  dplyr::filter(title != "Saturday Night Live") %>%
+  distinct() %>%
+    mutate(type = case_when(type == "movie" ~ "Movie",
+                          type == "tvSeries" ~ "TV Series",
+                          type == "tvMiniSeries" ~ "Limited Series"),
+           decade = cut(as.numeric(year), breaks = seq(from = 1960, to = 2030, by = 10), 
+                        include.lowest = TRUE, right = FALSE, labels = FALSE),
+           decade = factor(decade, levels = c(1, 2, 3, 4, 5, 6, 7),
+                           labels = c("60's", "70's", "80's", "90's", "00's", "10's", "20's")),
+           award_mcu = case_when(winner == "Winner" ~ "Academy Award Winner",
+                                 winner == "Nominated" ~ "Academy Award Nominee"),
+           award_mcu = coalesce(award_mcu, MCU),
+           award_mcu = factor(award_mcu, levels = c("Non-MCU", "MCU", "Academy Award Nominee", "Academy Award Winner")))
+
+
+#write_csv(film_clean, "4-29-film-clean-for-analysis.csv")
+
+film_export <- film_clean %>%
+  select(c("actor_name", "category", "title", "year", "release_date", "type", "MCU", "budget_USD", "budget_scaled",
+           "World_Wide", "International", "Domestic", "boxoffice_scaled", "award_mcu",
+           "award_name", "award_category", "event_name", "winner")) %>%
+  filter(year >= 1990) %>%
+  #filter(type == "Movie") %>%
+  mutate(color_id = case_when(award_mcu == "Non-MCU" ~ "#C4D6FA",
+                              award_mcu == "MCU" ~ "#233f92",
+                              award_mcu == "Academy Award Nominee" ~ "#f1c2ae",
+                              award_mcu == "Academy Award Winner" ~ "#d2352b")) %>%
+  distinct()
+
+write_csv(film_export, "MCU_filmography_final_version.csv")
+
+```
+
+# add ratings
+
+```{r}
+ratings <- read_tsv("title.ratings.tsv")
+
+film_clean <- film_clean %>% left_join(ratings, by = c("title_id" = "tconst"))
+```
+
+
+# actor gender
+
+```{r}
+
+actors <- unique(film_clean %>% pull(actor_name))
+
+gender <- c("M", "M", "M", "M", 
+              "M", "M", "M", "M", 
+              "F", "F", "M", "F",
+              "F", "M", "F", "M",
+              "F", "M", "F", "M",
+              "F", "F", "M", "F",
+              "M", "F", "M", "M",
+              "M", "M", "M")
+
+actor_gender <- data.frame(actors, gender)
+actor_gender <- actor_gender %>% rename(actor_name = actors, Gender = gender)
+actor_gender <- actor_gender %>%
+  mutate(Gender = case_when(Gender == "F" ~ "Female",
+                            Gender == "M" ~ "Male"))
+
+
+film_clean <- film_clean %>% left_join(actor_gender)
+
+```
+
+# add first MCU date
+
+```{r}
+first_mcu <- film_clean %>%
+  filter(type == "Movie") %>%
+  group_by(actor_name, MCU) %>%
+  arrange(actor_name, release_date) %>%
+  filter(release_date == min(release_date)) %>%
+  mutate(first_MCU = release_date) %>%
+  filter(MCU == "MCU") %>%
+  ungroup() %>%
+  dplyr::select(c(actor_name, first_MCU))
+
+film_clean <- film_clean %>% left_join(first_mcu)
+
+
+film_clean <- film_clean %>%
+  mutate(`BeforeMCU` = ifelse(release_date < first_MCU, "Before", "After"),
+         `BeforeMCU` = factor(`BeforeMCU`, levels = c("Before", "After")))
+
+write_csv(film_clean, "5-3-film-clean-for-analysis.csv")
+
+```
+
