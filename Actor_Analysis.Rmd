@@ -14,6 +14,7 @@ library(ggplot2)
 library(tidyverse)
 library(scales)
 library(vcd)
+library(plotly)
 ```
 
 ```{r}
@@ -66,29 +67,21 @@ g1 <- film_clean %>%
   filter(year >= 1990) %>%
   filter(type == "Movie") %>%
   ggplot(aes(x = release_date, y = actor_name, color = MCU, size = World_Wide)) +
-  scale_size(range = c(1,4), name = "Box Office") +
+  scale_size(range = c(1,4), name = "Box Office", breaks = c(1000000, 500000000, 1000000000, 2000000000),
+             labels = c("$1M", "$500M", "$1B", "$2B")) +
   scale_x_date(date_breaks = "5 years", date_labels = "%Y") +
   scale_color_manual(values = c(colors[2], colors[11]))+
   labs(y = "Actor Name",
        x = "Release Date",
        title = "Filmography Box Office")+
-  geom_point(aplha = 0.8) +
+  geom_point(alpha = 0.8, stroke = 0) +
   theme_minimal()
 
 g1
 
-g2 <- film_clean %>%
-  filter(year >= 1990) %>%
-  filter(type == "TV Series" | type == "Limited Series") %>%
-  ggplot(aes(x = release_date, y = actor_name, color = MCU)) +
-  scale_x_date(date_breaks = "5 years", date_labels = "%Y") +
-  scale_color_manual(values = c(colors[2], colors[11])) +
-  geom_point(alpha = 0.8) +
-  theme_minimal()
-
-g2
-
 ```
+
+For most of the actors, the MCU films are the highest grossing films that they are a part of. For some actors, there are a few other notably high grossing films, such as Star Wars, Jurassic World, Avatar, and the Hobbit movies. MCU box office numbers tend to dwarf those of other films, so the comparison is somewhat difficult. There is not a clear pattern indicating that actors who work on MCU movies, then follow with smaller scale productions. Although it does seem that after Endgame (the last very large blue dot form 2019), many of the actors have participated in far fewer films than they did before. This could also be due to Covid slowing the release dates of many productions.
 
 ```{r, fig.width=5}
 
@@ -99,8 +92,8 @@ awards_graph <- film_clean %>%
   
   
 g_awards <- ggplot(awards_graph) +
-  geom_point(mapping = aes(x = release_date, y = actor_name, color = award_mcu), 
-             size = 1.5,) +
+  geom_point(mapping = aes(x = release_date, y = actor_name, color = award_mcu, text = title), 
+             size = 2, alpha = 0.8) +
   scale_x_date(date_breaks = "5 years", date_labels = "%Y") +
   scale_color_manual(values = c(colors[4], colors[2], colors[11], colors[6]), name = "Film Type")+
   labs(y="",
@@ -113,6 +106,7 @@ g_awards
 
 ```
 
+Most actors have quite a few roles before entering the MCU (only showing after 1990). The MCU tends to bring on more known actors - every actor that has won an Academy Award has done so before being in an MCU film.
 
 # Decade Heatmap
 
@@ -138,9 +132,21 @@ h1
 
 ```
 
+Here we look at the count of movies for each actor across the decades. Michael Douglas is the only actor with roles dating back to the 60's. Most actors appear in the most number of movies in the 2000's and 2010's, which makes sense since Marvel movies started in 2008. Most actors did not start acting in movies until the 2000's.   
+
 # barplot box office
 
 ```{r}
+
+avg_intl <- film_clean %>%
+  filter(MCU == "Non-MCU", type == "Movie") %>%
+  summarize(avg = mean(International, na.rm = TRUE)) %>%
+  pull(avg)
+
+avg_dom <- film_clean %>%
+  filter(MCU == "Non-MCU", type == "Movie") %>%
+  summarize(avg = mean(Domestic, na.rm = TRUE)) %>%
+  pull(avg)
 
 mcu_box_stack <- film_clean %>%
   filter(MCU_film == 1) %>%
@@ -149,16 +155,21 @@ mcu_box_stack <- film_clean %>%
   ggplot(aes(x = reorder(title, boxoffice), y = boxoffice, fill = bo_loc)) + 
   geom_bar(position="stack", stat="identity") +
   scale_y_continuous(expand = c(0, 0), labels = label_dollar(suffix = " B", scale = 1e-9)) +
+  geom_hline(yintercept = avg_intl, linetype = "dashed", size = 0.5, color = colors[7]) +
+  #annotate("text", y = 2000000000, x = "Eternals", label = "Average International Gross", size = 3, color = colors[7]) +
   coord_flip() +
   scale_fill_manual(values = c(colors[11], colors[5]), name = "")+
   labs(title = "Box Office MCU Movies",
+       subtitle = "Relative to Average International Box Office",
        y = "",
        x = "") +
-  theme_minimal()
+  mcu_theme() +
+  theme(axis.text.y = element_text(size = 9))
 
 mcu_box_stack
 
 ```
+Here we can see the breakdown of international and domestic box office numbers across MCU films. Endgame is far above the others, followed by Infinity War and No Way Home. Ten of the movies gross above $1B. All of the movies have international gross higher than that of the average international box office of other non-MCU films these actors are in, most MCU movies are well above. We can see just how much blockbusters, particularly the MCU, has changed the film industry and the definition of a successful film franchise.
 
 # Gender - Award Mosaic Plot
 
@@ -186,6 +197,8 @@ mosaic(BeforeMCU ~ Gender + Awards, direction = c("v", "v", "h"), gender,
 
 ```
 
+From this gender breakdown, we can first see that there are more men in the MCU than women. We can also see that the average number of films actresses have done before entering the MCU exceeds that of men, but not by much. For both men and women, all Oscars were won before doing an MCU film. Women in the MCU have slightly more award nominations than men after being in the MCU. 
+
 # movie/tv first
 
 ```{r}
@@ -210,6 +223,9 @@ g_first <- first_credit %>%
 
 g_first
 ```
+
+For most actors in the MCU, their first credited role is on a TV show. Which makes sense for actors starting young or having a small role on a show. Movies are somewhat clustered for release dates, there is a cluster of first appearances in movies around the late 80's - 90's and the three most recent debuts were in movies. 
+
 # Ratings 
 
 ```{r}
@@ -227,4 +243,4 @@ hex_ratings <- ggplot(film_clean, aes(x = averageRating, y = World_Wide)) +
 hex_ratings
 
 ```
-
+Here we can see the distribution of ratings and box office for MCU and non-MCU movies (all from actors in the MCU). We can see that ratings for MCU movies are all above 6. For non-MCU movies, although most of the ratings are above 6, there are quite a few under that. We can also see a cluster of darker blue in the non-MCU chart with low box-office numbers. Although again, the scale is somewhat distorted due to the very high grossing films in the MCU and Avatar, not in the MCU. 
