@@ -20,16 +20,19 @@ library(scales)
 
 film_data <- read_csv("filmography_awards-masterfile-currency.csv")
 
-MCU_tv <- c("Loki", "What if...?", "Hawkeye", "The Falcon and the Winter Soldier", "WandaVision")
+MCU_tv <- c("Loki", "What If...?", "Hawkeye", "The Falcon and the Winter Soldier", "WandaVision")
 
 film_data <- film_data %>%
+  rename("World_Wide" = "World-wide") %>%
   mutate(release_date = as.Date(release_date, format =  "%Y-%m-%d"),
          year = format(as.Date(release_date, format="%Y-%m-%d"),"%Y"),
          MCU_tv = ifelse(title %in% MCU_tv, 1, 0),
          MCU = ifelse(MCU_film  == 1 | MCU_tv == 1, "MCU", "Non-MCU"),
-         budget_scaled = rescale(budget_USD, to = c(3, 7)),
-         budget_scaled = ifelse(is.na(budget_scaled), 3, budget_scaled)) %>%
-  rename("World_Wide" = "World-wide")
+         budget_scaled = rescale(budget_USD, to = c(3, 8)),
+         budget_scaled = ifelse(is.na(budget_scaled), 3, budget_scaled),
+         boxoffice_scaled = rescale(World_Wide, to = c(3, 8)),
+         boxoffice_scaled = ifelse(is.na(boxoffice_scaled), 3, budget_scaled))
+  
 
 actors_rm <- c("Mickey Rourke", "Hugo Weaving", "Anthony Hopkins", "Vin Diesel",
                 "Chiwetel Ejiofor", "Liv Tyler", "Guy Pearce", "Edward Norton", "Michael Keaton")
@@ -63,13 +66,18 @@ film_clean <- film_data %>%
            award_mcu = factor(award_mcu, levels = c("Non-MCU", "MCU", "Academy Award Nominee", "Academy Award Winner")))
 
 
-write_csv(film_clean, "4-29-film-clean-for-analysis.csv")
+#write_csv(film_clean, "4-29-film-clean-for-analysis.csv")
 
 film_export <- film_clean %>%
   select(c("actor_name", "category", "title", "year", "release_date", "type", "MCU", "budget_USD", "budget_scaled",
-           "World_Wide", "International", "Domestic", 
+           "World_Wide", "International", "Domestic", "boxoffice_scaled", "award_mcu",
            "award_name", "award_category", "event_name", "winner")) %>%
   filter(year >= 1990) %>%
+  #filter(type == "Movie") %>%
+  mutate(color_id = case_when(award_mcu == "Non-MCU" ~ "#C4D6FA",
+                              award_mcu == "MCU" ~ "#233f92",
+                              award_mcu == "Academy Award Nominee" ~ "#f1c2ae",
+                              award_mcu == "Academy Award Winner" ~ "#d2352b")) %>%
   distinct()
 
 write_csv(film_export, "MCU_filmography_final_version.csv")
@@ -151,7 +159,7 @@ colors <- c("#000000", #"Black"
 g1 <- film_clean %>%
   filter(year >= 1990) %>%
   filter(type == "Movie") %>%
-  ggplot(aes(x = release_date, y = actor_name, color = MCU, size = budget_USD)) +
+  ggplot(aes(x = release_date, y = actor_name, color = MCU, size = World_Wide)) +
   scale_size(range = c(1,4)) +
   scale_x_date(date_breaks = "5 years", date_labels = "%Y") +
   scale_color_manual(values = c(colors[2], colors[11]))+
