@@ -1,1 +1,202 @@
 # Results
+
+```{r}
+library(readr)
+library(tidyverse)
+library(plotly)
+library(GGally)
+library(parcoords)
+filmography_awards_masterfile <- read_csv("data_exports/5-3-film-clean-for-analysis.csv")
+
+
+```
+
+
+
+```{r}
+# all movies Box Office Success, Colored by MCU
+
+gT <- ggplot(filmography_awards_masterfile, aes(x = release_date, y = World_Wide, color = MCU, text = title)) +
+  geom_point() +
+  scale_color_manual(values = c(colors[2], colors[11])) +
+  labs(title= "World-Wide Box Office Success", x= "Release Date", y= "World-Wide Box Office") +
+  theme_minimal()
+
+ggplotly(gT)
+
+```
+
+Here we look at the Box Office success of the combined filmography of all the actors in our study. Before Iron Man kicked off the MCU in 2008, we can see that a few of these actors appeared in a handful of blockbuster movies, including entries from the Jurassic World and Star Wars universes. However, once the MCU established themselves in the movie landscape, we see that many of the blockbusters that our actors appeared in did in fact from the MCU. A few movies stand out far above the crowd, including Avengers: Endgame, which challenged Avatar for the highest Box Office total of any movie.
+One of the many impressive feats of the MCU is their general lack of complete misfires. Even the lowest Box Office returns among the MCU movies still rank highly when compared to the majority of films that these actors appear in. Suffice it to say, when an actor signs on for a role in an MCU movie, they can be quite certain that the film will receive a much higher Box Office return than the average non-MCU film.
+
+
+
+
+```{r}
+# Include just MCU movies
+
+MCU_films <- filmography_awards_masterfile %>%
+  filter(MCU == "MCU") %>%
+  filter(type == "Movie") %>%
+  group_by(title) %>%
+  summarize(BO = World_Wide, Budget = budget_USD, release_date = release_date) %>%
+  distinct(title, BO, Budget, release_date) %>%
+  mutate(Phase = as.factor(ifelse(release_date < as.Date("2012-05-05"), "One", ifelse(release_date < as.Date("2015-07-18"), "Two", ifelse(release_date < as.Date("2019-07-03"), "Three", "Four")))))
+
+MCU_films$Phase <- relevel(MCU_films$Phase, "One")
+
+```
+
+
+```{r}
+tidy_BOB <- MCU_films %>%
+  dplyr::select(BO, Budget, Phase) %>%
+  rownames_to_column("ID") %>%
+  rename(Film_Budget = Budget, Box_Office = BO) %>%
+  gather(var, values, -ID, -title, -Phase)
+
+
+standardize <- function(x) (x-mean(x))/sd(x) 
+df2 <- tidy_BOB %>% group_by(var) %>%   
+  mutate(values = standardize(values)) %>% ungroup()
+
+
+df2$var <- factor(df2$var, levels = c('Film_Budget', 'Box_Office'))
+
+gslope <- ggplot(df2, aes(x= var, y= values, group= ID, color= Phase)) +
+  geom_line() +
+  labs(title= "Box Office Success vs Film Budget", x= "Variable", y= "Value") +
+  theme_minimal()
+
+gslope
+
+```
+
+Here we look at the correlation between the film's budget and its Box Office success across all of the MCU movies. When making a movie, the hope would typically be that if you invest more resources into making the film, you will reap the benefits of greater returns. For the most part, when it comes to the MCU films, that is generally true. However, it is definitely the case that there are other factors at play when it comes to Box Office success.
+It is particularly interesting to look at the Phase 4 MCU films here. It appears as though each Phase 4 film had the same budget to work with, yet one movie received a disproportionately high Box Office return, while the other three had some of the lowest Box Office to Budget ratios. Clearly, budget was not the main differentiating factor here. One major determinant here was the Covid-19 pandemic. Stay-at-home and isolation orders caused a major blow to the cinema industry, as far fewer people were going out to see any movies. Thus, movies released during that time were destined to fare worse in the Box Office. Also during this time, possibly as a response, Disney made the decision to begin releasing their MCU movies on their streaming service, Disney+, just about 45 days after the theatrical release of the movie. This further incentivized potential movie-goers to stay home, because it wouldn't be long before they'd be able to see the movie at home anyway, so they wouldn't feel as though they were missing much by skipping the theater trip.
+The final Phase 4 film, Spider-Man: No Way Home, conversely, had nearly the opposite situation. This movie's release came after the initial pandemic protocols had larger passed. Further, since the Spider-Man property is still in a bit of a tangle between Disney and Sony, No Way Home would not be coming to Disney+ any time in the near future. This, in turn, convinced many people who had been content to skip over the theater experience to feel as though this was a film they couldn't miss. Adding to that, the Spider-Man character was already one that generated more excitement than a few of the protagonists from the MCU's immediately preceding movies. All those factors combined to result in a Box Office explosion of nearly two billion dollars.
+Also, it is worth noting that the majority of the MCU films with the highest budget are the big team up films, including the four Avengers movies, as well as Captain America: Civil War, which promised to feature much of the Avengers team. So, Disney might know ahead of time that those particular movies will draw in a larger audience, and thus know that they need to increase the budget of those films to guarantee they are putting out a higher quality product.
+Thus, while there might be a slight correlation between budget and Box Office success, there are also other factors at play that suggest that simply throwing a massive budget towards a film doesn't guarantee success at the Box Office.
+
+
+
+
+```{r}
+# Add First MCU Film Date for Each Actor
+actor_change1 <- filmography_awards_masterfile %>%
+  filter(type == "Movie") %>%
+  group_by(actor_name, MCU) %>%
+  arrange(actor_name, release_date) %>%
+  filter(release_date == min(release_date)) %>%
+  mutate(first_MCU = release_date) %>%
+  filter(MCU == "MCU") %>%
+  ungroup() %>%
+  dplyr::select(c(actor_name, first_MCU))
+
+
+First_MCU_added <- filmography_awards_masterfile %>%
+  left_join(actor_change1) %>%
+  mutate(joining_phase = ifelse(first_MCU < as.Date("2012-05-05"), "_One", ifelse(first_MCU < as.Date("2015-07-18"), "Two", ifelse(first_MCU < as.Date("2019-07-03"), "Three", "Four")))) %>%
+  mutate(joining_phase = factor(joining_phase, levels= c("_One", "Two", "Three", "Four")))
+
+First_MCU_added$joining_phase <- relevel(First_MCU_added$joining_phase, "_One")
+
+```
+
+```{r}
+# Actor Success Before and After First MCU Film
+
+before <- First_MCU_added %>%
+  filter(MCU == "Non-MCU") %>%
+  filter(release_date < first_MCU)
+
+after <- First_MCU_added %>%
+  filter(MCU == "Non-MCU") %>%
+  filter(release_date > first_MCU)
+
+before <- before %>%
+  group_by(actor_name) %>%
+  summarize(Avg_before_BO_Success = mean(World_Wide, na.rm= TRUE)) %>%
+  mutate(BoA = "before")
+
+after <- after %>%
+  group_by(actor_name) %>%
+  summarize(Avg_after_BO_Success = mean(World_Wide, na.rm= TRUE)) %>%
+  mutate(BoA = "after")
+
+BaA <- before %>%
+  bind_rows(after) %>%
+  mutate(Avg_BO_Success = ifelse(BoA == "before", Avg_before_BO_Success, Avg_after_BO_Success))
+
+
+
+gBaA <- ggplot(data= BaA, aes(x= actor_name, y= Avg_BO_Success)) +
+  geom_point(aes(color = BoA)) +
+  coord_flip() +
+  scale_color_manual(values = c(colors[6], colors[11])) +
+  labs(title= "Average Box Office Success Before vs After First MCU Film", x= "Actor Name", y= "Average Box Office Success") +
+  theme_minimal()
+
+gBaA
+
+```
+
+Here we look at the
+
+
+```{r}
+# Parallel Coordinate Plot for Actors and Various Stats
+
+award_nom_count <- filmography_awards_masterfile %>%
+  group_by(actor_name) %>%
+  summarize(Award_Nominations = length(na.omit(winner)))
+
+
+master_MCU <- filmography_awards_masterfile %>%
+  filter(MCU == "MCU")
+
+master_Non <- filmography_awards_masterfile %>%
+  filter(MCU == "Non-MCU")
+
+MCU_film_total <- master_MCU %>%
+  group_by(actor_name) %>%
+  summarize(MCU_film_count = length(title), MCU_Avg_BoxOffice = mean(World_Wide, na.rm= TRUE), MCU_Avg_Budget = mean(budget_USD, na.rm= TRUE), MCU_Avg_Rating= mean(averageRating, na.rm= TRUE))
+
+Non_film_total <- master_Non %>%
+  group_by(actor_name) %>%
+  summarize(film_count = length(title), Avg_BoxOffice = mean(World_Wide, na.rm= TRUE), Avg_Budget = mean(budget_USD, na.rm= TRUE), Avg_Rating= mean(averageRating, na.rm= TRUE))
+
+actor_joining_phase <- First_MCU_added %>%
+  group_by(actor_name) %>%
+  summarize(joining_phase = joining_phase)
+
+
+PC_data <- award_nom_count %>%
+  left_join(MCU_film_total) %>%
+  left_join(Non_film_total) %>%
+  left_join(actor_joining_phase)
+
+
+ggparcoord(PC_data, columns= c(3, 6, 4, 7, 5, 8, 2, 9, 10), alphaLines= .1, scale= "uniminmax", groupColumn= 11)  +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  labs(title= "Actor Comparison Over Multiple Variables")
+
+```
+
+```{r}
+PC_data
+
+```
+
+
+```{r}
+PC_data$joining_phase <- relevel(PC_data$joining_phase, "_One")
+
+PC2_data <- PC_data %>%
+  dplyr::select(c(actor_name, joining_phase, MCU_film_count, film_count, Avg_BoxOffice, MCU_Avg_BoxOffice, MCU_Avg_Budget, Avg_Budget, Avg_Rating, MCU_Avg_Rating, Award_Nominations))
+
+PC2_data %>%
+  parcoords(rownames= FALSE, brushMode = "1D-axes", reorderable = TRUE, queue = TRUE, alpha= .5, color= list(colorBy = "joining_phase", colorScale= "scaleOrdinal", colorScheme= "schemeCategory10"), withD3 = TRUE)
+
+
+```
