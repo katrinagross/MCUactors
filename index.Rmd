@@ -7,9 +7,6 @@ site: bookdown::bookdown_site
 
 # Introduction
 
-We were interested in budget and box office trends for movies. Specifically, we wanted to explore the division between actors performing in large budget movies and smaller, low-budget projects. There has been recent discussion about whether directors who join high-production value projects with projected high box offices do so in order to work on smaller “passion projects”. We chose to look at the highest grossing film franchise - the Marvel Cinematic Universe (MCU). We wanted to see if this hypothesis proved to be true for actors in the MCU. We set out to answer a few questions: 1) When do MCU actors join the MCU in their career? 2) How do high box-office movies enable actors to work on low-budget projects?
+We were interested in budget and box office trends for movies. Specifically, we wanted to explore the division between actors performing in large budget movies and smaller, low-budget projects. There has been recent [discussion](https://www.newyorker.com/culture/the-front-row/2022-oscar-predictions-who-will-win-versus-who-should) about whether directors who join high-production value projects with projected high box offices do so in order to work on smaller “passion projects”. We chose to look at the highest grossing film franchise - the Marvel Cinematic Universe (MCU). We wanted to see if this hypothesis proved to be true for actors in the MCU. We set out to answer a few questions: 1) When do MCU actors join the MCU in their career? 2) How do high box-office movies enable actors to work on low-budget projects?
 
 We are also interested in this topic as we are both MCU fans.
-
-New Yorker Article: https://www.newyorker.com/culture/the-front-row/2022-oscar-predictions-who-will-win-versus-who-should
-

@@ -1,9 +1,9 @@
 # Data sources
 
-We used the Online Movie Database through rapid api (https://rapidapi.com/apidojo/api/online-movie-database/). This contains IMDb data with actor and film information scraped from IMDb. 
+We used the [Online Movie Database through rapid api](https://rapidapi.com/apidojo/api/online-movie-database/). This contains IMDb data with actor and film information scraped from IMDb. 
 
 IMDb does have an API, but it is unstructured so we opted to use the API through rapid API. We used multiple endpoints through the API (described in detail in part 3). We did numerous spot checks throughout to ensure we were getting the desired results.
 
-We also used the Wikipedia page (https://en.wikipedia.org/wiki/List_of_Marvel_Cinematic_Universe_films) to scrape for the movie titles. We would have used the API, but we didn’t have time to change it in the end.
+We also used the [Wikipedia page](https://en.wikipedia.org/wiki/List_of_Marvel_Cinematic_Universe_films) to scrape for the movie titles. We would have used the API, but we didn’t have time to change it in the end.
 
-Additionally, we downloaded ratings from IMDb's data interface (https://www.imdb.com/interfaces/).
+Additionally, we downloaded ratings from [IMDb's data interface](https://www.imdb.com/interfaces/).
