@@ -1,3 +1,211 @@
 # Interactive component
 
+<script src="https://d3js.org/d3.v7.js">  </script>
+<style>
+      * {
+        font-family: sans-serif;
+      }
+  text {
+        font-size: 12px;
+      }
+</style>
+    
+<h3>Marvel Cinematic Universe</h3>
+<p>Actor Filmography, 1990-2022</p>
+<input type="radio" name="tempscale" value="NoBoxoffice" checked="true">Hide Box Office
+<input type="radio" name="tempscale" value="Boxoffice">Show Box Office
+<div id="plot"></div>
 
+<script type="text/javascript">
+    
+//Width and height
+      var w = 900;
+      var h = 700;
+      var margin = {top: 25, right: 250, bottom: 50, left: 145};
+      var innerHeight = h - margin.top - margin.bottom;
+      var innerWidth = w - margin.left - margin.right;
+
+var rowConverter = function (d) {
+      return {
+            actor_name: d.actor_name,
+            category: d.category,
+            title: d.title,
+            year: +d.year,
+            release_date: d.release_date,
+            type: d.type,
+            MCU: d.MCU,
+            budget_USD: +d.budget_USD,
+            budget_scaled: +d.budget_scaled,
+            boxoffice_scaled: +d.boxoffice_scaled,
+            World_Wide: +d.World_Wide,
+            International: +d.International,
+            Domestic: +d.Domestic,
+            award_name: d.award_name,
+            award_category: d.award_category,
+            event_name: d.event_name,
+            winner: d.winner,
+            color_id: d.color_id
+            }
+    };  
+
+d3.csv("https://raw.githubusercontent.com/katrinagross/MCUactors/main/data_exports/MCU_filmography_final_version.csv", rowConverter)
+        .then(function(data) {
+          
+// stuff that requires the loaded data
+      
+var parseTime = d3.timeParse("%Y-%m-%d");
+      
+data.forEach(function(d) {
+            d.release_date = parseTime(d.release_date);
+            });
+
+// ADD: create scales
+          
+var xScale = d3.scaleTime()
+          .domain(d3.extent(data, function(d) { 
+            return new Date(d.release_date); 
+          }))
+          .range([0, innerWidth]);
+
+var yScale = d3.scaleBand()
+          .domain(data.map(d => d.actor_name))
+          .range([0, innerHeight]);
+      
+// ADD: create axis generators
+      
+var xAxis = d3.axisBottom()
+          .scale(xScale)
+          .tickFormat(d3.timeFormat("%Y"));
+
+
+var yAxis = d3.axisLeft()
+          .scale(yScale);
+      
+// ADD: create SVG element
+      
+var svg = d3.select("div#plot")
+          .append("svg")
+          .attr("width", w)
+          .attr("height", h);
+
+// ADD: create background rectangle
+      
+svg.append("rect")
+          .attr("x", 0)
+          .attr("y", 0)
+          .attr("width", w)
+          .attr("height", h)
+          .attr("fill", "white");
+
+// create caption
+d3.select("div#plot")
+        .append("div")
+        .style("padding", "6px")
+        .append("a")
+        .attr("href", "https://rapidapi.com/apidojo/api/online-movie-database/")
+        .text("Data source: Online Movie Database");
+        
+
+// ADD: create plot group 
+      
+var circles = svg.append("g")
+          .attr("id", "plot")
+          .attr("transform", `translate (${margin.left}, ${yScale.bandwidth()/2 + margin.top})`)
+          .selectAll("circle", "line")
+          .data(data);
+
+// ADD: create grid lines
+      
+circles.enter().append("line")
+        .attr("x1", 0)
+        .attr("x2", innerWidth)
+        .attr("y1", d => yScale(d.actor_name))
+        .attr("y2", d => yScale(d.actor_name))
+        .style("stroke", "grey")
+        .style("stroke-width", 0.5);
+
+// ADD: create circles
+      
+circles.enter().append("circle")
+          .attr("cx", d => xScale(d.release_date))
+          .attr("cy", d => yScale(d.actor_name))
+          .attr("r", d => 4)
+          .attr("fill", d => d.color_id)
+          .attr("stroke", "grey")
+          .attr('fill-opacity', 0.8)
+          .on("mouseover", function(event, d) {
+                var xcoord = +d3.select(event.currentTarget).attr("cx") + 5
+                var ycoord = +d3.select(event.currentTarget).attr("cy") - 5
+                d3.select(event.currentTarget).attr("stroke", "blue")
+                svg.select("g#plot")
+                  .append("text")
+                  .attr("id", "tooltip")
+                  .attr("x", xcoord)
+                  .attr("y", ycoord)
+                  .attr("fill", "black")
+                  .text(d.title); 
+          })
+          .on("mouseout", function() {
+                 d3.select(event.currentTarget).attr("stroke", "grey")
+                 d3.select("#tooltip").remove(); 
+          })
+
+
+// ADD: create x-axis
+      
+svg.append("g")
+          .attr("class", "xAxis")
+          .attr("transform", `translate (${margin.left}, ${h - margin.bottom})`)
+          .call(xAxis);
+
+
+
+// ADD: create y-axis
+      
+svg.append("g")
+            .attr("class", "yAxis")
+            .attr("transform", `translate (${margin.left}, ${margin.top})`)
+            .call(yAxis);
+      
+function update_budget(){
+
+  circles.enter().selectAll("circle")
+          .attr("r", d => d.boxoffice_scaled)
+          .transition()
+          .duration(2000);
+          
+  circles.exit()
+            .transition()
+            .duration(2000)
+}
+      
+function update_nobudget(){
+
+  circles.enter().selectAll("circle")
+          .attr("r", 4)
+          .transition()
+          .duration(2000);
+          
+  circles.exit()
+            .transition()
+            .duration(2000)
+      }
+      
+d3.selectAll("input")
+          .on("click", function(event) {
+            var metric = event.currentTarget.value;
+            if(metric == "Boxoffice"){
+              update_budget()            }
+            else{
+              update_nobudget()
+            }
+            });
+
+  })
+  .catch(function(error) {
+    // error handling  
+    d3.select("body").append("h3").text("Error loading data.");
+  });
+        
+</script>
+  

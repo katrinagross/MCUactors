@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>MCU Films</title>
+    <script src="https://d3js.org/d3.v7.js">  </script>
+    <style>
+      * {
+        font-family: sans-serif;
+      }
+      text {
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h3>Marvel Cinematic Universe</h3>
+      <p>Actor Filmography</p>
+    </div>
+    <script type="text/javascript">
+      //Width and height
+      var w = 700;
+      var h = 300;
+      var margin = {top: 25, right: 100, bottom: 50, left: 100};
+      var innerHeight = h - margin.top - margin.bottom;
+      var innerWidth = w - margin.left - margin.right;
+
+      var rowConverter = function (d) {
+          return {
+            actor_name: d.actor_name,
+            category: d.category,
+            title: d.title,
+            year: +d.year,
+            release_date: d.release_date,
+            type: d.type,
+            MCU: d.MCU,
+            budget_USD: +d.budget_USD,
+            World_Wide: +d.World_Wide,
+            International: +d.International,
+            Domestic: +d.Domestic,
+            award_name: d.award_name,
+            award_category: d.award_category,
+            event_name: d.event_name,
+            winner: d.winner
+            }
+        };  
+
+      d3.csv("https://raw.githubusercontent.com/katrinagross/MCUactors/main/MCU_filmography_final_version.csv", rowConverter)
+        .then(function(data) {
+          
+      // stuff that requires the loaded data
+      
+      
+      
+      var parseTime = d3.timeParse("%Y-%m-%d");
+      
+      data.forEach(function(d) {
+            d.release_date = parseTime(d.release_date);
+      });
+
+      // ADD: create scales
+          
+      var xScale = d3.scaleTime()
+          .domain(d3.extent(data, function(d) { 
+            return new Date(d.release_date); 
+          }))
+          .range([0, innerWidth]);
+
+      var yScale = d3.scaleBand()
+          .domain(data.map(d => d.actor_name))
+          .range([0, innerHeight]);
+      
+      // ADD: create axis generators
+      
+      var xAxis = d3.axisBottom()
+          .scale(xScale)
+          .tickFormat(d3.timeFormat("%Y"))
+          .tickValues(data.map(function(d) { return new Date(d.release_date)}) );
+
+      var yAxis = d3.axisLeft()
+          .scale(yScale);
+      
+      // ADD: create SVG element
+      
+      var svg = d3.select("body")
+          .append("svg")
+          .attr("width", w)
+          .attr("height", h);
+
+      // ADD: create background rectangle
+      
+      svg.append("rect")
+          .attr("x", 0)
+          .attr("y", 0)
+          .attr("width", w)
+          .attr("height", h)
+          .attr("fill", "aliceblue");
+
+      // create caption
+      d3.select("body")
+        .append("div")
+        .style("padding", "10px")
+        .append("a")
+        .attr("href", "https://www.weather.gov/documentation/services-web-api")
+        .text("Data source: https://www.weather.gov/documentation/services-web-api");
+
+      // ADD: create plot group 
+      
+      var circles = svg.append("g")
+          .attr("id", "plot")
+          .attr("transform", `translate (${margin.left}, ${yScale.bandwidth()/2 + margin.top})`)
+          .selectAll("circle", "line")
+          .data(data);
+
+      // ADD: create grid lines
+      
+      circles.enter().append("line")
+        .attr("x1", 0)
+        .attr("x2", innerWidth)
+        .attr("y1", d => yScale(d.actor_name))
+        .attr("y2", d => yScale(d.actor_name))
+        .style("stroke", "grey")
+        .style("stroke-width", 0.5);
+
+      // ADD: create circles
+      
+      circles.enter().append("circle")
+          .attr("cx", d => xScale(d.release_date))
+          .attr("cy", d => yScale(d.actor_name))
+          .attr("r", "5")
+          .attr("fill", "black");
+
+      // ADD: create x-axis
+      
+      svg.append("g")
+          .attr("class", "xAxis")
+          .attr("transform", `translate (${margin.left}, ${h - margin.bottom})`)
+          .call(xAxis);
+
+      // ADD: create x-axis label
+
+      // ADD: create y-axis
+      
+      svg.append("g")
+            .attr("class", "yAxis")
+            .attr("transform", `translate (${margin.left}, ${margin.top})`)
+            .call(yAxis);
+            
+
+  })
+  .catch(function(error) {
+    // error handling  
+    d3.select("body").append("h3").text("Error loading data.");
+  });
+        
+      
+        
+    </script>
+  </body>
+</html>

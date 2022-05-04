@@ -1,0 +1,14 @@
+introduction
+data-sources
+data-transformation
+missing-values
+results
+movie-analysis
+budget-and-box-office
+movie-ratings
+gender-of-main-actors-awards
+actor-analysis
+actor-filmography
+box-office-success-ratings
+interactive-component
+conclusion

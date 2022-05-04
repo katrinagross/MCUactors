@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 9 barplot box office | MCU Actor Analysis</title>
+  <meta name="description" content="Chapter 9 barplot box office | MCU Actor Analysis" />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 9 barplot box office | MCU Actor Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 9 barplot box office | MCU Actor Analysis" />
+  
+  
+  
+
+<meta name="author" content="Katrina Gross &amp; Andy Ward" />
+
+
+<meta name="date" content="2022-05-03" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="decade-heatmap.html"/>
+<link rel="next" href="gender---award-mosaic-plot.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">MCU Actor Analysis</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
+<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
+<li class="chapter" data-level="6" data-path="build-out-theme.html"><a href="build-out-theme.html"><i class="fa fa-check"></i><b>6</b> build out theme</a></li>
+<li class="chapter" data-level="7" data-path="try-out-some-options-before-d3.html"><a href="try-out-some-options-before-d3.html"><i class="fa fa-check"></i><b>7</b> try out some options before d3</a></li>
+<li class="chapter" data-level="8" data-path="decade-heatmap.html"><a href="decade-heatmap.html"><i class="fa fa-check"></i><b>8</b> Decade Heatmap</a></li>
+<li class="chapter" data-level="9" data-path="barplot-box-office.html"><a href="barplot-box-office.html"><i class="fa fa-check"></i><b>9</b> barplot box office</a></li>
+<li class="chapter" data-level="10" data-path="gender---award-mosaic-plot.html"><a href="gender---award-mosaic-plot.html"><i class="fa fa-check"></i><b>10</b> Gender - Award Mosaic Plot</a></li>
+<li class="chapter" data-level="11" data-path="movietv-first.html"><a href="movietv-first.html"><i class="fa fa-check"></i><b>11</b> movie/tv first</a></li>
+<li class="chapter" data-level="12" data-path="ratings.html"><a href="ratings.html"><i class="fa fa-check"></i><b>12</b> Ratings</a></li>
+<li class="chapter" data-level="13" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>13</b> Interactive component</a></li>
+<li class="chapter" data-level="14" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>14</b> Conclusion</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">MCU Actor Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="barplot-box-office" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Chapter 9</span> barplot box office<a href="barplot-box-office.html#barplot-box-office" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="barplot-box-office.html#cb7-1" aria-hidden="true" tabindex="-1"></a>avg_intl <span class="ot">&lt;-</span> film_clean <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="barplot-box-office.html#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(MCU <span class="sc">==</span> <span class="st">&quot;Non-MCU&quot;</span>, type <span class="sc">==</span> <span class="st">&quot;Movie&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="barplot-box-office.html#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg =</span> <span class="fu">mean</span>(International, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="barplot-box-office.html#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(avg)</span>
+<span id="cb7-5"><a href="barplot-box-office.html#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="barplot-box-office.html#cb7-6" aria-hidden="true" tabindex="-1"></a>avg_dom <span class="ot">&lt;-</span> film_clean <span class="sc">%&gt;%</span></span>
+<span id="cb7-7"><a href="barplot-box-office.html#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(MCU <span class="sc">==</span> <span class="st">&quot;Non-MCU&quot;</span>, type <span class="sc">==</span> <span class="st">&quot;Movie&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-8"><a href="barplot-box-office.html#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg =</span> <span class="fu">mean</span>(Domestic, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-9"><a href="barplot-box-office.html#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(avg)</span>
+<span id="cb7-10"><a href="barplot-box-office.html#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="barplot-box-office.html#cb7-11" aria-hidden="true" tabindex="-1"></a>mcu_box_stack <span class="ot">&lt;-</span> film_clean <span class="sc">%&gt;%</span></span>
+<span id="cb7-12"><a href="barplot-box-office.html#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(MCU_film <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-13"><a href="barplot-box-office.html#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(International, Domestic), <span class="at">names_to =</span> <span class="st">&quot;bo_loc&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;boxoffice&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-14"><a href="barplot-box-office.html#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(title, bo_loc, boxoffice)) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb7-15"><a href="barplot-box-office.html#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(title, boxoffice), <span class="at">y =</span> boxoffice, <span class="at">fill =</span> bo_loc)) <span class="sc">+</span> </span>
+<span id="cb7-16"><a href="barplot-box-office.html#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">&quot;stack&quot;</span>, <span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb7-17"><a href="barplot-box-office.html#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">labels =</span> <span class="fu">label_dollar</span>(<span class="at">suffix =</span> <span class="st">&quot; B&quot;</span>, <span class="at">scale =</span> <span class="fl">1e-9</span>)) <span class="sc">+</span></span>
+<span id="cb7-18"><a href="barplot-box-office.html#cb7-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> avg_intl, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">color =</span> colors[<span class="dv">7</span>]) <span class="sc">+</span></span>
+<span id="cb7-19"><a href="barplot-box-office.html#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="co">#annotate(&quot;text&quot;, y = 2000000000, x = &quot;Eternals&quot;, label = &quot;Average International Gross&quot;, size = 3, color = colors[7]) +</span></span>
+<span id="cb7-20"><a href="barplot-box-office.html#cb7-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb7-21"><a href="barplot-box-office.html#cb7-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(colors[<span class="dv">11</span>], colors[<span class="dv">5</span>]), <span class="at">name =</span> <span class="st">&quot;&quot;</span>)<span class="sc">+</span></span>
+<span id="cb7-22"><a href="barplot-box-office.html#cb7-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Box Office MCU Movies&quot;</span>,</span>
+<span id="cb7-23"><a href="barplot-box-office.html#cb7-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Relative to Average International Box Office&quot;</span>,</span>
+<span id="cb7-24"><a href="barplot-box-office.html#cb7-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb7-25"><a href="barplot-box-office.html#cb7-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb7-26"><a href="barplot-box-office.html#cb7-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mcu_theme</span>() <span class="sc">+</span></span>
+<span id="cb7-27"><a href="barplot-box-office.html#cb7-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>))</span>
+<span id="cb7-28"><a href="barplot-box-office.html#cb7-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-29"><a href="barplot-box-office.html#cb7-29" aria-hidden="true" tabindex="-1"></a>mcu_box_stack</span></code></pre></div>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+Here we can see the breakdown of international and domestic box office numbers across MCU films. Endgame is far above the others, followed by Infinity War and No Way Home. Ten of the movies gross above $1B. All of the movies have international gross higher than that of the average international box office of other non-MCU films these actors are in, most MCU movies are well above. We can see just how much blockbusters, particularly the MCU, has changed the film industry and the definition of a successful film franchise.</p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="decade-heatmap.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="gender---award-mosaic-plot.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/katrinagross/MCUactors/edit/main/05-results.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/katrinagross/MCUactors/blob/main/05-results.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

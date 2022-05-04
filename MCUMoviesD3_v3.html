@@ -51,7 +51,7 @@
             }
         };  
 
-      d3.csv("https://raw.githubusercontent.com/katrinagross/MCUactors/main/MCU_filmography_final_version.csv", rowConverter)
+      d3.csv("https://raw.githubusercontent.com/katrinagross/MCUactors/main/data_exports/MCU_filmography_final_version.csv", rowConverter)
         .then(function(data) {
           
       // stuff that requires the loaded data
@@ -135,6 +135,7 @@
           .attr("r", d => 4)
           .attr("fill", d => d.color_id)
           .attr("stroke", "grey")
+          .attr('fill-opacity', 0.8)
           .on("mouseover", function(event, d) {
                 var xcoord = +d3.select(event.currentTarget).attr("cx") + 5
                 var ycoord = +d3.select(event.currentTarget).attr("cy") - 5
