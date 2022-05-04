@@ -1,7 +1,7 @@
 ---
-title: "Cleaned Graphs"
+title: "Actor Success Over Time"
 author: "Andrew Ward"
-date: "5/3/2022"
+date: "4/18/2022"
 output: html_document
 ---
 
@@ -11,35 +11,12 @@ library(tidyverse)
 library(plotly)
 library(GGally)
 library(parcoords)
-filmography_awards_masterfile <- read_csv("../data_exports/MCU_filmography_final_version.csv")
+filmography_awards_masterfile <- read_csv("MCU_filmography_final_version.csv")
 head(filmography_awards_masterfile)
 
 ```
 
-```{r}
-mcu_theme <- function(){
-  font <- "Helvetica"
-  theme_minimal() +
-  theme(title = element_text(family = font, size = 15),
-        axis.title = element_text(family = font, size = 12),
-        axis.text.x = element_text(family = font, size = 11),
-        axis.text.y = element_text(family = font, size = 11)
-        )
-}
 
-colors <- c("#000000", #"Black"
-           "#233f92", #"Dark Cornflower Blue"
-           "#44a0e3", # "Carolina Blue"
-           "#C4D6FA", # Light Blue
-           "#8b6b87", # "Chinese Violet"
-           "#d2352b", #"Maximum Red"
-           "#e58c31", # "Cadmium Orange"
-           "#f7e336", #"Minion Yellow"
-           "#fbf19b", # "Green Yellow Crayola"
-           "#feffff", # "White"
-           "#f1c2ae" # "Apricot"
-)
-```
 
 
 ```{r}
@@ -48,12 +25,13 @@ colors <- c("#000000", #"Black"
 gT <- ggplot(filmography_awards_masterfile, aes(x = release_date, y = World_Wide, color = MCU, text = title)) +
   geom_point() +
   scale_color_manual(values = c(colors[2], colors[11])) +
-  labs(title= "World-Wide Box Office Success", x= "Release Date", y= "World-Wide Box Office") +
-  mcu_theme()
+  labs(title= "World-Wide Box Office Success", x= "Release Date", y= "World-Wide Box Office")
 
 ggplotly(gT)
 
 ```
+
+
 
 
 
@@ -70,10 +48,53 @@ MCU_films <- filmography_awards_masterfile %>%
 
 MCU_films$Phase <- relevel(MCU_films$Phase, "One")
 
-head(MCU_films)
+MCU_films
 
 ```
 
+
+```{r}
+# Box Office Success for MCU movies over time
+g2 <- ggplot(MCU_films, aes(x = release_date, y = BO, text = title)) +
+  geom_point() +
+  labs(title= "Box Office Success of MCU Movies Over Time", x= "Release Date", y= "World-Wide Box Office")
+
+ggplotly(g2)
+
+```
+
+
+```{r}
+# Compare International and Domestic MCU Box Office Success
+
+MCU_IvD <- MCU_films %>%
+  distinct(title, release_date, International, Domestic) %>%
+  group_by(title) %>%
+  summarize(release_date = release_date, International = International, Domestic = Domestic) %>%
+  arrange(release_date) %>%
+  mutate(title = factor(title, levels = title)) %>%
+  dplyr::select(c(title, International, Domestic)) %>%
+  pivot_longer(!title, names_to = "I_vs_D", values_to = "BO")
+
+MCU_IvD
+
+gIaD <- ggplot(data= MCU_IvD, aes(x= title, y= BO)) +
+  geom_point(aes(color = I_vs_D)) +
+  coord_flip()
+
+gIaD
+
+```
+
+```{r}
+# Budget vs Box Office Success for MCU movies
+gBvB <- ggplot(data= MCU_films, aes(x= Budget, y= BO, text = title, color= Phase)) +
+  geom_point() +
+  labs(title= "Box Office Success vs Budget of MCU Films", x= "Budget", y= "Box Office")
+
+ggplotly(gBvB)
+
+```
 
 ```{r}
 tidy_BOB <- MCU_films %>%
@@ -82,11 +103,13 @@ tidy_BOB <- MCU_films %>%
   rename(Film_Budget = Budget, Box_Office = BO) %>%
   gather(var, values, -ID, -title, -Phase)
 
+tidy_BOB
 
 standardize <- function(x) (x-mean(x))/sd(x) 
 df2 <- tidy_BOB %>% group_by(var) %>%   
   mutate(values = standardize(values)) %>% ungroup()
 
+df2
 
 df2$var <- factor(df2$var, levels = c('Film_Budget', 'Box_Office'))
 
@@ -99,6 +122,67 @@ gslope
 ```
 
 
+```{r}
+# International vs Domestic Box OFfice Success for MCU movies
+gIvD <- ggplot(data= MCU_films, aes(x= Domestic, y= International, text= title)) +
+  geom_point()
+
+ggplotly(gIvD)
+
+```
+
+
+
+```{r}
+# Actor with best Box Office Success overall
+
+group_by_actor <- filmography_awards_masterfile %>%
+  filter(type == "Movie") %>%
+  group_by(actor_name) %>%
+  summarize(Avg_BO_Success = mean(`World-wide`, na.rm= TRUE))
+
+head(group_by_actor)
+
+gABOS <- ggplot(data= group_by_actor, aes(x= actor_name, y= Avg_BO_Success)) +
+  geom_point() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+gABOS
+
+```
+
+```{r}
+# Actor with best Box Office Success in MCU films vs Non-MCU films
+
+actor_grouped_MCU <- filmography_awards_masterfile %>%
+  filter(MCU == "MCU") %>%
+  group_by(actor_name) %>%
+  summarize(Avg_MCU_BO_Success = mean(World_Wide, na.rm= TRUE)) %>%
+  mutate(MCU = "MCU")
+
+
+actor_grouped_Non <- filmography_awards_masterfile %>%
+  filter(MCU == "Non-MCU") %>%
+  group_by(actor_name) %>%
+  summarize(Avg_Non_BO_Success = mean(World_Wide, na.rm= TRUE)) %>%
+  mutate(MCU = "Non-MCU")
+
+
+avg_MCU_Non <- actor_grouped_MCU %>%
+  bind_rows(actor_grouped_Non) %>%
+  mutate(Avg_BO_Success = ifelse(MCU == "MCU", Avg_MCU_BO_Success, Avg_Non_BO_Success))
+
+
+gABOS <- ggplot(data= avg_MCU_Non, aes(x= actor_name, y= Avg_BO_Success)) +
+  geom_point(aes(color = MCU)) +
+  coord_flip() +
+  scale_color_manual(values = c(colors[2], colors[7])) +
+  labs(title= "Actor Box Office Success in MCU vs Non-MCU Films", x= "Actor Name", y= "Average Box Office Success")
+
+gABOS
+
+
+```
 
 
 ```{r}
@@ -122,6 +206,7 @@ First_MCU_added <- filmography_awards_masterfile %>%
 First_MCU_added$joining_phase <- relevel(First_MCU_added$joining_phase, "One")
 
 ```
+
 
 ```{r}
 # Actor Success Before and After First MCU Film
@@ -159,8 +244,6 @@ gBaA <- ggplot(data= BaA, aes(x= actor_name, y= Avg_BO_Success)) +
 gBaA
 
 ```
-
-
 
 ```{r}
 # Parallel Coordinate Plot for Actors and Various Stats
@@ -208,6 +291,8 @@ PC_data %>%
 
 
 ```
+
+
 
 
 

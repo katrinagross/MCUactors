@@ -18,8 +18,7 @@ library(plotly)
 ```
 
 ```{r}
-film_clean <- read_csv("5-3-film-clean-for-analysis.csv")
-
+film_clean <- read_csv("../data_exports/5-3-film-clean-for-analysis.csv")
 
 film_clean <- film_clean %>%
   mutate(award_mcu = factor(award_mcu, levels = c("Non-MCU", "MCU", "Academy Award Nominee", "Academy Award Winner")),
