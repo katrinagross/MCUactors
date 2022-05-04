@@ -361,7 +361,11 @@ gBaA
 
 ```
 
-Here we look at the
+Here we look at the Average Box Office success of each actor before and after their first MCU film. This graph does not include the values from any MCU movies themselves. For example, even though Iron Man 2 came out after Iron Man, and would thus count towards Robert Downey Jr's average Box Office success after his first MCU film, we did not include it in calculating the average. That choice was made because the Box Office numbers for pretty much all MCU movies are through the roof and would skew the data to heavily favor the "after" average. The idea was to see if the movies these actors were in were generally more successful after these actors made their appearance in the MCU, so for that reason we wanted to separate them from the MCU films themselves that are destined to do well in the Box Office.
+With that distinction made, we turn to the data. It turns out, there does not seem to be much of a trend in either direction. There are a few extreme cases in both directions, but ultimately it does not appear that there is any guarantee that appearing in an MCU film will make people all flock to the next non-MCU film starring that actor. Possibly the biggest increase that we see is from Chris Pratt, who first appeared as Star-Lord in Guardians of the Galaxy, back in 2014. The average Box Office return for movies featuring Chris Pratt approximately quadrupled after he made his first MCU appearance. However, we once again want to look a bit deeper into the underlying reasons as to why that is. In looking at Pratt's filmography, we see that he starred in a few of the Jurassic World movies after his MCU debut. The Jurassic World universe was already an established film series, and was set to be a blockbuster that brought in impressive Box Office numbers. Was that success increased as a result of Chris Pratt's fame from starring in an MCU movie, or were the numbers for those movies always going to be high? In truth, there is probably a little bit of both.
+On the reverse end of the spectrum, Evangeline Lilly saw the biggest decrease in average Box Office success. Her case is nearly the opposite of Chris Pratt's. Having appeared in the Hobbit movies before her first MCU film, her average beforehand was actually the highest of any actor in this study. Additionally, she has only appeared in a couple smaller films after her MCU debut in Ant-Man. As such, she was our biggest faller.
+Overall, though, there is almost no trend to predict whether an actor will increase or decrease in their average Box Office returns after debuting in an MCU film.
+
 
 
 ```{r}
@@ -397,14 +401,9 @@ PC_data <- award_nom_count %>%
   left_join(actor_joining_phase)
 
 
-ggparcoord(PC_data, columns= c(3, 6, 4, 7, 5, 8, 2, 9, 10), alphaLines= .1, scale= "uniminmax", groupColumn= 11)  +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
-  labs(title= "Actor Comparison Over Multiple Variables")
-
-```
-
-```{r}
-#PC_data
+#ggparcoord(PC_data, columns= c(3, 6, 4, 7, 5, 8, 2, 9, 10), alphaLines= .1, scale= "uniminmax", groupColumn= 11)  +
+ # theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  #labs(title= "Actor Comparison Over Multiple Variables")
 
 ```
 
@@ -420,3 +419,10 @@ PC2_data %>%
 
 
 ```
+
+Here we play around with quite a few relationships for each actor. First, it's worth noting that the lines are colored by when the actor made their first MCU appearance, a different color indicating each of the four "Phases" in the MCU. Of course, it isn't muc surprise that the actors who first joined in Phase 1 generally have the most MCU film appearances, as they've had the most opportunities to be in them. This trend sort of continues into total film appearances (not including MCU films). Of the actors who got their start in Phase 3 or 4, they are mostly near the bottom of the total films list. This indicates that for the new actors that the MCU is bringing in recently, they have been generally hiring lesser known actors compared to those who have already had an extensive film career. Speaking of extensive film careers, it was interesting to note just how many films Samuel L Jackson has appeared in. He is so far ahead in the total film count, that he looks to be an outlier.
+There actually appears to be a little bit of clustering among the actors who joined in Phase 1. This could be the result of sharing many of their MCU movies together. A lot of those actors ended up appearing in all of the Avengers movies, and so the MCU related stats ended up being very similar, the only differences coming from any difference in the actors' respective standalone films, but even those don't have quite as much effect on the data here because of all the various Avengers films adding weight to the average.
+There does not appear to be too much correlation between the average Box Office success for actors from their MCU movies to their non-MCU movies. Thus it doesn't appear as though featuring in the highest performing MCU movies will mean that the non-MCU movies will also be as successful, and vice versa. Similarly, there does not seem to be any major trend between the average ratings for each actor's MCU films to their non-MCU films.
+
+
+
