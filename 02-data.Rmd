@@ -1,13 +1,5 @@
 # Data sources
 
-Introduction 
-	
-We were interested in budget and box office trends for movies. Specifically, we wanted to explore the division between actors performing in large budget movies and smaller, low-budget projects. There has been recent discussion about whether directors who join high-production value projects with projected high box offices do so in order to work on smaller “passion projects”. We chose to look at the highest grossing film franchise - the Marvel Cinematic Universe (MCU). We wanted to see if this hypothesis proved to be true for actors in the MCU. We set out to answer a few questions: 1) When do MCU actors join the MCU in their career? 2) How do high box-office movies enable actors to work on low-budget projects?
-
-We are also interested in this topic as we are both MCU fans.
-
-Data Sources
-
 	We used the Online Movie Database through rapid api (https://rapidapi.com/apidojo/api/online-movie-database/). This contains IMDb data with actor and film information scraped from IMDb. 
 
 IMDb does have an API, but it is unstructured so we opted to use the API through rapid API. We used multiple endpoints through the API (described in detail in part 3). We did numerous spot checks throughout to ensure we were getting the desired results.
@@ -15,19 +7,3 @@ IMDb does have an API, but it is unstructured so we opted to use the API through
 We also used the Wikipedia page (https://en.wikipedia.org/wiki/List_of_Marvel_Cinematic_Universe_films) to scrape for the movie titles. We would have used the API, but we didn’t have time to change it in the end.
 
 Additionally, we downloaded ratings from IMDb's data interface (https://www.imdb.com/interfaces/).
-
-Data Transformation 
-
-	Our data transformation efforts took the most time since we had to aggregate a dataset based on varying queries to the API. Below are the steps we took to create the final dataset. Every query yielded slightly different content, so it took quite a bit of testing to find what data fields worked for our purposes.
-
-STEP 1 [Movie Titles.RMD]: First we scraped the movie titles from Wikipedia. We did this using the rvest package in R and scraped two tables: one for the Infinity Saga one for Phase Four. We then cleaned the two tables, filtering for only movies that had been released, and combined them into one master set. The output of this effort was a dataframe with all of the movie titles as well as some additional details (main actors, year, director(s), etc.). We then used this in the next step to query the API.
-STEP 2 [Movie Ids IMDB.RMD]: Once we had a list of the movie titles, we then had to query the API to match via string match for the ids of the movies inherent to the API. We used the “auto-complete” endpoint in the title section of the API. After putting all of our movie titles in a dictionary to query on - we ran the queries through a for loop for every item in the dictionary. We verified the results since the query returned partial string matches - we removed all of the movie titles that did not match our list. (This step ended up being irrelevant based on how we pulled the data later)
-STEP 3 [Movie Ids IMDB.RMD]: With the movie ids, we could get information relevant to those movies. We pulled the entire cast list as well as the top cast. Both were problematic, the entire cast list had about 90 names per film, including stunt doubles and extras that appeared across multiple MCU films. The “top-cast” endpoint only pulled two actors per film, which did not provide enough coverage. (This step also ended up being irrelevant based on how we pulled the data later)
-STEP 4 [MCU Actors.RMD]: At this point we wanted to create a list of top actors for each MCU movie we wanted to analyze. This proved to be somewhat difficult since, as mentioned above, the API did not provide an easy option for the scope we wanted. We did not want to include every actor in the MCU as that would have been too many, we also did not want to only include the top two. Ideally, we could have used a metric such as screen time, but that was not feasible or accurate due to the inclusion of the TV shows. We ended up using the top two actors from the original pull of movie ids, and augmented them with a manual list of actors we felt were important to include. 
-STEP 5 [MCU Actors.RMD]: Once we had our list of actor names, we had to get ids for the actors. We did something similar as in step 2 - built out a dictionary and passed the queries through a for loop. We pulled multiple sets of data based on the actor id:
-Filmography: which movies/tv shows every actor is credited in. For this we used the “get-all-filmography” endpoint. We cleaned these results and created a combined filmography dataframe for all of the actors. This dataframe has a similar issue as before, where if the actor is credited in the movie or TV show, it will show up as a result. We decided to include all of the results.
-Award Data: then for every MCU actor, we queried the “get-awards” endpoint for nominations and awards won by the actors. We decided to only include Oscars and Emmys because we did not think awards like Teen’s Choice Awards were relevant for this analysis.
-Business for Films: for all of the films in the combined actor filmography, we queried box office and budget information for each movie id. We then had to convert numbers to U.S. dollars if they were listed in another currency which we did in currency_conversion.Rmd.
-STEP 6 [Combine_Data.RMD]: Our last step before combining the data was getting the release date for each movie or TV show every actor was credited for. We did this because we wanted to do time series analysis. We used the “get-overview-details” endpoint for this query. Similar to before, we built a dictionary and queried over each dictionary key using a for loop and added the results to a dataframe.
-STEP 7 [Combine_Data.RMD] We downloaded ratings data from IMDb and joined it onto our data frame by title id.
-STEP 8 [Combine_Data.RMD]: To combine all of the data, we joined the actor filmography data with the awards data, business data, and the release date data. We did so by joining on movie id. We then looked for inconsistencies across the dataset, for example names of actors that were the same as MCU actors, but were from the 1920’s (this was true for another Tom Holland). We removed these instances and finalized our dataset. 
