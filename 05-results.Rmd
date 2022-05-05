@@ -128,7 +128,7 @@ df2 <- tidy_BOB %>% group_by(var) %>%
   mutate(values = standardize(values)) %>% ungroup()
 
 
-df2$var <- factor(df2$var, levels = c('Film_Budget', 'Box_Office'))
+df2$var <- factor(df2$var, levels = c('Film_Budget', 'Box_Office'), labels = c('Film Budget', 'Box Office'))
 
 gslope <- ggplot(df2, aes(x= var, y= values, group= ID, color= Phase)) +
   geom_line(size = 2) +
@@ -156,9 +156,9 @@ gT <- ggplot(film_clean, aes(x = release_date, y = World_Wide, color = MCU, text
   scale_color_manual(values = c(colors[2], colors[11])) +
   scale_y_continuous(labels = label_dollar(suffix = " B", scale = 1e-9)) +
   labs(title= "World-Wide Box Office Success", x= "Release Date", y= "World-Wide Box Office") +
-  mcu_theme()
+ theme_minimal()
 
-ggplotly(gT)
+ ggplotly(gT)
 
 ```
 
@@ -177,7 +177,9 @@ hex_ratings <- ggplot(film_clean, aes(x = averageRating, y = World_Wide)) +
   scale_fill_gradient(low = colors[4], high = colors[2], name = "Movie Count") +
   scale_y_continuous(labels = label_dollar(suffix = " B", scale = 1e-9)) +
   facet_wrap(~MCU)+
-  mcu_theme()
+  mcu_theme() +
+  theme(strip.text.x = element_text(size = 18))
+
 
 hex_ratings
 
@@ -237,7 +239,8 @@ g1 <- film_clean %>%
        x = "Release Date",
        title = "Filmography Box Office")+
   geom_point(alpha = 0.8, stroke = 0) +
-  mcu_theme()
+  mcu_theme() +
+  guides(colour = guide_legend(override.aes = list(size=10)))
 
 g1
 
@@ -263,7 +266,8 @@ g_awards <- ggplot(awards_graph) +
        x = "Release Date",
        title = "Film Releases by Actor",
        subtitle = "Any Credited Role")+
-  mcu_theme()
+  mcu_theme() +
+  guides(colour = guide_legend(override.aes = list(size=10)))
 
 g_awards
 
