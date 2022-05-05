@@ -123,22 +123,6 @@
             <section class="normal" id="section-">
 <div id="missing-values" class="section level1 hasAnchor" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Missing values<a href="missing-values.html#missing-values" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<pre><code>## # A tibble: 6 × 32
-##   actor_id  actor_name        category title_id  title   year release_date type 
-##   &lt;chr&gt;     &lt;chr&gt;             &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;  &lt;dbl&gt; &lt;date&gt;       &lt;chr&gt;
-## 1 nm0000375 Robert Downey Jr. actor    tt6673612 Dolit…  2020 2020-01-17   Movie
-## 2 nm0000375 Robert Downey Jr. actor    tt4154796 Aveng…  2019 2019-04-26   Movie
-## 3 nm0000375 Robert Downey Jr. actor    tt4154756 Aveng…  2018 2018-04-27   Movie
-## 4 nm0000375 Robert Downey Jr. actor    tt2250912 Spide…  2017 2017-07-07   Movie
-## 5 nm0000375 Robert Downey Jr. actor    tt3799694 The N…  2016 2016-05-20   Movie
-## 6 nm0000375 Robert Downey Jr. actor    tt3498820 Capta…  2016 2016-05-06   Movie
-## # … with 24 more variables: budget_currency &lt;chr&gt;, budget &lt;dbl&gt;,
-## #   budget_USD &lt;dbl&gt;, boxoffice_currency &lt;chr&gt;, World_Wide &lt;dbl&gt;,
-## #   International &lt;dbl&gt;, Domestic &lt;dbl&gt;, MCU_film &lt;dbl&gt;, award_name &lt;chr&gt;,
-## #   award_category &lt;chr&gt;, event_name &lt;chr&gt;, winner &lt;chr&gt;,
-## #   nomination_year &lt;dbl&gt;, MCU_tv &lt;dbl&gt;, MCU &lt;chr&gt;, budget_scaled &lt;dbl&gt;,
-## #   boxoffice_scaled &lt;dbl&gt;, decade &lt;chr&gt;, award_mcu &lt;chr&gt;, averageRating &lt;dbl&gt;,
-## #   numVotes &lt;dbl&gt;, Gender &lt;chr&gt;, first_MCU &lt;date&gt;, BeforeMCU &lt;chr&gt;</code></pre>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>As seen in the chart, there is some consistency to the NA values. The first thing to note is that there are no NA values from any of <code>actor_name</code> through <code>type</code>. This means that for every row in the data set, we will always be able to call upon the actor’s name, the movie or TV series title, the year it was released, and whether it was a movie or a TV series. Also, there are no missing values in any of the columns after the awards, outside of a small few in the Average Rating column and the Number of Votes column.
 The next key relationship for NA values is in the five award related columns. 96.43% of the rows in each of those five columns have all NA values. However, it can be seen that if a row has an NA value in one of the five, it necessarily has an NA value in the other four as well. This is due to how we transformed the data. We only included a value for the movies and TV shows that were nominated for the selected awards we chose to include. If they were not nominated, then all five columns will have an NA. If they were, then all five columns will have data explaining the award name, award category, event name, whether the nominee won, and the year of the award. It is nice that there are no instances where awards are listed for some award columns but not others, so that any analysis involving awards can be complete.
