@@ -436,19 +436,19 @@ PC_data <- award_nom_count %>%
 ```
 
 
-```{r}
+```{r, fig.width=16, fig.height=8}
 PC_data$joining_phase <- relevel(PC_data$joining_phase, "_One")
 
 PC2_data <- PC_data %>%
   dplyr::select(c(actor_name, joining_phase, MCU_film_count, film_count, Avg_BoxOffice, MCU_Avg_BoxOffice, MCU_Avg_Budget, Avg_Budget, Avg_Rating, MCU_Avg_Rating, Award_Nominations))
 
 PC2_data %>%
-  parcoords(rownames= FALSE, brushMode = "1D-axes", reorderable = TRUE, queue = TRUE, alpha= .5, color= list(colorBy = "joining_phase", colorScale= "scaleOrdinal", colorScheme= "schemeCategory10"), withD3 = TRUE, width = 1200, height= 450)
+  parcoords(rownames= FALSE, brushMode = "1D-axes", reorderable = TRUE, queue = TRUE, alpha= .5, color= list(colorBy = "joining_phase", colorScale= "scaleOrdinal", colorScheme= "schemeCategory10"), withD3 = TRUE)
 
 
 ```
 
-Here we play around with quite a few relationships for each actor. First, it's worth noting that the lines are colored by when the actor made their first MCU appearance, a different color indicating each of the four "Phases" in the MCU. Of course, it isn't muc surprise that the actors who first joined in Phase 1 generally have the most MCU film appearances, as they've had the most opportunities to be in them. This trend sort of continues into total film appearances (not including MCU films). Of the actors who got their start in Phase 3 or 4, they are mostly near the bottom of the total films list. This indicates that for the new actors that the MCU is bringing in recently, they have been generally hiring lesser known actors compared to those who have already had an extensive film career. Speaking of extensive film careers, it was interesting to note just how many films Samuel L Jackson has appeared in. He is so far ahead in the total film count, that he looks to be an outlier.
+Here we play around with quite a few relationships for each actor. First, it's worth noting that the lines are colored by when the actor made their first MCU appearance, a different color indicating each of the four "Phases" in the MCU. Of course, it isn't much surprise that the actors who first joined in Phase 1 generally have the most MCU film appearances, as they've had the most opportunities to be in them. This trend sort of continues into total film appearances (not including MCU films). Of the actors who got their start in Phase 3 or 4, they are mostly near the bottom of the total films list. This indicates that for the new actors that the MCU has been bringing in recently, they have been generally hiring lesser known actors compared to those who have already had an extensive film career. Speaking of extensive film careers, it was fun to note just how many films Samuel L Jackson has appeared in. He is so far ahead in the total film count that he looks to be an outlier in the data.
 There actually appears to be a little bit of clustering among the actors who joined in Phase 1. This could be the result of sharing many of their MCU movies together. A lot of those actors ended up appearing in all of the Avengers movies, and so the MCU related stats ended up being very similar, the only differences coming from any difference in the actors' respective standalone films, but even those don't have quite as much effect on the data here because of all the various Avengers films adding weight to the average.
 There does not appear to be too much correlation between the average Box Office success for actors from their MCU movies to their non-MCU movies. Thus it doesn't appear as though featuring in the highest performing MCU movies will mean that the non-MCU movies will also be as successful, and vice versa. Similarly, there does not seem to be any major trend between the average ratings for each actor's MCU films to their non-MCU films.
 
