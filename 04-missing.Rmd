@@ -6,8 +6,8 @@ library(tidyverse)
 library(naniar)
 library(mi)
 library(redav)
-data <- read_csv("data_exports/5-3-film-clean-for-analysis.csv")
 
+data <- read_csv("data_exports/5-3-film-clean-for-analysis.csv")
 
 ```
 
@@ -40,8 +40,6 @@ vis_miss(tv)
 ```
 
 Filtering the data for only including rows that contain a movie vs only including rows that contain a TV Series makes the connection very clear. It can be seen that every single TV Series (bottom) is missing a budget value, and just about every TV Series is missing Box Office numbers. So now, when looking at Box Office success and budget values, we know that TV Series won't have any information in that area. We can also see that there are now far fewer, albeit still some, NA values in the budget and box office columns for the movie data (top). To avoid having these NAs cause complications in our analyses of these values, we decided to not include those rows in any calculations that involved numerical operations, such as finding the mean of box office success for a particular actor's filmography.
-
-
 
 
 
