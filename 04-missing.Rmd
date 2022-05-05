@@ -7,7 +7,6 @@ library(naniar)
 library(mi)
 library(redav)
 data <- read_csv("data_exports/5-3-film-clean-for-analysis.csv")
-head(data)
 
 
 ```
