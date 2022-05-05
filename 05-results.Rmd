@@ -168,7 +168,7 @@ One of the many impressive feats of the MCU is their general lack of complete mi
 
 ### Movie Ratings
 
-```{r, fig.width=12, fig.height=8}
+```{r, fig.width=12, fig.height=6}
 
 hex_ratings <- ggplot(film_clean, aes(x = averageRating, y = World_Wide)) +
   geom_hex() +
